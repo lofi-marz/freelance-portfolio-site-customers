@@ -1,3 +1,5 @@
+import { WithChildrenProps } from '../types';
+
 type IconLinkProps = {
     href: string;
 } & WithChildrenProps;
