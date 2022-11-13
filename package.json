@@ -8,11 +8,12 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@next/font": "^13.0.3",
     "@tailwindcss/typography": "^0.5.8",
     "clsx": "^1.2.1",
-    "eslint-config-next": "^13.0.2",
+    "eslint-config-next": "^13.0.3",
     "framer-motion": "^7.6.5",
-    "next": "^13.0.2",
+    "next": "^13.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0"
