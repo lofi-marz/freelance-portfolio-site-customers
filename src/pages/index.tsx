@@ -92,7 +92,7 @@ function VideoBackground() {
                 muted>
                 <source src="/loop.mp4" type="video/mp4" />
             </video>
-            <div className="absolute right-0 top-0 z-10 mr-4 flex h-full items-center justify-center md:hidden">
+            <div className="absolute right-0 top-0 z-10 mr-4 hidden h-full items-center justify-center md:flex">
                 <Socials />
             </div>
         </div>
@@ -106,12 +106,12 @@ export default function Home() {
                 <title>Omari</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="h-1/2 w-full grow overflow-clip md:h-screen md:w-1/2">
+            <div className="h-1/2 w-full grow overflow-clip dark:bg-stone-900 md:h-screen md:w-1/2">
                 <VideoBackground />
             </div>
             <main
                 className={clsx(
-                    'flex h-full max-w-2xl flex-col items-center justify-center gap-10 p-10 text-stone-700 dark:bg-stone-900 dark:text-white md:w-1/2',
+                    'flex h-full w-full flex-col items-center justify-center gap-10 p-10 text-stone-700 dark:bg-stone-900 dark:text-white md:w-1/2 md:max-w-2xl',
                     text.className
                 )}>
                 <div className="flex h-full w-full flex-col items-start justify-center gap-10">
