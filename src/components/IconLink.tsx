@@ -9,7 +9,7 @@ export function IconLink({ href, children }: IconLinkProps) {
         <a
             key={href}
             href={href}
-            className="rounded from-primary to-secondary p-2 text-2xl transition-all hover:bg-gradient-to-r">
+            className="rounded p-2 text-2xl transition-all">
             {children}
         </a>
     );
