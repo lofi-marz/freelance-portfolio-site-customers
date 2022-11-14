@@ -11,22 +11,41 @@ import {
     FaLinkedin,
 } from 'react-icons/fa';
 import { IconLink } from '@/components/IconLink';
+import { motion, Variants } from 'framer-motion';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 const title = Rubik();
 const text = Inter();
 
+const headingVariants: Variants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0 },
+};
+
+const underlineVariants: Variants = {
+    hidden: { width: '10%' },
+    visible: { width: '100%' },
+};
+
 function Title() {
     return (
-        <div>
+        <motion.div
+            initial="hidden"
+            animate="visible"
+            transition={{ staggerChildren: 0.1 }}>
             <h1
                 className={clsx(
                     'text-5xl font-extrabold md:text-center',
                     title.className
                 )}>
-                Omari <br /> Thompson
+                <motion.div variants={headingVariants}>Omari</motion.div>
+                <motion.div variants={headingVariants}>Thompson</motion.div>
             </h1>
-            <div className="h-2 w-3/5 bg-red-400 md:mx-auto"></div>
-        </div>
+            <div className="h-2 w-3/5 md:mx-auto">
+                <motion.div
+                    className="h-full w-full bg-red-400 md:mx-auto"
+                    variants={underlineVariants}></motion.div>
+            </div>
+        </motion.div>
     );
 }
 
