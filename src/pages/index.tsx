@@ -103,7 +103,7 @@ export default function Home() {
     return (
         <div className="dark flex h-screen w-full flex-col items-center justify-center md:flex-row">
             <Head>
-                <title>Hello World!</title>
+                <title>Omari</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div className="h-1/2 w-full grow overflow-clip md:h-screen md:w-1/2">
