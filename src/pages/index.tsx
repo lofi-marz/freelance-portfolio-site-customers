@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Inter, Poppins, Rubik, Merriweather } from '@next/font/google';
-
+import Image from 'next/image';
+import me from './me.jpg';
 import clsx from 'clsx';
 import {
     FaAt,
@@ -17,14 +18,28 @@ const title = Rubik();
 const text = Inter();
 
 const headingVariants: Variants = {
-    hidden: { opacity: 0, x: -10 },
-    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, y: -10 },
+    visible: { opacity: 1, y: 0 },
 };
 
 const underlineVariants: Variants = {
     hidden: { width: '10%' },
     visible: { width: '100%' },
 };
+
+function MyContent() {
+    return (
+        <div>
+            <h1 className={title.className}>New Features in Next.js 13</h1>
+            <p className={text.className}>
+                A new version of Next.js has been released, featuring some great
+                improvements for performance and usability, as well as some
+                interesting new features, which Ill talk you through in this
+                article.
+            </p>
+        </div>
+    );
+}
 
 function Title() {
     return (
@@ -97,6 +112,13 @@ export default function Home() {
                     'flex h-full max-w-2xl flex-col items-start justify-start gap-10 p-10 text-[#505462] md:w-1/2 md:items-center md:justify-center',
                     text.className
                 )}>
+                <div className="mx-auto aspect-[2/1] w-1/2 overflow-visible">
+                    <Image
+                        className="mx-auto w-full rounded drop-shadow-lg"
+                        src={me}
+                        alt="me"
+                    />
+                </div>
                 <Title />
                 <p className="mx-auto text-center opacity-90 lg:w-2/3">
                     Nottingham-based freelance web design and development. I
