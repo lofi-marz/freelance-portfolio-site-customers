@@ -19,6 +19,7 @@ import {
 } from 'react-icons/fa';
 import { IconLink } from '@/components/IconLink';
 import { motion, Variants } from 'framer-motion';
+import { useDarkMode } from '../hooks/useDarkMode';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 const title = IBM_Plex_Sans({
     subsets: ['latin'],
@@ -100,8 +101,14 @@ function VideoBackground() {
 }
 
 export default function Home() {
+    const [darkMode, setStoredMode] = useDarkMode();
+    const theme = darkMode === 'dark' ? darkMode : '';
     return (
-        <div className="dark flex h-screen w-full flex-col items-center justify-center md:flex-row">
+        <div
+            className={clsx(
+                'flex h-screen w-full flex-col items-center justify-center md:flex-row',
+                theme
+            )}>
             <Head>
                 <title>Omari</title>
                 <link rel="icon" href="/favicon.ico" />
