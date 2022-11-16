@@ -147,7 +147,7 @@ function Content() {
             animate="visible"
             exit="hidden"
             variants={contentVariants}>
-            <div className="absolute top-2 right-2 w-16">
+            <div className="fixed top-2 right-2 w-16">
                 <DarkModeToggle />
             </div>
             <div className="flex h-full w-full flex-col items-start justify-center gap-10">

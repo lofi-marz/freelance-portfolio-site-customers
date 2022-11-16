@@ -23,7 +23,7 @@ export function useDarkMode() {
             setDarkMode(storedMode);
             localStorage.setItem('theme', storedMode);
         } else {
-            localStorage.removeItem('theme');
+            //localStorage.removeItem('theme');
         }
     }, [storedMode]);
 

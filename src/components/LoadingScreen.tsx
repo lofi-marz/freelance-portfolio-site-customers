@@ -1,5 +1,6 @@
 import { motion, useAnimationControls, Variants } from 'framer-motion';
 import { useEffect } from 'react';
+import { useDarkModeContext } from '@/components/DarkModeContextProvider';
 
 const loadingScreenVariants: Variants = {
     visible: { width: '100%' },
@@ -17,7 +18,7 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
 
     return (
         <motion.div
-            className="fixed top-0 z-10 flex h-screen w-screen items-center justify-center bg-stone-800 text-white"
+            className="fixed top-0 z-10 flex h-screen w-screen items-center justify-center bg-white text-white dark:bg-stone-800"
             initial="visible"
             animate={controls}
             layoutId="intro-section"
