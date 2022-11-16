@@ -20,7 +20,7 @@ export function DarkModeToggle({ className }: { className?: string }) {
     return (
         <button
             className={clsx(
-                'flex aspect-[2/1] w-full rounded-full bg-stone-800 p-1',
+                ' flex aspect-[2/1] w-full rounded-full bg-stone-800 p-1',
                 className,
                 darkMode === 'dark' ? 'justify-end' : 'justify-start'
             )}

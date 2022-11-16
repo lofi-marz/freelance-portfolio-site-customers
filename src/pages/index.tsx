@@ -17,7 +17,7 @@ import {
     FaLink,
     FaLinkedin,
 } from 'react-icons/fa';
-import { IconLink } from '@/components/IconLink';
+import { AnimatedIconLink, IconLink } from '@/components/IconLink';
 import {
     AnimatePresence,
     motion,
@@ -75,7 +75,50 @@ function Title() {
     );
 }
 
-function Socials() {
+function SocialsDesktop() {
+    const [selectedSocial, setSelectedSocial] = useState<number | null>(null);
+    const onEnter = (index: number | null) => {
+        console.log(index);
+        setSelectedSocial(index);
+    };
+
+    return (
+        <div
+            className="flex w-full flex-col items-center justify-center gap-2 rounded bg-white text-stone-800 dark:bg-stone-800 dark:text-white"
+            onMouseLeave={() => setSelectedSocial(null)}>
+            <AnimatedIconLink
+                href="Omari Thompson-Edwards CV.pdf"
+                index={selectedSocial}
+                onEnter={onEnter}
+                social={0}>
+                <FaBook />
+            </AnimatedIconLink>
+            <AnimatedIconLink
+                href="https://www.linkedin.com/in/omari-thompson-edwards-b7307b195"
+                index={selectedSocial}
+                onEnter={onEnter}
+                social={1}>
+                <FaLinkedin />
+            </AnimatedIconLink>
+            <AnimatedIconLink
+                href="https://github.com/lofi-marz"
+                index={selectedSocial}
+                onEnter={onEnter}
+                social={2}>
+                <FaGithub />
+            </AnimatedIconLink>
+            <AnimatedIconLink
+                href="mailto:othompsonedwards@gmail.com"
+                index={selectedSocial}
+                onEnter={onEnter}
+                social={3}>
+                <FaAt />
+            </AnimatedIconLink>
+        </div>
+    );
+}
+
+function SocialsMobile() {
     return (
         <div className="flex w-full items-center justify-center gap-2 rounded md:flex-col md:bg-red-400 md:text-white">
             <IconLink href="mailto:othompsonedwards@gmail.com">
@@ -96,16 +139,16 @@ function Socials() {
 
 function VideoBackground() {
     return (
-        <div className="relative h-full w-full">
+        <div className="relative h-56 w-full overflow-clip md:h-full">
             <video
-                className="w-full object-cover brightness-[.8] saturate-[.8] md:h-full"
+                className="h-full w-full object-cover brightness-[.8] saturate-[.8]"
                 autoPlay
                 loop
                 muted>
                 <source src="/loop.mp4" type="video/mp4" />
             </video>
             <div className="absolute right-0 top-0 z-10 mr-4 hidden h-full items-center justify-center md:flex">
-                <Socials />
+                <SocialsDesktop />
             </div>
         </div>
     );
@@ -113,14 +156,16 @@ function VideoBackground() {
 
 function CallToAction() {
     return (
-        <motion.button
+        <motion.a
             className={clsx(
                 'mx-auto rounded bg-red-400 px-10 py-3 text-center font-bold text-white md:mx-0',
                 title.className
             )}
+            href="https://www.linkedin.com/in/omari-thompson-edwards-b7307b195"
+            target="_blank"
             variants={fadeVariants}>
             Get in touch.
-        </motion.button>
+        </motion.a>
     );
 }
 
@@ -138,7 +183,7 @@ function Content() {
     return (
         <motion.main
             className={clsx(
-                'flex h-full w-full flex-col items-center justify-center gap-10 p-10 text-stone-700 dark:bg-stone-900 dark:text-white md:w-1/2 md:max-w-2xl',
+                'flex h-full w-full flex-col items-center justify-center gap-10 px-10 text-stone-700 dark:bg-stone-900 dark:text-white md:w-1/2 md:max-w-2xl md:p-10',
                 text.className
             )}
             layoutId="intro-section"
@@ -147,9 +192,6 @@ function Content() {
             animate="visible"
             exit="hidden"
             variants={contentVariants}>
-            <div className="fixed top-2 right-2 w-16">
-                <DarkModeToggle />
-            </div>
             <div className="flex h-full w-full flex-col items-start justify-center gap-10">
                 <Title />
                 <motion.p
@@ -174,16 +216,19 @@ export default function Home() {
     return (
         <motion.div
             className={clsx(
-                'flex h-screen w-full flex-col items-center justify-center md:flex-row',
+                'relative flex h-screen w-full flex-col items-center justify-center md:flex-row',
                 theme
             )}>
             <Head>
                 <title>Omari</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="h-1/2 w-full grow overflow-clip dark:bg-stone-900 md:h-screen md:w-1/2">
-                <VideoBackground />
+            <div className="fixed top-2 right-2 z-20 w-16">
+                <DarkModeToggle />
             </div>
+
+            <VideoBackground />
+
             {loading ? (
                 <LoadingScreen onEnd={() => setLoading(false)} />
             ) : (
