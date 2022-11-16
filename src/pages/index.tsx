@@ -22,6 +22,7 @@ import { motion, useAnimationControls, Variants } from 'framer-motion';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { useEffect, useState } from 'react';
 import { LoadingScreen } from '@/components/LoadingScreen';
+import { DarkModeToggle } from '@/components/DarkModeToggle';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 const title = IBM_Plex_Sans({
     subsets: ['latin'],
@@ -136,6 +137,9 @@ function Content() {
             initial="hidden"
             animate="visible"
             variants={contentVariants}>
+            <div className="absolute top-2 right-2 w-16">
+                <DarkModeToggle />
+            </div>
             <div className="flex h-full w-full flex-col items-start justify-center gap-10">
                 <Title />
                 <motion.p
