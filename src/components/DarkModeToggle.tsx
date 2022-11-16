@@ -1,21 +1,33 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FaMoon, FaSun } from 'react-icons/fa';
+import {
+    useDarkModeContext,
+    useSetStoredModeContext,
+} from '@/components/DarkModeContextProvider';
+import { Theme } from '../types';
+
+function toggleTheme(theme: Theme): Theme {
+    if (theme === 'dark') return 'light';
+    return 'dark';
+}
 
 export function DarkModeToggle({ className }: { className?: string }) {
-    const [dark, setDark] = useState(false);
+    const darkMode = useDarkModeContext();
+    const setStoredMode = useSetStoredModeContext();
+
     return (
         <button
             className={clsx(
                 'flex aspect-[2/1] w-full rounded-full bg-stone-800 p-1',
                 className,
-                dark ? 'justify-end' : 'justify-start'
+                darkMode === 'dark' ? 'justify-end' : 'justify-start'
             )}
             onClick={() => {
-                setDark((value) => !value);
+                setStoredMode(toggleTheme(darkMode));
             }}>
-            <DarkModeIcon dark={dark} />
+            <DarkModeIcon dark={darkMode === 'dark'} />
         </button>
     );
 }

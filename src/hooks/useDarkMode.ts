@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import { Theme } from '../types';
 
 export function useDarkMode() {
-    const [darkMode, setDarkMode] = useState('');
-    const [storedMode, setStoredMode] = useState<string | null>('');
+    const [darkMode, setDarkMode] = useState<Theme | null>(null);
+    const [storedMode, setStoredMode] = useState<Theme | null>(null);
     useEffect(() => {
-        const stored = localStorage.getItem('theme');
+        const stored = localStorage.getItem('theme') as Theme;
         if (stored) {
             setDarkMode(stored);
         } else {
@@ -17,6 +18,7 @@ export function useDarkMode() {
     }, []);
 
     useEffect(() => {
+        console.log('Setting stored mode');
         if (storedMode) {
             setDarkMode(storedMode);
             localStorage.setItem('theme', storedMode);

@@ -18,11 +18,20 @@ import {
     FaLinkedin,
 } from 'react-icons/fa';
 import { IconLink } from '@/components/IconLink';
-import { motion, useAnimationControls, Variants } from 'framer-motion';
+import {
+    AnimatePresence,
+    motion,
+    useAnimationControls,
+    Variants,
+} from 'framer-motion';
 import { useDarkMode } from '../hooks/useDarkMode';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { LoadingScreen } from '@/components/LoadingScreen';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
+import {
+    DarkModeContextProvider,
+    useDarkModeContext,
+} from '@/components/DarkModeContextProvider';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 const title = IBM_Plex_Sans({
     subsets: ['latin'],
@@ -39,7 +48,7 @@ const headingVariants: Variants = {
 
 const underlineVariants: Variants = {
     hidden: { width: '0%' },
-    visible: { width: '100%', transition: { duration: 2 } },
+    visible: { width: '100%', transition: { duration: 1, ease: 'easeInOut' } },
 };
 
 function Title() {
@@ -136,6 +145,7 @@ function Content() {
             layout
             initial="hidden"
             animate="visible"
+            exit="hidden"
             variants={contentVariants}>
             <div className="absolute top-2 right-2 w-16">
                 <DarkModeToggle />
@@ -157,11 +167,12 @@ function Content() {
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
-    useEffect(() => console.log(loading), [loading]);
-    const [darkMode, setStoredMode] = useDarkMode();
+    useEffect(() => console.log('Loading:', loading), [loading]);
+    const darkMode = useDarkModeContext();
     const theme = darkMode === 'dark' ? darkMode : '';
+
     return (
-        <div
+        <motion.div
             className={clsx(
                 'flex h-screen w-full flex-col items-center justify-center md:flex-row',
                 theme
@@ -176,9 +187,13 @@ export default function Home() {
             {loading ? (
                 <LoadingScreen onEnd={() => setLoading(false)} />
             ) : (
-                <Content />
+                <AnimatePresence mode="wait">
+                    <Fragment key={darkMode}>
+                        <Content />
+                    </Fragment>
+                </AnimatePresence>
             )}
-        </div>
+        </motion.div>
     );
 }
 
