@@ -108,7 +108,7 @@ function SocialsDesktop() {
                 <FaGithub />
             </AnimatedIconLink>
             <AnimatedIconLink
-                href="mailto:othompsonedwards@gmail.com"
+                href="mailto:othompsonedwards@gmail.com?subject=I%20need%20a%20website!"
                 index={selectedSocial}
                 onEnter={onEnter}
                 social={3}>
