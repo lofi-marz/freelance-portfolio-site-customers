@@ -40,12 +40,12 @@ export function AnimatedIconLink({
             key={href}
             href={href}
             target="_blank"
-            className="relative flex items-center justify-center overflow-clip rounded p-2 text-3xl transition-all"
+            className="relative flex items-center justify-center overflow-visible rounded p-2 text-2xl transition-all"
             rel="noreferrer">
-            {index === social && (
-                <AnimatePresence>
+            <AnimatePresence>
+                {index === social && (
                     <motion.div
-                        className="absolute h-full w-full rounded bg-red-400"
+                        className="absolute mx-auto h-full w-full rounded bg-red-400"
                         layoutId="social"
                         key="social"
                         variants={iconBackgroundVariants}
@@ -53,8 +53,9 @@ export function AnimatedIconLink({
                         animate="visible"
                         exit="hidden"
                     />
-                </AnimatePresence>
-            )}
+                )}
+            </AnimatePresence>
+
             <div className="relative z-10">{children}</div>
         </a>
     );

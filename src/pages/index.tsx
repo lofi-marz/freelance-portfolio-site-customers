@@ -84,36 +84,39 @@ function SocialsDesktop() {
 
     return (
         <div
-            className="flex w-full flex-col items-center justify-center gap-2 rounded bg-white text-stone-800 dark:bg-stone-800 dark:text-white"
+            className="flex w-full flex-row items-center justify-center gap-2 rounded text-stone-800 dark:text-white"
             onMouseLeave={() => setSelectedSocial(null)}>
-            <AnimatedIconLink
-                href="Omari Thompson-Edwards CV.pdf"
-                index={selectedSocial}
-                onEnter={onEnter}
-                social={0}>
-                <FaBook />
-            </AnimatedIconLink>
-            <AnimatedIconLink
-                href="https://www.linkedin.com/in/omari-thompson-edwards-b7307b195"
-                index={selectedSocial}
-                onEnter={onEnter}
-                social={1}>
-                <FaLinkedin />
-            </AnimatedIconLink>
-            <AnimatedIconLink
-                href="https://github.com/lofi-marz"
-                index={selectedSocial}
-                onEnter={onEnter}
-                social={2}>
-                <FaGithub />
-            </AnimatedIconLink>
-            <AnimatedIconLink
-                href="mailto:othompsonedwards@gmail.com?subject=I%20need%20a%20website!"
-                index={selectedSocial}
-                onEnter={onEnter}
-                social={3}>
-                <FaAt />
-            </AnimatedIconLink>
+            <div className="absolute h-1 w-full bg-red-400" />
+            <div className="z-10 flex w-fit flex-row items-center justify-center gap-2 px-2 dark:bg-stone-900">
+                <AnimatedIconLink
+                    href="Omari Thompson-Edwards CV.pdf"
+                    index={selectedSocial}
+                    onEnter={onEnter}
+                    social={0}>
+                    <FaBook />
+                </AnimatedIconLink>
+                <AnimatedIconLink
+                    href="https://www.linkedin.com/in/omari-thompson-edwards-b7307b195"
+                    index={selectedSocial}
+                    onEnter={onEnter}
+                    social={1}>
+                    <FaLinkedin />
+                </AnimatedIconLink>
+                <AnimatedIconLink
+                    href="https://github.com/lofi-marz"
+                    index={selectedSocial}
+                    onEnter={onEnter}
+                    social={2}>
+                    <FaGithub />
+                </AnimatedIconLink>
+                <AnimatedIconLink
+                    href="mailto:othompsonedwards@gmail.com?subject=I%20need%20a%20website!"
+                    index={selectedSocial}
+                    onEnter={onEnter}
+                    social={3}>
+                    <FaAt />
+                </AnimatedIconLink>
+            </div>
         </div>
     );
 }
@@ -147,9 +150,6 @@ function VideoBackground() {
                 muted>
                 <source src="/loop.mp4" type="video/mp4" />
             </video>
-            <div className="absolute right-0 top-0 z-10 mr-4 hidden h-full items-center justify-center md:flex">
-                <SocialsDesktop />
-            </div>
         </div>
     );
 }
@@ -192,7 +192,7 @@ function Content() {
             animate="visible"
             exit="hidden"
             variants={contentVariants}>
-            <div className="flex h-full w-full flex-col items-start justify-center gap-10">
+            <div className="relative flex h-full w-full flex-col items-start justify-evenly gap-10">
                 <Title />
                 <motion.p
                     className="w-full text-center opacity-90 dark:opacity-100 md:text-start"
@@ -202,6 +202,7 @@ function Content() {
                     to larger web apps.
                 </motion.p>
                 <CallToAction />
+                <SocialsDesktop />
             </div>
         </motion.main>
     );
