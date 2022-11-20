@@ -87,7 +87,7 @@ function SocialsDesktop() {
             className="flex w-full flex-row items-center justify-center gap-2 rounded text-stone-800 dark:text-white"
             onMouseLeave={() => setSelectedSocial(null)}>
             <div className="absolute h-1 w-full bg-red-400" />
-            <div className="z-10 flex w-fit flex-row items-center justify-center gap-2 px-2 dark:bg-stone-900">
+            <div className="z-10 flex w-fit flex-row items-center justify-center gap-2 bg-white px-2 dark:bg-stone-900">
                 <AnimatedIconLink
                     href="Omari Thompson-Edwards CV.pdf"
                     index={selectedSocial}
