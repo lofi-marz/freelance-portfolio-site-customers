@@ -91,7 +91,7 @@ function Content() {
     return (
         <motion.main
             className={clsx(
-                'flex h-full w-full flex-col items-center justify-center gap-10 px-10 text-stone-700 dark:bg-stone-900 dark:text-white md:w-1/2 md:max-w-2xl md:p-10',
+                'flex h-full w-full flex-col items-center justify-center gap-10 bg-stone-100 px-10 text-stone-700 dark:bg-stone-900 dark:text-stone-100 md:w-1/2 md:max-w-2xl md:p-10',
                 text.className
             )}
             layoutId="intro-section"
@@ -123,7 +123,7 @@ export default function Home() {
     return (
         <motion.div
             className={clsx(
-                'relative flex h-screen w-full flex-col flex-col items-center justify-center md:flex-row-reverse',
+                'relative flex h-screen w-full flex-col flex-col items-center justify-center  md:flex-row-reverse',
                 theme
             )}>
             <Head>

@@ -11,14 +11,21 @@ const lineVariants: Variants = {
         transition: {
             staggerChildren: 0.1,
             ease: 'easeOut',
-            bounce: 0.1,
-            duration: 2,
+            bounce: 0,
+            duration: 5,
         },
     },
 };
 const charVariants = {
     hidden: { y: '120%' },
-    visible: { y: 0 },
+    visible: {
+        y: 0,
+        transition: {
+            ease: 'easeOut',
+            bounce: 1,
+            duration: 1,
+        },
+    },
 };
 
 function SlideInChar({ char }: { char: string }) {
