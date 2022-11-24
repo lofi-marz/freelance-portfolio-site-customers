@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AnimatedIconLink, IconLink } from '@/components/IconLink';
 import { FaAt, FaBook, FaGithub, FaLinkedin } from 'react-icons/fa';
 
-function SocialsDesktop() {
+export function SocialsDesktop() {
     const [selectedSocial, setSelectedSocial] = useState<number | null>(null);
     const onEnter = (index: number | null) => {
         console.log(index);

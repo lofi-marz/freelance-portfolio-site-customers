@@ -9,6 +9,7 @@ import { DarkModeToggle } from '@/components/DarkModeToggle';
 import { useDarkModeContext } from '@/components/DarkModeContextProvider';
 import { SlideInText } from '@/components/SlideInText';
 import { text, title } from '../fonts';
+import { SocialsDesktop } from '@/components/Socials';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -107,6 +108,7 @@ function Content() {
                     Nottingham-based freelance web design and development.
                 </motion.p>
                 <CallToAction />
+                <SocialsDesktop />
             </div>
         </motion.main>
     );

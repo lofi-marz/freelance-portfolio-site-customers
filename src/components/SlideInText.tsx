@@ -25,6 +25,7 @@ function SlideInChar({ char }: { char: string }) {
     return <motion.div variants={charVariants}>{char}</motion.div>;
 }
 
+//TODO: Add some sort of reusability to this
 export function SlideInText({
     children,
 }: WithChildrenProps): JSX.Element | null {
