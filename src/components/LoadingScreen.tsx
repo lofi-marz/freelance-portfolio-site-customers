@@ -4,7 +4,7 @@ import { useDarkModeContext } from '@/components/DarkModeContextProvider';
 
 const loadingScreenVariants: Variants = {
     visible: { width: '100%' },
-    hidden: { width: '100%', transition: { delay: 1, duration: 1 } },
+    hidden: { width: '100%', transition: { delay: 0.2, duration: 0.5 } },
 };
 
 type LoadingScreenProps = { onEnd: () => void };
@@ -14,11 +14,11 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
 
     useEffect(() => {
         controls.start('hidden').then(() => onEnd());
-    }, []);
+    }, [controls, onEnd]);
 
     return (
         <motion.div
-            className="fixed top-0 z-10 flex h-screen w-screen items-center justify-center bg-white text-white dark:bg-stone-800"
+            className="fixed top-0 z-20 flex h-screen w-screen items-center justify-center bg-white text-white dark:bg-stone-800"
             initial="visible"
             animate={controls}
             layoutId="intro-section"

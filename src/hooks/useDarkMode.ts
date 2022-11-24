@@ -5,7 +5,7 @@ export function useDarkMode() {
     const [darkMode, setDarkMode] = useState<Theme | null>(null);
     const [storedMode, setStoredMode] = useState<Theme | null>(null);
     useEffect(() => {
-        const stored = localStorage.getItem('theme') as Theme;
+        const stored = localStorage.getItem('theme') as Theme; //TODO: Fix this to use JSON
         if (stored) {
             setDarkMode(stored);
         } else {
