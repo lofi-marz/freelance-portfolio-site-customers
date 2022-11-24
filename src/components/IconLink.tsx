@@ -40,7 +40,7 @@ export function AnimatedIconLink({
             key={href}
             href={href}
             target="_blank"
-            className="relative flex items-center justify-center overflow-visible rounded p-2 text-2xl transition-all"
+            className="relative flex items-center justify-center overflow-visible rounded p-2 text-xl transition-all"
             rel="noreferrer">
             <AnimatePresence>
                 {index === social && (
