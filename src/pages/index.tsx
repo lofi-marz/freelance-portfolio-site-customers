@@ -103,7 +103,7 @@ function Content() {
             <div className="relative flex h-full w-full flex-col items-start justify-evenly">
                 <Title />
                 <motion.p
-                    className="w-full text-center text-2xl text-stone-100 md:text-start"
+                    className="w-full text-center text-2xl text-stone-800 dark:text-stone-100  md:text-start"
                     variants={fadeVariants}>
                     Nottingham-based freelance web design and development.
                 </motion.p>
