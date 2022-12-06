@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, Variants } from 'framer-motion';
 import clsx from 'clsx';
 import { title } from '../../../fonts';
 import { SocialsDesktop } from '@/components/sections/intro/Socials';
@@ -6,10 +6,30 @@ import { WithChildrenProps } from '../../../types';
 import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext';
 import { FaCompactDisc } from 'react-icons/fa';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
+import { SlideInText } from '@/components/SlideInText';
+
+const ContainerVariants: Variants = {
+    hidden: { opacity: 0, height: '100vh' },
+    visible: {
+        opacity: 1,
+        height: '100vh',
+        transition: {
+            ease: 'circOut',
+            delayChildren: 0.5,
+            staggerChildren: 1,
+        },
+    },
+    exit: { opacity: 0 },
+};
+
+const IntroTextVariants: Variants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 },
+};
 
 function SideSpacer({ children }: Partial<WithChildrenProps>) {
     return (
-        <div className="flex h-full w-16 items-center justify-center overflow-clip text-sm font-bold uppercase">
+        <div className="flex h-full w-16 items-center justify-center overflow-clip truncate text-sm font-bold uppercase">
             {children}
         </div>
     );
@@ -18,14 +38,18 @@ function SideSpacer({ children }: Partial<WithChildrenProps>) {
 function IntroText() {
     const sm = useMediaQuery('sm');
     return (
-        <motion.div className="themed-bg-invert themed-text-invert relative flex h-full w-full flex-grow items-center justify-start py-12">
+        <motion.div className="themed-bg-invert themed-text-invert relative flex h-full w-full flex-grow items-center justify-start overflow-clip py-12">
             <motion.div className="flex w-full flex-col items-start justify-center p-4 text-3xl font-bold sm:p-10 sm:text-5xl">
-                <h1 style={{ writingMode: sm ? 'inherit' : 'vertical-rl' }}>
+                <motion.h1
+                    style={{ writingMode: sm ? 'inherit' : 'vertical-rl' }}
+                    variants={IntroTextVariants}>
                     hi, I&apos;m omari
-                </h1>
-                <h2 className="hidden text-primary md:block">
+                </motion.h1>
+                <motion.h2
+                    className="hidden text-primary md:block"
+                    variants={IntroTextVariants}>
                     web developer + student
-                </h2>
+                </motion.h2>
             </motion.div>
         </motion.div>
     );
@@ -44,6 +68,10 @@ export function Intro() {
             )}>
             <motion.div
                 className="themed-bg relative sticky top-0 flex h-screen w-full items-center justify-center overflow-clip py-16"
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={ContainerVariants}
                 style={{ height }}>
                 <SideSpacer>
                     {currentlyPlaying && (

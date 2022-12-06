@@ -2,11 +2,27 @@ import { useState } from 'react';
 import { AnimatedIconLink, IconLink } from '@/components/IconLink';
 import {
     FaArrowDown,
+    FaArrowUp,
     FaAt,
     FaBook,
     FaGithub,
     FaLinkedin,
 } from 'react-icons/fa';
+import { motion, useScroll, useTransform } from 'framer-motion';
+function Arrow() {
+    const { scrollYProgress } = useScroll();
+    const opacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+    return (
+        <motion.a
+            className="absolute bottom-12 text-xl"
+            href="#about"
+            animate={{ y: [0, 10, 0] }}
+            style={{ opacity }}
+            transition={{ repeat: Infinity }}>
+            <FaArrowDown />
+        </motion.a>
+    );
+}
 
 export function SocialsDesktop() {
     const [selectedSocial, setSelectedSocial] = useState<number | null>(null);
@@ -49,7 +65,8 @@ export function SocialsDesktop() {
                     <FaAt />
                 </AnimatedIconLink>
             </div>
-            <FaArrowDown className="absolute bottom-12 text-xl" />
+
+            <Arrow />
         </div>
     );
 }

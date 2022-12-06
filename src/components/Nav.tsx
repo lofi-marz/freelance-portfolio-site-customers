@@ -1,6 +1,8 @@
 import { DarkModeToggle } from '@/components/DarkModeToggle';
 import clsx from 'clsx';
 import { title } from 'fonts';
+import { WithChildrenProps } from '../types';
+export function NavLink({ children }: WithChildrenProps) {}
 
 export function Nav() {
     return (
@@ -11,7 +13,9 @@ export function Nav() {
             )}>
             <ul className="flex w-full items-center justify-between px-16 text-sm font-bold md:justify-center md:gap-16">
                 {['home', 'about', 'projects'].map((name) => (
-                    <li key={name}>{name}</li>
+                    <li key={name}>
+                        <a href={'#' + name}>{name}</a>
+                    </li>
                 ))}
             </ul>
         </nav>

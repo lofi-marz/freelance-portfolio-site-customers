@@ -132,9 +132,10 @@ export default function Home({
         <CurrentlyPlayingContextProvider currentlyPlaying={currentlyPlaying}>
             <motion.div
                 className={clsx(
-                    'relative flex min-h-screen w-full flex-col items-center justify-center shadow',
+                    'relative flex min-h-screen w-full flex-col items-center justify-center shadow ',
                     theme
-                )}>
+                )}
+                id="home">
                 <Head>
                     <title>Omari</title>
                     <link rel="icon" href="/favicon.ico" />
@@ -145,7 +146,7 @@ export default function Home({
                 {loading ? (
                     <LoadingScreen onEnd={() => setLoading(false)} />
                 ) : (
-                    <AnimatePresence>
+                    <AnimatePresence mode="wait">
                         <motion.div
                             key={theme + 'content'}
                             className="themed-bg themed-text w-full">

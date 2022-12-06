@@ -49,8 +49,8 @@ export function SlideInText({
                             className="flex flex-row overflow-clip"
                             variants={lineVariants}
                             transition={{ staggerChildren: 1 }}>
-                            {[...e].map((c) => (
-                                <SlideInChar key={c} char={c} />
+                            {[...e].map((c, i) => (
+                                <SlideInChar key={c} char={c + i} />
                             ))}
                         </motion.div>
                     ) : null
