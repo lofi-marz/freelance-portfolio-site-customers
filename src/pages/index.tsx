@@ -9,7 +9,7 @@ import {
     useTransform,
     Variants,
 } from 'framer-motion';
-import { Fragment, useEffect, useState } from 'react';
+import { createContext, Fragment, useEffect, useState } from 'react';
 import { LoadingScreen } from '@/components/sections/LoadingScreen';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
 import { useDarkModeContext } from '@/components/DarkModeContextProvider';
@@ -22,6 +22,13 @@ import { FaAt, FaGithub, FaLinkedin } from 'react-icons/fa';
 import About from '@/components/sections/about/About';
 import { CallToAction } from '@/components/sections/intro/CallToAction';
 import { Intro } from '@/components/sections/intro';
+import { CurrentlyPlayingContextProvider, Nav } from '@/components/index';
+import { GetServerSideProps } from 'next';
+import axios from 'axios';
+import {
+    GetCurrentlyPlayingResponse,
+    getCurrentlyPlayingTrack,
+} from '../spotify';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -111,37 +118,52 @@ function Content() {
     );
 }
 
-export default function Home() {
+export default function Home({
+    currentlyPlaying,
+}: {
+    currentlyPlaying: GetCurrentlyPlayingResponse;
+}) {
     const [loading, setLoading] = useState(true);
     useEffect(() => console.log('Loading:', loading), [loading]);
     const darkMode = useDarkModeContext();
     const theme = darkMode === 'dark' ? darkMode : 'light';
     console.log(theme);
     return (
-        <motion.div
-            className={clsx(
-                'relative flex min-h-screen w-full flex-col items-center justify-center shadow',
-                theme
-            )}>
-            <Head>
-                <title>Omari</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <div className="fixed top-2 right-2 z-20 w-16">
-                <DarkModeToggle />
-            </div>
-            {loading ? (
-                <LoadingScreen onEnd={() => setLoading(false)} />
-            ) : (
-                <AnimatePresence>
-                    <motion.div
-                        key={theme + 'content'}
-                        className="themed-bg themed-text w-full">
-                        <Intro />
-                        <About />
-                    </motion.div>
-                </AnimatePresence>
-            )}
-        </motion.div>
+        <CurrentlyPlayingContextProvider currentlyPlaying={currentlyPlaying}>
+            <motion.div
+                className={clsx(
+                    'relative flex min-h-screen w-full flex-col items-center justify-center shadow',
+                    theme
+                )}>
+                <Head>
+                    <title>Omari</title>
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
+                <div className="absolute top-0 right-16 z-20 flex h-16 w-8 items-center justify-center">
+                    <DarkModeToggle />
+                </div>
+                {loading ? (
+                    <LoadingScreen onEnd={() => setLoading(false)} />
+                ) : (
+                    <AnimatePresence>
+                        <motion.div
+                            key={theme + 'content'}
+                            className="themed-bg themed-text w-full">
+                            <Nav />
+                            <Intro />
+                            <About />
+                        </motion.div>
+                    </AnimatePresence>
+                )}
+            </motion.div>
+        </CurrentlyPlayingContextProvider>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const spotifyToken = process.env.SPOTIFY_TOKEN;
+    if (!spotifyToken) return { props: {} };
+    const currentlyPlaying = await getCurrentlyPlayingTrack(spotifyToken);
+    console.log('Currently playing:', currentlyPlaying);
+    return { props: { currentlyPlaying } };
+};
