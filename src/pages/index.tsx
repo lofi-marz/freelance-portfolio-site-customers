@@ -140,7 +140,7 @@ export default function Home({
                     <title>Omari</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <div className="fixed top-[93vh] z-20 flex h-16 w-8 items-center justify-center">
+                <div className="fixed top-[93vh] z-20 flex h-16 w-12 items-center justify-center text-xs">
                     <DarkModeToggle />
                 </div>
                 {loading ? (
@@ -163,9 +163,21 @@ export default function Home({
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const spotifyToken = process.env.SPOTIFY_TOKEN;
-    if (!spotifyToken) return { props: {} };
+    const fallbackResponse: GetCurrentlyPlayingResponse = {
+        item: {
+            artists: [{ name: 'Kendrick Lamar' }],
+            external_urls: {
+                spotify:
+                    'https://open.spotify.com/track/5MMW4CZsZiZt2iuqAXzzWC',
+            },
+            name: 'The Heart Part 5',
+        },
+    };
+    //TODO: Clean up logic
+    if (!spotifyToken) return { props: { currentlyPlaying: fallbackResponse } };
     const currentlyPlaying = await getCurrentlyPlayingTrack(spotifyToken);
     console.log('Currently playing:', currentlyPlaying);
-    if (!currentlyPlaying) return { props: {} };
+    if (!currentlyPlaying)
+        return { props: { currentlyPlaying: fallbackResponse } };
     return { props: { currentlyPlaying } };
 };

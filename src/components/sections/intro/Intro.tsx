@@ -76,7 +76,7 @@ export function Intro() {
                 <SideSpacer>
                     {currentlyPlaying && (
                         <div
-                            className="flex rotate-180 flex-row items-center justify-center gap-4"
+                            className="flex rotate-180 flex-row items-center justify-center gap-2"
                             style={{ writingMode: 'vertical-rl' }}>
                             <motion.div
                                 animate={{
@@ -96,11 +96,11 @@ export function Intro() {
                                     currentlyPlaying.item.external_urls.spotify
                                 }
                                 target="_blank"
-                                className="transition-all hover:underline"
+                                className="transition-all hover:text-primary hover:underline"
                                 rel="noreferrer">
                                 {currentlyPlaying.item.name}
                             </a>
-                            {currentlyPlaying.item.artists[0].name}
+                            ({currentlyPlaying.item.artists[0].name})
                         </div>
                     )}
                 </SideSpacer>
