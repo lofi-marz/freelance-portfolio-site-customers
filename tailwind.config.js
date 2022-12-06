@@ -11,13 +11,10 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
-            fontFamily: {
-                title: ['Inter', ...defaultTheme.fontFamily.sans],
-                text: ['Inter', ...defaultTheme.fontFamily.sans],
-            },
             colors: {
-                primary: colors.red[500],
+                primary: '#e76f51',
                 secondary: colors.orange[500],
+                dark: colors.stone,
             },
         },
     },

@@ -18,9 +18,10 @@ export function DarkModeToggle({ className }: { className?: string }) {
     const setStoredMode = useSetStoredModeContext();
 
     return (
-        <button
+        <motion.button
+            layout
             className={clsx(
-                ' flex aspect-[2/1] w-full rounded-full bg-stone-800 p-1',
+                'flex aspect-[2/1] w-full rounded-full bg-dark-50 p-1',
                 className,
                 darkMode === 'dark' ? 'justify-end' : 'justify-start'
             )}
@@ -28,21 +29,21 @@ export function DarkModeToggle({ className }: { className?: string }) {
                 setStoredMode(toggleTheme(darkMode));
             }}>
             <DarkModeIcon dark={darkMode === 'dark'} />
-        </button>
+        </motion.button>
     );
 }
 
 function DarkModeIcon({ dark }: { dark: boolean }) {
     return (
         <motion.div
-            className="flex aspect-square h-full flex-row items-center justify-center overflow-clip rounded-full bg-white p-1 text-stone-800"
+            className="flex aspect-square h-full flex-row items-center justify-center overflow-clip rounded-full bg-dark-50 p-1 text-dark-800"
             layout>
             <AnimatePresence mode="wait">
                 <motion.div
                     key={dark ? 'dark' : 'light'}
-                    initial={{ y: '-120%' }}
-                    animate={{ y: 0 }}
-                    exit={{ y: '120%' }}>
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}>
                     {dark ? <FaMoon /> : <FaSun />}
                 </motion.div>
             </AnimatePresence>

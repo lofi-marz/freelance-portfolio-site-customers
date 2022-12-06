@@ -1,3 +1,3 @@
 export * from './IconLink';
-export * from './LoadingScreen';
+export * from './sections/LoadingScreen';
 export * from './LowPolySVG';

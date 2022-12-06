@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { AnimatedIconLink, IconLink } from '@/components/IconLink';
-import { FaAt, FaBook, FaGithub, FaLinkedin } from 'react-icons/fa';
+import {
+    FaArrowDown,
+    FaAt,
+    FaBook,
+    FaGithub,
+    FaLinkedin,
+} from 'react-icons/fa';
 
 export function SocialsDesktop() {
     const [selectedSocial, setSelectedSocial] = useState<number | null>(null);
@@ -11,10 +17,9 @@ export function SocialsDesktop() {
 
     return (
         <div
-            className="flex w-full flex-row items-center justify-center gap-2 rounded text-stone-800 dark:text-white"
+            className="absolute right-0 z-10 flex h-full flex-col items-center justify-center gap-2 px-5 text-3xl text-dark-50"
             onMouseLeave={() => setSelectedSocial(null)}>
-            <div className="absolute h-1 w-full bg-red-400" />
-            <div className="z-10 flex w-fit flex-row items-center justify-center gap-2 bg-white px-2 dark:bg-stone-900">
+            <div className="z-10 flex w-fit flex-col items-center justify-center gap-1 rounded-r">
                 <AnimatedIconLink
                     href="Omari Thompson-Edwards CV.pdf"
                     index={selectedSocial}
@@ -44,13 +49,14 @@ export function SocialsDesktop() {
                     <FaAt />
                 </AnimatedIconLink>
             </div>
+            <FaArrowDown className="absolute bottom-12 text-xl" />
         </div>
     );
 }
 
 function SocialsMobile() {
     return (
-        <div className="flex w-full items-center justify-center gap-2 rounded md:flex-col md:bg-red-400 md:text-white">
+        <div className="flex w-full items-center justify-center gap-2 rounded md:flex-col md:bg-red-400 md:text-dark-50">
             <IconLink href="mailto:othompsonedwards@gmail.com">
                 <FaBook />
             </IconLink>

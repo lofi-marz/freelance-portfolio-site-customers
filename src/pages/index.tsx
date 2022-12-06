@@ -1,15 +1,27 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import me from './me.jpg';
+import me from '../me.png';
 import clsx from 'clsx';
-import { AnimatePresence, motion, Variants } from 'framer-motion';
+import {
+    AnimatePresence,
+    motion,
+    useScroll,
+    useTransform,
+    Variants,
+} from 'framer-motion';
 import { Fragment, useEffect, useState } from 'react';
-import { LoadingScreen } from '@/components/LoadingScreen';
+import { LoadingScreen } from '@/components/sections/LoadingScreen';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
 import { useDarkModeContext } from '@/components/DarkModeContextProvider';
 import { SlideInText } from '@/components/SlideInText';
 import { text, title } from '../fonts';
-import { SocialsDesktop } from '@/components/Socials';
+import { SocialsDesktop } from '@/components/sections/intro/Socials';
+import { IoMdLeaf } from 'react-icons/io';
+import { FaArrowDown, FaInstagram } from 'react-icons/fa';
+import { FaAt, FaGithub, FaLinkedin } from 'react-icons/fa';
+import About from '@/components/sections/about/About';
+import { CallToAction } from '@/components/sections/intro/CallToAction';
+import { Intro } from '@/components/sections/intro';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -41,7 +53,7 @@ function Title() {
             </h1>
             <div className="h-3 w-3/5">
                 <motion.div
-                    className="h-full w-full bg-red-400"
+                    className="h-full w-full bg-primary"
                     variants={underlineVariants}></motion.div>
             </div>
         </motion.div>
@@ -50,30 +62,16 @@ function Title() {
 
 function VideoBackground() {
     return (
-        <div className="relative h-56 w-full overflow-clip md:h-full">
+        <div className="relative flex h-56 w-full items-center justify-center overflow-clip md:h-full">
             <video
-                className="h-full w-full object-cover brightness-[.8] saturate-[.8]"
+                className="h-full w-full object-cover brightness-[.6] saturate-[.6]"
                 autoPlay
                 loop
                 muted>
-                <source src="/loop.mp4" type="video/mp4" />
+                <source src="/video.mp4" type="video/mp4" />
             </video>
+            <SocialsDesktop />
         </div>
-    );
-}
-
-function CallToAction() {
-    return (
-        <motion.a
-            className={clsx(
-                'mx-auto rounded bg-red-400 px-10 py-3 text-center font-bold text-white md:mx-0',
-                title.className
-            )}
-            href="https://www.linkedin.com/in/omari-thompson-edwards-b7307b195"
-            target="_blank"
-            variants={fadeVariants}>
-            Get in touch.
-        </motion.a>
     );
 }
 
@@ -91,8 +89,8 @@ function Content() {
     return (
         <motion.main
             className={clsx(
-                'flex h-full w-full flex-col items-center justify-center gap-10 bg-stone-100 px-10 text-stone-700 dark:bg-stone-900 dark:text-stone-100 md:w-1/2 md:max-w-2xl md:p-10',
-                text.className
+                'themed-bg themed-text flex h-full w-full flex-col items-center justify-center gap-10 bg-dark-50 px-10 md:w-1/2 md:max-w-2xl md:p-10',
+                title.className
             )}
             layoutId="intro-section"
             layout
@@ -103,12 +101,11 @@ function Content() {
             <div className="relative flex h-full w-full flex-col items-start justify-evenly">
                 <Title />
                 <motion.p
-                    className="w-full text-center text-2xl text-stone-800 dark:text-stone-100  md:text-start"
+                    className="w-full text-center text-2xl text-dark-800 dark:text-dark-50 md:text-start"
                     variants={fadeVariants}>
                     Nottingham-based freelance web design and development.
                 </motion.p>
                 <CallToAction />
-                <SocialsDesktop />
             </div>
         </motion.main>
     );
@@ -118,12 +115,12 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
     useEffect(() => console.log('Loading:', loading), [loading]);
     const darkMode = useDarkModeContext();
-    const theme = darkMode === 'dark' ? darkMode : '';
-
+    const theme = darkMode === 'dark' ? darkMode : 'light';
+    console.log(theme);
     return (
         <motion.div
             className={clsx(
-                'relative flex h-screen w-full flex-col flex-col items-center justify-center  md:flex-row-reverse',
+                'relative flex min-h-screen w-full flex-col items-center justify-center shadow',
                 theme
             )}>
             <Head>
@@ -133,28 +130,18 @@ export default function Home() {
             <div className="fixed top-2 right-2 z-20 w-16">
                 <DarkModeToggle />
             </div>
-            <VideoBackground />
             {loading ? (
                 <LoadingScreen onEnd={() => setLoading(false)} />
             ) : (
-                <AnimatePresence mode="wait">
-                    <Fragment key={darkMode}>
-                        <Content />
-                    </Fragment>
+                <AnimatePresence>
+                    <motion.div
+                        key={theme + 'content'}
+                        className="themed-bg themed-text w-full">
+                        <Intro />
+                        <About />
+                    </motion.div>
                 </AnimatePresence>
             )}
         </motion.div>
-    );
-}
-
-function Me() {
-    return (
-        <div className="mx-auto aspect-[2/1] w-1/2 overflow-visible">
-            <Image
-                className="mx-auto w-full rounded drop-shadow-lg"
-                src={me}
-                alt="me"
-            />
-        </div>
     );
 }

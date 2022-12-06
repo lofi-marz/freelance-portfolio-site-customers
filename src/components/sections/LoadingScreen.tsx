@@ -18,7 +18,7 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
 
     return (
         <motion.div
-            className="fixed top-0 z-20 flex h-screen w-screen items-center justify-center bg-white text-white dark:bg-stone-800"
+            className="themed-bg themed-text fixed top-0 z-20 flex h-screen w-screen items-center justify-center"
             initial="visible"
             animate={controls}
             layoutId="intro-section"
