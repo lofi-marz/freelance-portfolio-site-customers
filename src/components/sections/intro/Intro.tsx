@@ -5,6 +5,7 @@ import { SocialsDesktop } from '@/components/sections/intro/Socials';
 import { WithChildrenProps } from '../../../types';
 import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext';
 import { FaCompactDisc } from 'react-icons/fa';
+import { useMediaQuery } from '../../../hooks/useMediaQuery';
 
 function SideSpacer({ children }: Partial<WithChildrenProps>) {
     return (
@@ -15,11 +16,14 @@ function SideSpacer({ children }: Partial<WithChildrenProps>) {
 }
 
 function IntroText() {
+    const sm = useMediaQuery('sm');
     return (
         <motion.div className="themed-bg-invert themed-text-invert relative flex h-full w-full flex-grow items-center justify-start py-12">
-            <motion.div className="flex w-full flex-col items-start justify-center p-10 text-5xl font-bold">
-                <h1>hi, I&apos;m omari</h1>
-                <h2 className="text-5xl text-primary">
+            <motion.div className="flex w-full flex-col items-start justify-center p-4 text-3xl font-bold sm:p-10 sm:text-5xl">
+                <h1 style={{ writingMode: sm ? 'inherit' : 'vertical-rl' }}>
+                    hi, I&apos;m omari
+                </h1>
+                <h2 className="hidden text-primary md:block">
                     web developer + student
                 </h2>
             </motion.div>
@@ -76,7 +80,7 @@ export function Intro() {
                     <motion.div
                         className="flex h-screen w-full flex-row items-start justify-center shadow"
                         layout>
-                        <div className="relative h-full w-[90%] bg-primary text-dark-50">
+                        <div className="relative flex h-full w-[100%] items-center justify-end bg-primary text-dark-50 md:w-[100%]">
                             <SocialsDesktop />
                         </div>
                         <IntroText />

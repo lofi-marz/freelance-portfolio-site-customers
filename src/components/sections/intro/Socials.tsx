@@ -17,7 +17,7 @@ export function SocialsDesktop() {
 
     return (
         <div
-            className="absolute right-0 flex h-full flex-col items-center justify-center gap-2 px-5 text-3xl text-dark-50"
+            className="flex h-full flex-col items-center justify-center gap-2 px-5 text-3xl text-dark-50"
             onMouseLeave={() => setSelectedSocial(null)}>
             <div className="z-10 flex w-fit flex-col items-center justify-center gap-1 rounded-r">
                 <AnimatedIconLink

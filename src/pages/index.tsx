@@ -139,7 +139,7 @@ export default function Home({
                     <title>Omari</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <div className="absolute top-0 right-16 z-20 flex h-16 w-8 items-center justify-center">
+                <div className="fixed top-[93vh] z-20 flex h-16 w-8 items-center justify-center">
                     <DarkModeToggle />
                 </div>
                 {loading ? (

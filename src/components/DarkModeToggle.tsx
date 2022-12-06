@@ -13,6 +13,10 @@ function toggleTheme(theme: Theme): Theme {
     return 'dark';
 }
 
+export function DarkModeSpacer() {
+    return <div className="aspect-[2/1] h-16 w-full"></div>;
+}
+
 export function DarkModeToggle({ className }: { className?: string }) {
     const darkMode = useDarkModeContext();
     const setStoredMode = useSetStoredModeContext();
