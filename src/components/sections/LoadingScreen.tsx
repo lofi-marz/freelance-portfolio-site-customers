@@ -24,7 +24,6 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
             layoutId="intro-section"
             variants={loadingScreenVariants}>
             <motion.h1
-                layoutId="greeting"
                 className="font-title text-8xl font-bold"
                 animate={{
                     rotate: [-10, 10, -10, 10, 10],
