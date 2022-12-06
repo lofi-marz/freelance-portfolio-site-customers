@@ -165,5 +165,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     if (!spotifyToken) return { props: {} };
     const currentlyPlaying = await getCurrentlyPlayingTrack(spotifyToken);
     console.log('Currently playing:', currentlyPlaying);
+    if (!currentlyPlaying) return { props: {} };
     return { props: { currentlyPlaying } };
 };

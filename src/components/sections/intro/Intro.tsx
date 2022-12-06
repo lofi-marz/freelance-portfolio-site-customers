@@ -4,6 +4,7 @@ import { title } from '../../../fonts';
 import { SocialsDesktop } from '@/components/sections/intro/Socials';
 import { WithChildrenProps } from '../../../types';
 import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext';
+import { FaCompactDisc } from 'react-icons/fa';
 
 function SideSpacer({ children }: Partial<WithChildrenProps>) {
     return (
@@ -43,9 +44,30 @@ export function Intro() {
                 <SideSpacer>
                     {currentlyPlaying && (
                         <div
-                            className="rotate-180"
+                            className="flex rotate-180 flex-row items-center justify-center gap-4"
                             style={{ writingMode: 'vertical-rl' }}>
-                            Currently Listening - {currentlyPlaying.item.name} -{' '}
+                            <motion.div
+                                animate={{
+                                    rotate: [0, 60, 120, 180, 240, 300, 360],
+                                    opacity: [0.9, 1, 0.9, 1, 0.9, 0.9],
+                                }}
+                                transition={{
+                                    repeat: Infinity,
+                                    ease: 'linear',
+                                    duration: 5,
+                                }}>
+                                <FaCompactDisc />
+                            </motion.div>
+                            Currently Listening
+                            <a
+                                href={
+                                    currentlyPlaying.item.external_urls.spotify
+                                }
+                                target="_blank"
+                                className="transition-all hover:underline"
+                                rel="noreferrer">
+                                {currentlyPlaying.item.name}
+                            </a>
                             {currentlyPlaying.item.artists[0].name}
                         </div>
                     )}

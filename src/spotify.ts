@@ -23,6 +23,7 @@ type Artist = {
 export type GetCurrentlyPlayingResponse = {
     item: {
         name: string;
+        artists: Artist[];
         external_urls: {
             spotify: string;
         };
@@ -116,18 +117,25 @@ export async function getSpotifyTokenFromLogin(
     return data;
 }
 
-export function getCurrentlyPlayingTrack(token: string) {
-    return axios
-        .get<GetCurrentlyPlayingResponse>(
-            'https://api.spotify.com/v1/me/player/currently-playing',
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        )
-        .then((res) => {
-            console.log(res);
-            return res.data;
-        });
+export async function getCurrentlyPlayingTrack(
+    token: string
+): Promise<GetCurrentlyPlayingResponse | undefined> {
+    try {
+        const track = await axios
+            .get<GetCurrentlyPlayingResponse>(
+                'https://api.spotify.com/v1/me/player/currently-playing',
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            .then((res) => {
+                console.log(res);
+                return res.data;
+            });
+        return track;
+    } catch (e) {
+        console.log(e);
+    }
 }

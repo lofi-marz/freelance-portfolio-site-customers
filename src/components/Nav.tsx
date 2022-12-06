@@ -6,7 +6,7 @@ export function Nav() {
     return (
         <nav
             className={clsx(
-                'fixed top-0 z-10 flex h-16 w-full items-center justify-center',
+                'fixed top-0 z-10 flex h-16 w-full items-center justify-center uppercase',
                 title.className
             )}>
             <ul className="flex items-center justify-center gap-16 text-sm font-bold">

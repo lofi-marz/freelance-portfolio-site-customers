@@ -9,8 +9,8 @@ export default function About() {
                 'themed-text themed-bg relative flex h-screen w-full items-center justify-center',
                 title.className
             )}>
-            <p className="w-1/2 text-center text-3xl leading-10">
-                Hi, I&apos;m Omari! I&apos;m a Front-End Developer from England,
+            <p className="w-1/2 text-center text-6xl leading-10">
+                Hi, I&apos;m Omari. I&apos;m a Web Developer from England,
                 currently studying at the University of Nottingham. I like
                 making fun, creative things with code.
             </p>

@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { WithChildrenProps } from '../types';
+import clsx from 'clsx';
 
 type IconLinkProps = {
     href: string;
@@ -45,7 +46,7 @@ export function AnimatedIconLink({
             <AnimatePresence>
                 {index === social && (
                     <motion.div
-                        className="absolute mx-auto h-full w-full rounded-r bg-primary"
+                        className="themed-bg-invert absolute mx-auto h-full w-full rounded"
                         layoutId="social"
                         key="social"
                         variants={iconBackgroundVariants}
@@ -55,7 +56,12 @@ export function AnimatedIconLink({
                     />
                 )}
             </AnimatePresence>
-            <div className="relative z-10">{children}</div>
+            <div
+                className={clsx('relative z-10 transition-colors', {
+                    'text-primary': index === social,
+                })}>
+                {children}
+            </div>
         </a>
     );
 }
