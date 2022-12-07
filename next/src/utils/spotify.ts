@@ -171,7 +171,7 @@ async function postRefreshToken(oldToken: string) {
 //TODO: Refresh token
 async function tryRefreshToken({
     refresh_token,
-}: typeof currentToken): Promise<PostTokenResponse> {
+}: typeof currentToken): Promise<PostTokenResponse | undefined> {
     if (!refresh_token) return;
     const newToken = await postRefreshToken(refresh_token);
     return newToken;
