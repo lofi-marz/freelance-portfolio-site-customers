@@ -2,8 +2,10 @@ import clsx from 'clsx';
 import { title } from 'fonts';
 import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext';
 import { CallToAction } from '@/components/sections/intro/CallToAction';
+import { useStrapiContentContext } from '@/components/StrapiContextProvider';
 
 export default function About() {
+    const { about } = useStrapiContentContext()!;
     return (
         <section
             id="about"
@@ -12,9 +14,7 @@ export default function About() {
                 title.className
             )}>
             <p className="p-6 text-center text-3xl font-bold leading-[1.25em] md:text-6xl md:leading-[1.2em] lg:w-2/3">
-                Hi, I&apos;m Omari. I&apos;m a Web Developer from England,
-                currently studying in Nottingham. I like making fun, creative
-                things with code.
+                {about.attributes.aboutText}
             </p>
             <CallToAction />
         </section>

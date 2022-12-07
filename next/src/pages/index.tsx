@@ -27,9 +27,11 @@ import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import {
     GetCurrentlyPlayingResponse,
-    getCurrentlyPlayingTrack, getSpotifyProps
+    getCurrentlyPlayingTrack,
+    getSpotifyProps,
 } from '../utils/spotify';
-import { getStrapiContent } from '../utils/strapi';
+import { AboutContent, getStrapiContent } from '../utils/strapi';
+import { StrapiContentContextProvider } from '@/components/StrapiContextProvider';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -119,46 +121,53 @@ function Content() {
     );
 }
 
+type HomeProps = {
+    spotify: { currentlyPlaying: GetCurrentlyPlayingResponse };
+    content: { about: AboutContent };
+};
+
 export default function Home({
-    spotify: {currentlyPlaying},
-}: {
-    spotify: {currentlyPlaying: GetCurrentlyPlayingResponse};
-}) {
+    spotify: { currentlyPlaying },
+    content,
+}: HomeProps) {
     const [loading, setLoading] = useState(true);
     useEffect(() => console.log('Loading:', loading), [loading]);
     const darkMode = useDarkModeContext();
     const theme = darkMode === 'dark' ? darkMode : 'light';
     console.log(theme);
     return (
-        <CurrentlyPlayingContextProvider currentlyPlaying={currentlyPlaying}>
-            <motion.div
-                className={clsx(
-                    'relative flex min-h-screen w-full flex-col items-center justify-center shadow ',
-                    theme
-                )}
-                id="home">
-                <Head>
-                    <title>Omari</title>
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
-                <div className="fixed top-[93vh] z-20 flex h-16 w-12 items-center justify-center text-xs">
-                    <DarkModeToggle />
-                </div>
-                {loading ? (
-                    <LoadingScreen onEnd={() => setLoading(false)} />
-                ) : (
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={theme + 'content'}
-                            className="themed-bg themed-text w-full">
-                            <Nav />
-                            <Intro />
-                            <About />
-                        </motion.div>
-                    </AnimatePresence>
-                )}
-            </motion.div>
-        </CurrentlyPlayingContextProvider>
+        <StrapiContentContextProvider strapiContent={content}>
+            <CurrentlyPlayingContextProvider
+                currentlyPlaying={currentlyPlaying}>
+                <motion.div
+                    className={clsx(
+                        'relative flex min-h-screen w-full flex-col items-center justify-center shadow ',
+                        theme
+                    )}
+                    id="home">
+                    <Head>
+                        <title>Omari</title>
+                        <link rel="icon" href="/favicon.ico" />
+                    </Head>
+                    <div className="fixed top-[93vh] z-20 flex h-16 w-12 items-center justify-center text-xs">
+                        <DarkModeToggle />
+                    </div>
+                    {loading ? (
+                        <LoadingScreen onEnd={() => setLoading(false)} />
+                    ) : (
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={theme + 'content'}
+                                className="themed-bg themed-text w-full">
+                                <Nav />
+                                <Intro />
+                                <About />
+                            </motion.div>
+                        </AnimatePresence>
+                    )}
+                </motion.div>
+            </CurrentlyPlayingContextProvider>
+        </StrapiContentContextProvider>
     );
 }
 
@@ -166,6 +175,5 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const spotify = await getSpotifyProps();
     const about = await getStrapiContent('about');
     console.log(about);
-    return {props: {spotify, content: {about}}};
-
+    return { props: { spotify, content: { about } } };
 };
