@@ -13,21 +13,33 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "desktopPreview": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "mobilePreviiew": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "deploymentUrl": {
+      "type": "string"
+    },
+    "githubUrl": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

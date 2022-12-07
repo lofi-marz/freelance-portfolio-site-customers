@@ -8,7 +8,7 @@ import {
     getSpotifyTokenFromLogin,
     PostTokenResponse,
     verifier,
-} from '../spotify';
+} from '../utils/spotify';
 export default function SpotifyLogin({
     authLink,
     token,
@@ -44,6 +44,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
             verifier,
             state
         ).catch((e) => console.log(e));
+        console.log(token);
         const authLink = await getSpotifyAuthLink().catch((e) =>
             console.log(e)
         );

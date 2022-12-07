@@ -29,7 +29,7 @@ const IntroTextVariants: Variants = {
 
 function SideSpacer({ children }: Partial<WithChildrenProps>) {
     return (
-        <div className="flex h-full w-16 items-center justify-center overflow-clip truncate text-sm font-bold uppercase">
+        <div className="flex h-full w-16 items-center justify-center overflow-clip truncate text-xs font-bold uppercase">
             {children}
         </div>
     );
@@ -114,11 +114,7 @@ export function Intro() {
                         <IntroText />
                     </motion.div>
                 </div>
-                <SideSpacer>
-                    <div style={{ writingMode: 'vertical-rl' }}>
-                        othompsonedwards@gmail.com
-                    </div>
-                </SideSpacer>
+                <SideSpacer></SideSpacer>
             </motion.div>
         </section>
     );

@@ -32,6 +32,7 @@ import {
 } from '../utils/spotify';
 import { AboutContent, getStrapiContent } from '../utils/strapi';
 import { StrapiContentContextProvider } from '@/components/StrapiContextProvider';
+import { Projects } from '@/components/sections/projects';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -162,6 +163,7 @@ export default function Home({
                                 <Nav />
                                 <Intro />
                                 <About />
+                                <Projects />
                             </motion.div>
                         </AnimatePresence>
                     )}
