@@ -139,3 +139,24 @@ export async function getCurrentlyPlayingTrack(
         console.log(e);
     }
 }
+
+export async function getSpotifyProps() {
+    const spotifyToken = process.env.SPOTIFY_TOKEN;
+    const fallbackResponse: GetCurrentlyPlayingResponse = {
+        item: {
+            artists: [{ name: 'Kendrick Lamar' }],
+            external_urls: {
+                spotify:
+                  'https://open.spotify.com/track/5MMW4CZsZiZt2iuqAXzzWC',
+            },
+            name: 'The Heart Part 5',
+        },
+    };
+    //TODO: Clean up logic
+    if (!spotifyToken) return { currentlyPlaying: fallbackResponse };
+    const currentlyPlaying = await getCurrentlyPlayingTrack(spotifyToken);
+    console.log('Currently playing:', currentlyPlaying);
+    if (!currentlyPlaying)
+        return { currentlyPlaying: fallbackResponse };
+    return { currentlyPlaying };
+}

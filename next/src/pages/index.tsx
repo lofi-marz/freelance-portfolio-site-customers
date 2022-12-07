@@ -27,8 +27,9 @@ import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import {
     GetCurrentlyPlayingResponse,
-    getCurrentlyPlayingTrack,
-} from '../spotify';
+    getCurrentlyPlayingTrack, getSpotifyProps
+} from '../utils/spotify';
+import { getStrapiContent } from '../utils/strapi';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -119,9 +120,9 @@ function Content() {
 }
 
 export default function Home({
-    currentlyPlaying,
+    spotify: {currentlyPlaying},
 }: {
-    currentlyPlaying: GetCurrentlyPlayingResponse;
+    spotify: {currentlyPlaying: GetCurrentlyPlayingResponse};
 }) {
     const [loading, setLoading] = useState(true);
     useEffect(() => console.log('Loading:', loading), [loading]);
@@ -162,22 +163,9 @@ export default function Home({
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const spotifyToken = process.env.SPOTIFY_TOKEN;
-    const fallbackResponse: GetCurrentlyPlayingResponse = {
-        item: {
-            artists: [{ name: 'Kendrick Lamar' }],
-            external_urls: {
-                spotify:
-                    'https://open.spotify.com/track/5MMW4CZsZiZt2iuqAXzzWC',
-            },
-            name: 'The Heart Part 5',
-        },
-    };
-    //TODO: Clean up logic
-    if (!spotifyToken) return { props: { currentlyPlaying: fallbackResponse } };
-    const currentlyPlaying = await getCurrentlyPlayingTrack(spotifyToken);
-    console.log('Currently playing:', currentlyPlaying);
-    if (!currentlyPlaying)
-        return { props: { currentlyPlaying: fallbackResponse } };
-    return { props: { currentlyPlaying } };
+    const spotify = await getSpotifyProps();
+    const about = await getStrapiContent('about');
+    console.log(about);
+    return {props: {spotify, content: {about}}};
+
 };

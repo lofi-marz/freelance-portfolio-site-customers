@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { GetCurrentlyPlayingResponse } from '../spotify';
+import { GetCurrentlyPlayingResponse } from '../utils/spotify';
 import { WithChildrenProps } from '../types';
 
 const CurrentlyPlayingContext = createContext<
