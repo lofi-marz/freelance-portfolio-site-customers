@@ -124,7 +124,7 @@ function Content() {
 
 type HomeProps = {
     spotify: { currentlyPlaying: GetCurrentlyPlayingResponse };
-    content: { about: AboutContent };
+    content: Partial<{ about: AboutContent }>;
 };
 
 export default function Home({
@@ -135,9 +135,12 @@ export default function Home({
     useEffect(() => console.log('Loading:', loading), [loading]);
     const darkMode = useDarkModeContext();
     const theme = darkMode === 'dark' ? darkMode : 'light';
-    console.log(theme);
+    console.log(content);
+    if (content.about === undefined) return (<div>Hi! Somethings gone wrong</div>);
+
+    //TODO: Better error handling here
     return (
-        <StrapiContentContextProvider strapiContent={content}>
+        <StrapiContentContextProvider strapiContent={content as Required<HomeProps['content']>}>
             <CurrentlyPlayingContextProvider
                 currentlyPlaying={currentlyPlaying}>
                 <motion.div
@@ -175,7 +178,8 @@ export default function Home({
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const spotify = await getSpotifyProps();
-    const about = await getStrapiContent('about');
-    console.log(about);
-    return { props: { spotify, content: { about } } };
+    //TODO: How do I scale this up for more data
+    const about = await getStrapiContent<AboutContent>('about');
+    
+    return { props: { spotify, content: about ? {about} : {} } };
 };
