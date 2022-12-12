@@ -46,6 +46,26 @@ export async function postStrapiContent<T>(
     });
 }
 
+export async function putStrapiContent<T>(
+    apiPath: string,
+    params: Record<string, unknown> = {},
+    token = STRAPI_TOKEN
+): Promise<T | undefined>  {
+    console.log(apiPath,'Using token:', token)
+    return axios.put<{data: T}>(
+        path.join(STRAPI_URL, apiPath), {data: {params}},
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    ).then(({data}) => data.data).catch((e) => {
+        console.log(e);
+        return undefined;
+    });
+}
+
 export async function getSpotifyCode() {
    const res = await getStrapiContent<{attributes: {code: string}}>('spotify-code', {}, STRAPI_SPOTIFY_TOKEN);
    console.log('Code:', res);
@@ -62,8 +82,8 @@ export async function postSpotifyCode(code: string) {
 }
 
 //Might just do this manually to be safe
-export async function postSpotifyToken(token: SpotifyToken) {
-    const res = await postStrapiContent('spotify-token', token, STRAPI_SPOTIFY_TOKEN);
+export async function updateSpotifyToken(token: SpotifyToken) {
+    const res = await putStrapiContent('spotify-token',{token}, STRAPI_SPOTIFY_TOKEN);
     console.log(res);
 }
 
