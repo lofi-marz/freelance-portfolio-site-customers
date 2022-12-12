@@ -30,7 +30,7 @@ import {
     getCurrentlyPlayingTrack,
     getSpotifyProps,
 } from '../utils/spotify';
-import { AboutContent, getStrapiContent } from '../utils/strapi';
+import { AboutContent, AllStrapiContent, getStrapiContent, GlobalContent, ProjectContent } from '../utils/strapi';
 import { StrapiContentContextProvider } from '@/components/StrapiContextProvider';
 import { Projects } from '@/components/sections/projects';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
@@ -124,7 +124,7 @@ function Content() {
 
 type HomeProps = {
     spotify: { currentlyPlaying: GetCurrentlyPlayingResponse };
-    content: Partial<{ about: AboutContent }>;
+    content: GlobalContent;
 };
 
 export default function Home({
@@ -136,11 +136,11 @@ export default function Home({
     const darkMode = useDarkModeContext();
     const theme = darkMode === 'dark' ? darkMode : 'light';
     console.log(content);
-    if (content.about === undefined) return (<div>Hi! Somethings gone wrong</div>);
+    if (content === undefined) return (<div>Hi! Somethings gone wrong</div>);
 
     //TODO: Better error handling here
     return (
-        <StrapiContentContextProvider strapiContent={content as Required<HomeProps['content']>}>
+        <StrapiContentContextProvider strapiContent={content}>
             <CurrentlyPlayingContextProvider
                 currentlyPlaying={currentlyPlaying}>
                 <motion.div
@@ -177,10 +177,10 @@ export default function Home({
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-
     const spotify = await getSpotifyProps();
     //TODO: How do I scale this up for more data
-    const about = await getStrapiContent<AboutContent>('about');
-    
-    return { props: { spotify, content: about ? {about} : {} } };
+    const about = await getStrapiContent<AboutContent>('about') || {};
+    const projects = await getStrapiContent('projects') || {};
+    console.log('Projects:', projects);
+    return { props: { spotify, content: {about, projects}}};
 };

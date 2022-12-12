@@ -90,16 +90,34 @@ export async function updateSpotifyToken(token: SpotifyToken) {
     return res;
 }
 
-export type GlobalContent = {
-    about: AboutContent;
+type StrapiContent<T> = {
+    id: number;
+    attributes: T & StrapiTimestamp;
 };
 
-export type AboutContent = {
-    id: number;
-    attributes: {
-        aboutText: string;
-        createdAt: string;
-        updatedAt: string;
-        publishedAt: string;
-    };
-};
+export type GlobalContent = {
+    about: AboutContent;
+    projects: ProjectContent[];
+}
+
+type StrapiTimestamp = {
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+}
+
+export type AboutContent = StrapiContent<{
+    aboutText: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+}>;
+
+export type ProjectContent = StrapiContent<{
+    title: string;
+    description:string;
+    repoLink: string;
+    liveLink: string;
+    brief: string;
+}>;
+

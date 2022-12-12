@@ -3,17 +3,14 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import { text, title } from '../../../fonts';
 import { FaGithub, FaLink } from 'react-icons/fa';
+import { useStrapiContentContext } from '@/components/StrapiContextProvider';
+import { ProjectContent } from 'utils/strapi';
 
-type ProjectInfo = {
-    title: string;
-    description: string;
-    deploymentUrl?: string;
-    githubUrl: string;
-};
-
-type ProjectProps = ProjectInfo & { odd?: boolean };
+type ProjectProps = ProjectContent['attributes'] & { odd?: boolean };
 
 export function Projects() {
+    const {projects} = useStrapiContentContext()!;
+  
     return (
         <section
             className={clsx(
@@ -25,21 +22,7 @@ export function Projects() {
                 projects <div className="-mt-1 h-4 w-2/3 bg-primary"></div>
             </h2>
             <ul className="flex w-full flex-col gap-32 p-16">
-                <Project
-                    title="Restaurant Landing Page"
-                    description="This was mainly for design purposes; I wanted a smaller-scale, few-day project without much logic.
-I might implement more of these one day. Making up imaginary businesses is quite fun."
-                    githubUrl="https://google.com"
-                    deploymentUrl="https://google.com"
-                />
-                <Project
-                    title="Restaurant Landing Page"
-                    description="This was mainly for design purposes; I wanted a smaller-scale, few-day project without much logic.
-I might implement more of these one day. Making up imaginary businesses is quite fun."
-                    githubUrl="https://google.com"
-                    deploymentUrl="https://google.com"
-                    odd
-                />
+                {projects.map((p) => <Project key={p.id} {...p.attributes} />)}
             </ul>
         </section>
     );
@@ -48,8 +31,9 @@ I might implement more of these one day. Making up imaginary businesses is quite
 function Project({
     title,
     description,
-    githubUrl,
-    deploymentUrl,
+    repoLink,
+    liveLink,
+    brief,
     odd = false,
 }: ProjectProps) {
     return (
@@ -69,13 +53,13 @@ function Project({
                 <div className="flex flex-row text-xl font-bold">
                     <a
                         className="themed-bg-invert themed-text-invert p-2 px-4"
-                        href={githubUrl}>
+                        href={repoLink}>
                         github
                     </a>
-                    {deploymentUrl && (
+                    {liveLink && (
                         <a
                             className="themed-text bg-primary p-2 px-4"
-                            href={deploymentUrl}>
+                            href={liveLink}>
                             link
                         </a>
                     )}
