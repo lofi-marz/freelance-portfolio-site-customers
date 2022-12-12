@@ -53,15 +53,18 @@ export async function putStrapiContent<T>(
 ): Promise<T | undefined>  {
     console.log(apiPath,'Using token:', token)
     return axios.put<{data: T}>(
-        path.join(STRAPI_URL, apiPath), {data: {params}},
+        path.join(STRAPI_URL, apiPath), {data: params},
         {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
         }
-    ).then(({data}) => data.data).catch((e) => {
-        console.log(e);
+    ).then((res) => {
+        console.log('Put:', res);
+        return res;
+    }).then(({data}) => data.data).catch((e) => {
+        console.log('Erorr performing put:', e);
         return undefined;
     });
 }
@@ -83,8 +86,8 @@ export async function postSpotifyCode(code: string) {
 
 //Might just do this manually to be safe
 export async function updateSpotifyToken(token: SpotifyToken) {
-    const res = await putStrapiContent('spotify-token',{token}, STRAPI_SPOTIFY_TOKEN);
-    console.log(res);
+    const res = await putStrapiContent<{attributes: {token: SpotifyToken}}>('spotify-token',{token}, STRAPI_SPOTIFY_TOKEN);
+    return res;
 }
 
 export type GlobalContent = {

@@ -178,7 +178,7 @@ async function postRefreshToken(oldToken: string): Promise<SpotifyToken> {
             },
         }
     );
-    console.log('Refresh token:', data);
+    
     return {...parseTokenResponse(data), refreshToken: data.refresh_token || oldToken};
 }
 
@@ -210,12 +210,19 @@ export async function getSpotifyProps() {
 
     
     //TODO: Clean up logic
-    const token = await getSpotifyToken();
+    let token = await getSpotifyToken();
     const expiryDate = new Date(token.expiryDate);
     //TODO: If no token found
     if (expiryDate.getUTCMilliseconds() <= Date.now()) {
-        await postRefreshToken(token.refreshToken).then((token) => {
-            updateSpotifyToken(token);
+        console.log('Old token:', token)
+        await postRefreshToken(token.refreshToken).then(async (newToken) => {
+            console.log('New token:', newToken);
+            return await updateSpotifyToken(newToken);
+        }).then((res) => {
+            if (res) {
+                token = res.attributes.token;
+            }
+            console.log('Response:', res);
         });
     }
     if (!token) return { currentlyPlaying: fallbackResponse };
