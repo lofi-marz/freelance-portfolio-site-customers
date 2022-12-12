@@ -7,6 +7,7 @@ import {
     getSpotifyAuthLink,
     getSpotifyTokenFromLogin,
     PostTokenResponse,
+    SpotifyToken,
     verifier,
 } from '../utils/spotify';
 export default function SpotifyLogin({
@@ -14,8 +15,9 @@ export default function SpotifyLogin({
     token,
 }: {
     authLink: string;
-    token?: PostTokenResponse;
+    token?: SpotifyToken;
 }) {
+ 
     return (
         <div className="flex h-screen w-full items-center justify-center bg-dark-900">
             <div className="prose prose-invert flex flex-col items-center justify-center bg-dark-900">
@@ -24,11 +26,13 @@ export default function SpotifyLogin({
                     you&apos;re here, hi!
                 </p>
                 <a href={authLink}>Link</a>
-                {token && <p>Token: {token.access_token}</p>}
+                {token && <p>Token: {JSON.stringify(token)}</p>}
             </div>
         </div>
     );
 }
+
+
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     //TODO: Make this store in/pull the token from strapi
@@ -36,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     const { code, error, state } = query as GetAuthorizeResponse;
     //TODO: Verify state
-
+    if (error) console.log(error);
     if (!error && code && verifier) {
         console.log('Using verifier:', verifier);
         const token = await getSpotifyTokenFromLogin(
@@ -44,10 +48,13 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
             verifier,
             state
         ).catch((e) => console.log(e));
-        console.log(token);
+        console.log('Token:', token);
         const authLink = await getSpotifyAuthLink().catch((e) =>
             console.log(e)
         );
+
+        console.log('Code:', code);
+
         return { props: { authLink, token } };
     }
     const authLink = await getSpotifyAuthLink();

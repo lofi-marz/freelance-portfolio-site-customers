@@ -177,6 +177,7 @@ export default function Home({
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
+
     const spotify = await getSpotifyProps();
     //TODO: How do I scale this up for more data
     const about = await getStrapiContent<AboutContent>('about');

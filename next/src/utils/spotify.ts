@@ -1,13 +1,14 @@
 import axios from 'axios';
 import crypto from 'crypto';
 import qs from 'qs';
+import { getSpotifyCode, getSpotifyToken } from './strapi';
 
 export type PostTokenResponse = {
     access_token: string;
     token_type: string;
     scope: string;
     expires_in: number;
-    refresh_token: string;
+    refresh_token?: string; //We might not get back another refresh token, in which case we should use the same one
 };
 
 export type GetAuthorizeResponse = {
@@ -15,6 +16,12 @@ export type GetAuthorizeResponse = {
     state: string;
     error?: string;
 };
+
+export type SpotifyToken = {
+    token: string;
+    expiryDate: string;
+    refreshToken: string;
+}
 
 type Artist = {
     name: string;
@@ -51,9 +58,7 @@ let state: string | undefined;
 
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
-let currentToken: Partial<PostTokenResponse> = {
-    access_token: process.env.SPOTIFY_TOKEN,
-};
+
 function getCodeVerifier() {
     //TODO: Does it matter that we aren't including non-alphanumeric chars
     return getRandomChars(43, 128);
@@ -91,11 +96,17 @@ export async function getSpotifyAuthLink() {
     return 'https://accounts.spotify.com/authorize?' + qs.stringify(params);
 }
 
+function parseTokenResponse(res: PostTokenResponse): SpotifyToken {
+    const useBy = new Date();
+    useBy.setUTCSeconds(useBy.getUTCSeconds() + res.expires_in )
+    return {token: res.access_token, expiryDate: useBy.toUTCString(), refreshToken: res.refresh_token ?? ''};
+}
+
 export async function getSpotifyTokenFromLogin(
     code: string,
     codeVerifier: string,
     receivedState: string
-) {
+): Promise<SpotifyToken | undefined> {
     const AUTH_URL = 'https://accounts.spotify.com/api/token';
 
     if (receivedState != state) return;
@@ -121,7 +132,7 @@ export async function getSpotifyTokenFromLogin(
             },
         }
     );
-    return data;
+    return parseTokenResponse(data);
 }
 
 export async function getCurrentlyPlayingTrack(
@@ -138,7 +149,7 @@ export async function getCurrentlyPlayingTrack(
                 }
             )
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 return res.data;
             });
         return track;
@@ -147,14 +158,15 @@ export async function getCurrentlyPlayingTrack(
     }
 }
 
-async function postRefreshToken(oldToken: string) {
+async function postRefreshToken(oldToken: string, code: string) {
     const AUTH_URL = 'https://accounts.spotify.com/api/token';
-
+    console.log(oldToken, code);
     const { data } = await axios.post<PostTokenResponse>(
         AUTH_URL,
         qs.stringify({
-            grant_type: 'authorization_code',
+            grant_type: 'refresh_token',
             refresh_token: oldToken,
+            code,
             client_id: CLIENT_ID,
         }),
 
@@ -165,16 +177,22 @@ async function postRefreshToken(oldToken: string) {
             },
         }
     );
+    console.log('Refresh token:', data);
     return data;
 }
 
+
+
+async function saveToken(token: SpotifyToken, code: string) {
+
+}
+
 //TODO: Refresh token
-async function tryRefreshToken({
-    refresh_token,
-}: typeof currentToken): Promise<PostTokenResponse | undefined> {
-    if (!refresh_token) return;
-    const newToken = await postRefreshToken(refresh_token);
-    return newToken;
+async function tryRefreshToken(refreshToken: string, code: string): Promise<SpotifyToken | undefined> {
+    if (!refreshToken) return;
+    const token = await postRefreshToken(refreshToken, code).then((res) => parseTokenResponse(res));
+    console.log(token);
+    return token;
 }
 
 export async function getSpotifyProps() {
@@ -188,10 +206,17 @@ export async function getSpotifyProps() {
             name: 'The Heart Part 5',
         },
     };
+
+    
     //TODO: Clean up logic
-    const { access_token: token } = currentToken;
+    const token = await getSpotifyToken();
+    const expiryDate = new Date(token.expiryDate);
+    //TODO: If no token found
+    if (true) {
+        await getSpotifyCode().then((code) => postRefreshToken(token.refreshToken, code));
+    }
     if (!token) return { currentlyPlaying: fallbackResponse };
-    const currentlyPlaying = await getCurrentlyPlayingTrack(token);
+    const currentlyPlaying = await getCurrentlyPlayingTrack(token.token);
     console.log('Currently playing:', currentlyPlaying);
     if (!currentlyPlaying) return { currentlyPlaying: fallbackResponse };
     return { currentlyPlaying };
