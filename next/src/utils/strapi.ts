@@ -61,7 +61,7 @@ export async function putStrapiContent<T>(
             },
         }
     ).then((res) => {
-        console.log('Put:', res);
+        //console.log('Put:', res);
         return res;
     }).then(({data}) => data.data).catch((e) => {
         console.log('Erorr performing put:', e);
@@ -119,5 +119,9 @@ export type ProjectContent = StrapiContent<{
     repoLink: string;
     liveLink: string;
     brief: string;
+    desktopPreview: StrapiImage;
+    mobilePreview: StrapiImage;
 }>;
+
+export type StrapiImage = StrapiContent<{alternativeText: string, width: number, height: number, url: string}>;
 

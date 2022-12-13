@@ -222,7 +222,7 @@ export async function getSpotifyProps() {
             if (res) {
                 token = res.attributes.token;
             }
-            console.log('Response:', res);
+            //console.log('Response:', res);
         });
     }
     if (!token) return { currentlyPlaying: fallbackResponse };

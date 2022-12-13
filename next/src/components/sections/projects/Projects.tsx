@@ -1,5 +1,6 @@
 import test from '../../../../content/projects/restaurant-landing-page/desktop.png';
 import Image from 'next/image';
+import path from 'path';
 import clsx from 'clsx';
 import { text, title } from '../../../fonts';
 import { FaGithub, FaLink } from 'react-icons/fa';
@@ -10,7 +11,7 @@ type ProjectProps = ProjectContent['attributes'] & { odd?: boolean };
 
 export function Projects() {
     const {projects} = useStrapiContentContext()!;
-  
+    console.log(projects);
     return (
         <section
             className={clsx(
@@ -34,8 +35,11 @@ function Project({
     repoLink,
     liveLink,
     brief,
+    desktopPreview,
+    mobilePreview,
     odd = false,
 }: ProjectProps) {
+    console.log('Desktop:', desktopPreview);
     return (
         <li
             className={clsx(
@@ -65,8 +69,8 @@ function Project({
                     )}
                 </div>
             </div>
-            <div className="w-full">
-                <Image src={test} alt="alt" className="" />
+            <div className="w-full relative">
+                <Image src={path.join('https://localhost:1337', desktopPreview.data.attributes.url)} alt="alt" className="" fill />
             </div>
         </li>
     );

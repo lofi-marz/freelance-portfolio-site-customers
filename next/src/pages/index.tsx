@@ -30,9 +30,10 @@ import {
     getCurrentlyPlayingTrack,
     getSpotifyProps,
 } from '../utils/spotify';
-import { AboutContent, AllStrapiContent, getStrapiContent, GlobalContent, ProjectContent } from '../utils/strapi';
+import { AboutContent, getStrapiContent, GlobalContent, ProjectContent } from '../utils/strapi';
 import { StrapiContentContextProvider } from '@/components/StrapiContextProvider';
 import { Projects } from '@/components/sections/projects';
+import qs from 'qs';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -178,9 +179,16 @@ export default function Home({
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const spotify = await getSpotifyProps();
+    const query = qs.stringify(
+        {
+          populate: ['*', 'desktopPreview', 'mobilePreview'],
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        }
+      );
     //TODO: How do I scale this up for more data
     const about = await getStrapiContent<AboutContent>('about') || {};
-    const projects = await getStrapiContent('projects') || {};
-    console.log('Projects:', projects);
+    const projects = await getStrapiContent<ProjectContent[]>('projects?' + query) || [];
     return { props: { spotify, content: {about, projects}}};
 };
