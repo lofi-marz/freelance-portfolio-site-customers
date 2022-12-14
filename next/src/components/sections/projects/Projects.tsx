@@ -11,7 +11,7 @@ type ProjectProps = ProjectContent['attributes'] & { odd?: boolean };
 
 export function Projects() {
     const {projects} = useStrapiContentContext()!;
-    console.log(projects);
+    console.log('Projects:', projects);
     return (
         <section
             className={clsx(
@@ -43,7 +43,7 @@ function Project({
     return (
         <li
             className={clsx(
-                'flex items-start justify-center gap-16',
+                'flex items-start justify-center gap-16 h-96',
                 odd && 'flex-row-reverse'
             )}>
             <div className="mt-16 flex w-2/3 flex-col gap-8">
@@ -69,8 +69,8 @@ function Project({
                     )}
                 </div>
             </div>
-            <div className="w-full relative">
-                <Image src={path.join('https://localhost:1337', desktopPreview.data.attributes.url)} alt="alt" className="" fill />
+            <div className="w-full h-full relative">
+                <Image src={'https://marimari.tech/cms'+desktopPreview.data.attributes.url} alt="" fill className="object-contain"></Image>
             </div>
         </li>
     );

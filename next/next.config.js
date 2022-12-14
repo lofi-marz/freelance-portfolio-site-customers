@@ -10,6 +10,11 @@ images: {
         pathname: '**',
       },
       {
+        protocol: 'http',
+        hostname: 'marimari.tech',
+        pathname: '**',
+      },
+      {
         hostname: 'localhost'
       }
     ],
