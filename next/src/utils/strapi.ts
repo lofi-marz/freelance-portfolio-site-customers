@@ -77,7 +77,7 @@ export async function getSpotifyCode() {
 
 export async function getSpotifyToken() {
     const res = await getStrapiContent<{ attributes: { token: SpotifyToken; }; }>('spotify-token', {}, STRAPI_SPOTIFY_TOKEN);
-    return res!.attributes.token;
+    return res?.attributes.token;
 }
 
 export async function postSpotifyCode(code: string) {
@@ -119,8 +119,8 @@ export type ProjectContent = StrapiContent<{
     repoLink: string;
     liveLink: string;
     brief: string;
-    desktopPreview: StrapiImage;
-    mobilePreview: StrapiImage;
+    desktopPreview: {data:StrapiImage};
+    mobilePreview: {data: StrapiImage};
 }>;
 
 export type StrapiImage = StrapiContent<{alternativeText: string, width: number, height: number, url: string}>;

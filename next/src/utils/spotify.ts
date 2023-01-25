@@ -211,6 +211,7 @@ export async function getSpotifyProps() {
     
     //TODO: Clean up logic
     let token = await getSpotifyToken();
+    if (!token) return { currentlyPlaying: fallbackResponse };
     const expiryDate = new Date(token.expiryDate);
     //TODO: If no token found
     if (expiryDate.getUTCMilliseconds() <= Date.now()) {
