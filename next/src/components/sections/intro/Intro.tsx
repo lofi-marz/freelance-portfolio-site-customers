@@ -40,7 +40,7 @@ function IntroText() {
     const sm = useMediaQuery('sm');
     return (
         <motion.div className="themed-bg-invert themed-text-invert relative flex h-full w-full flex-grow items-center justify-start overflow-clip py-12">
-            <motion.div className="flex w-full flex-col items-start justify-center p-4 text-3xl font-bold sm:p-10 sm:text-5xl">
+            <motion.div className="flex w-full flex-col items-start justify-center p-4 text-3xl font-medium sm:p-10 sm:text-5xl">
                 <motion.h1
                     style={{ writingMode: sm ? 'inherit' : 'vertical-rl' }}
                     variants={IntroTextVariants}>
@@ -58,24 +58,26 @@ function IntroText() {
 
 export function Intro() {
     const target = useRef<HTMLElement>(null);
-    const { scrollYProgress } = useScroll({target, offset: ['start start', 'end end']});
-    scrollYProgress.onChange((v) => console.log(v))
+    const { scrollYProgress } = useScroll({
+        target,
+        offset: ['start start', 'end end'],
+    });
     const currentlyPlaying = useCurrentlyPlayingContext();
     const height = useTransform(scrollYProgress, [0, 1], ['100vh', '0vh']); //TODO:Figure this out
-    
+
     return (
         <section
             className={clsx(
                 'themed-bg sticky top-0 flex h-[150vh] w-full flex-col items-center justify-start overflow-clip',
                 title.className
-            )} ref={target}>
+            )}
+            ref={target}>
             <motion.div
                 className="themed-bg sticky top-0 flex h-screen w-full items-center justify-center overflow-clip py-16"
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                variants={ContainerVariants}
-                style={{ height }}>
+                variants={ContainerVariants}>
                 <SideSpacer>
                     {currentlyPlaying && (
                         <div

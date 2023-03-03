@@ -8,11 +8,10 @@ import {
     Vollkorn,
 } from '@next/font/google';
 
-export const title = Poppins({
+export const title = IBM_Plex_Sans({
     subsets: ['latin'],
-    weight: ['400', '500', '600', '700'],
+    weight: ['100', '200', '300', '400', '500', '600', '700'],
 });
-export const text = DM_Sans({
+export const text = Inter({
     subsets: ['latin'],
-    weight: ['400', '700'],
 });

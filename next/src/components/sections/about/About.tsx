@@ -13,7 +13,7 @@ export default function About() {
                 'themed-text themed-bg relative flex h-screen w-full flex-col items-center justify-center gap-8',
                 title.className
             )}>
-            <p className="p-6 text-center text-3xl font-bold leading-[1.25em] md:text-6xl md:leading-[1.2em] lg:w-2/3">
+            <p className="p-6 text-center text-3xl font-medium leading-[1.25em] md:text-4xl md:leading-[1.2em] lg:w-4/5">
                 {about.attributes.aboutText}
             </p>
             <CallToAction />
