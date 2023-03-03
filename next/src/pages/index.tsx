@@ -22,7 +22,11 @@ import { FaAt, FaGithub, FaLinkedin } from 'react-icons/fa';
 import About from '@/components/sections/about/About';
 import { CallToAction } from '@/components/sections/intro/CallToAction';
 import { Intro } from '@/components/sections/intro';
-import { CurrentlyPlayingContextProvider, Nav, NavSpacer } from '@/components/index';
+import {
+    CurrentlyPlayingContextProvider,
+    Nav,
+    NavSpacer,
+} from '@/components/index';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import {
@@ -30,7 +34,12 @@ import {
     getCurrentlyPlayingTrack,
     getSpotifyProps,
 } from '../utils/spotify';
-import { AboutContent, getStrapiContent, GlobalContent, ProjectContent } from '../utils/strapi';
+import {
+    AboutContent,
+    getStrapiContent,
+    GlobalContent,
+    ProjectContent,
+} from '../utils/strapi';
 import { StrapiContentContextProvider } from '@/components/StrapiContextProvider';
 import { Projects } from '@/components/sections/projects';
 import qs from 'qs';
@@ -137,7 +146,7 @@ export default function Home({
     const darkMode = useDarkModeContext();
     const theme = darkMode === 'dark' ? darkMode : 'light';
     console.log(content);
-    if (content === undefined) return (<div>Hi! Somethings gone wrong</div>);
+    if (content === undefined) return <div>Hi! Somethings gone wrong</div>;
 
     //TODO: Better error handling here
     return (
@@ -154,9 +163,7 @@ export default function Home({
                         <title>Omari</title>
                         <link rel="icon" href="/favicon.ico" />
                     </Head>
-                    <div className="fixed top-[93vh] z-20 flex h-16 w-12 items-center justify-center text-xs">
-                        <DarkModeToggle />
-                    </div>
+
                     {loading ? (
                         <LoadingScreen onEnd={() => setLoading(false)} />
                     ) : (
@@ -181,14 +188,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const spotify = await getSpotifyProps();
     const query = qs.stringify(
         {
-          populate: ['*', 'desktopPreview', 'mobilePreview'],
+            populate: ['*', 'desktopPreview', 'mobilePreview'],
         },
         {
-          encodeValuesOnly: true, // prettify URL
+            encodeValuesOnly: true, // prettify URL
         }
-      );
+    );
     //TODO: How do I scale this up for more data
-    const about = await getStrapiContent<AboutContent>('about') || {};
-    const projects = await getStrapiContent<ProjectContent[]>('projects?' + query) || [];
-    return { props: { spotify, content: {about, projects}}};
+    const about = (await getStrapiContent<AboutContent>('about')) || {};
+    const projects =
+        (await getStrapiContent<ProjectContent[]>('projects?' + query)) || [];
+    return { props: { spotify, content: { about, projects } } };
 };

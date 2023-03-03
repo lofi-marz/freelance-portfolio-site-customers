@@ -20,12 +20,12 @@ export function DarkModeSpacer() {
 export function DarkModeToggle({ className }: { className?: string }) {
     const darkMode = useDarkModeContext();
     const setStoredMode = useSetStoredModeContext();
-
+    //TODO: The animation on hover is a little slow but it does work
     return (
         <motion.button
             layout
             className={clsx(
-                'flex aspect-[2/1] w-full rounded-full bg-dark-50 p-1',
+                'hover:themed-bg-invert hover:themed-text-invert flex flex-col items-center rounded transition-all duration-500 hover:aspect-[1/2]',
                 className,
                 darkMode === 'dark' ? 'justify-end' : 'justify-start'
             )}
@@ -40,7 +40,7 @@ export function DarkModeToggle({ className }: { className?: string }) {
 function DarkModeIcon({ dark }: { dark: boolean }) {
     return (
         <motion.div
-            className="flex aspect-square h-full flex-row items-center justify-center overflow-clip rounded-full bg-dark-50 p-1 text-dark-800"
+            className="flex aspect-square w-full flex-row items-center justify-center overflow-clip rounded-full p-1"
             layout>
             <AnimatePresence mode="wait">
                 <motion.div

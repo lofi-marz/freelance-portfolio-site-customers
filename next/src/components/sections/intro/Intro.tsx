@@ -1,4 +1,10 @@
-import { motion, useScroll, useTransform, Variants } from 'framer-motion';
+import {
+    AnimatePresence,
+    motion,
+    useScroll,
+    useTransform,
+    Variants,
+} from 'framer-motion';
 import clsx from 'clsx';
 import { title } from '../../../fonts';
 import { SocialsDesktop } from '@/components/sections/intro/Socials';
@@ -7,7 +13,9 @@ import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext
 import { FaCompactDisc } from 'react-icons/fa';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import { SlideInText } from '@/components/SlideInText';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import React from 'react';
+import { DarkModeToggle } from '@/components/DarkModeToggle';
 
 const ContainerVariants: Variants = {
     hidden: { opacity: 0, height: '100vh' },
@@ -56,6 +64,61 @@ function IntroText() {
     );
 }
 
+const trackVariants: Variants = {
+    hide: { opacity: 0, height: 0 },
+    show: { opacity: 1, height: 'auto' },
+};
+function CurrentlyPlaying() {
+    const currentlyPlaying = useCurrentlyPlayingContext()!;
+    const [trackShown, setTrackShown] = useState(false);
+    const showTrack = () => setTrackShown(true);
+    const hideTrack = () => setTrackShown(false);
+    return (
+        <motion.div
+            className="flex h-full w-full rotate-180 flex-row items-center justify-center gap-2"
+            style={{ writingMode: 'vertical-rl' }}
+            onHoverEnd={() => hideTrack()}
+            layout>
+            <motion.div
+                animate={{
+                    rotate: [0, 60, 120, 180, 240, 300, 360],
+                    opacity: [0.9, 1, 0.9, 1, 0.9, 0.9],
+                }}
+                transition={{
+                    repeat: Infinity,
+                    ease: 'linear',
+                    duration: 5,
+                }}
+                onHoverStart={() => showTrack()}
+                layout>
+                <FaCompactDisc />
+            </motion.div>
+            <AnimatePresence>
+                {trackShown && (
+                    <motion.div
+                        className="flex w-full flex-row items-center justify-center gap-2"
+                        key="currently-playing"
+                        variants={trackVariants}
+                        initial="hide"
+                        animate="show"
+                        exit="hide"
+                        layout>
+                        Currently Listening
+                        <a
+                            href={currentlyPlaying.item.external_urls.spotify}
+                            target="_blank"
+                            className="transition-all hover:text-primary hover:underline"
+                            rel="noreferrer">
+                            {currentlyPlaying.item.name}
+                        </a>
+                        ({currentlyPlaying.item.artists[0].name})
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.div>
+    );
+}
+
 export function Intro() {
     const target = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
@@ -79,35 +142,7 @@ export function Intro() {
                 exit="hidden"
                 variants={ContainerVariants}>
                 <SideSpacer>
-                    {currentlyPlaying && (
-                        <div
-                            className="flex rotate-180 flex-row items-center justify-center gap-2"
-                            style={{ writingMode: 'vertical-rl' }}>
-                            <motion.div
-                                animate={{
-                                    rotate: [0, 60, 120, 180, 240, 300, 360],
-                                    opacity: [0.9, 1, 0.9, 1, 0.9, 0.9],
-                                }}
-                                transition={{
-                                    repeat: Infinity,
-                                    ease: 'linear',
-                                    duration: 5,
-                                }}>
-                                <FaCompactDisc />
-                            </motion.div>
-                            Currently Listening
-                            <a
-                                href={
-                                    currentlyPlaying.item.external_urls.spotify
-                                }
-                                target="_blank"
-                                className="transition-all hover:text-primary hover:underline"
-                                rel="noreferrer">
-                                {currentlyPlaying.item.name}
-                            </a>
-                            ({currentlyPlaying.item.artists[0].name})
-                        </div>
-                    )}
+                    {currentlyPlaying && <CurrentlyPlaying />}
                 </SideSpacer>
                 <div className="flex h-full w-full flex-col items-start justify-start overflow-clip">
                     <motion.div
@@ -119,7 +154,9 @@ export function Intro() {
                         <IntroText />
                     </motion.div>
                 </div>
-                <SideSpacer></SideSpacer>
+                <SideSpacer>
+                    <DarkModeToggle />
+                </SideSpacer>
             </motion.div>
         </section>
     );
