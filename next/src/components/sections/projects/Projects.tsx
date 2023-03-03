@@ -9,6 +9,7 @@ import { ProjectContent } from 'utils/strapi';
 import { motion, Variants } from 'framer-motion';
 import { WithChildrenProps } from 'types';
 import { useMediaQuery } from 'hooks/useMediaQuery';
+import { NavSpacer } from '../..';
 
 type ProjectProps = ProjectContent['attributes'] & { odd?: boolean };
 
@@ -22,8 +23,9 @@ export function Projects() {
                 title.className
             )}
             id="projects">
+            <NavSpacer/>
             <h2 className="text-4xl lg:text-7xl font-bold">
-                stuff I&apos;ve made<div className="-mt-1 h-4 w-2/3 bg-primary"></div>
+                stuff I&apos;ve made<div className="-mt-4 h-4 w-2/3 bg-primary"></div>
             </h2>
             <ul className="flex w-full flex-col gap-32 p-6 lg:p-16">
                 {projects.map((p, i) => {
@@ -80,7 +82,7 @@ function MobileProject({
                 <Image src={'https://marimari.tech/cms' + desktopPreview.data.attributes.url} alt="" fill className="object-contain" />
             </div>
             <div className={clsx('flex w-full  flex-col gap-8 h-full')}>
-                <p className={clsx('text-xl whitespace-pre-line', text.className)}>
+                <p className={clsx('text-xl invertwhitespace-pre-line', text.className)}>
                     {brief}
                 </p>
                 <div className="flex flex-row text-xl font-bold">
@@ -116,15 +118,17 @@ function Project({
     return (
         <li
             className={clsx(
-                'flex items-start justify-between gap-16 h-96',
-                odd && 'flex-row-reverse'
+                'flex items-start justify-between gap-16 h-96 ',
+                odd ? 'flex-row' : 'flex-row-reverse'
             )}>
-            <ProjectHeader odd={odd}>{title}</ProjectHeader>
-            <div className={clsx('mt-16 flex w-[36rem]  flex-col gap-8 h-full  z-10', odd ? '-ml-32' : '-mr-32')}>
-                <p className={clsx('p-4 bg-primary text-xl whitespace-pre-line', text.className)}>
+            <div className="h-full relative flex items-center justify-center rounded overflow-visible w-[48rem]">
+                <Image src={'https://marimari.tech/cms' + desktopPreview.data.attributes.url} alt="" fill className="object-contain" />
+            </div>
+            <div className={clsx('mt-16 flex w-[36rem] flex-col gap-8 h-full', odd ? 'items-end -ml-48' : 'items-start -mr-48')}>
+                <p className={clsx('p-4 font-bold text-xl mix-blend-difference saturate-0 themed-text invert dark:invert-0 whitespace-pre-line', text.className)}>
                     {brief}
                 </p>
-                <div className="flex flex-row text-xl font-bold">
+                <div className="z-10 flex flex-row text-xl font-bold">
                     <a
                         className="themed-bg-invert themed-text-invert p-2 px-4"
                         href={repoLink}>
@@ -132,16 +136,14 @@ function Project({
                     </a>
                     {liveLink && (
                         <a
-                            className="themed-text bg-primary p-2 px-4"
+                            className=" themed-text bg-primary p-2 px-4"
                             href={liveLink}>
                             link
                         </a>
                     )}
                 </div>
             </div>
-            <div className="h-full relative flex items-center justify-center rounded overflow-visible w-[48rem]">
-                <Image src={'https://marimari.tech/cms' + desktopPreview.data.attributes.url} alt="" fill className="object-contain" />
-            </div>
+            <ProjectHeader odd={odd}>{title}</ProjectHeader>
         </li>
     );
 }

@@ -21,3 +21,7 @@ export function Nav() {
         </nav>
     );
 }
+
+export function NavSpacer() {
+    return (<div className="h-16"></div>)
+}

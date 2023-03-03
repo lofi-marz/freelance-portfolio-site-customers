@@ -22,7 +22,7 @@ import { FaAt, FaGithub, FaLinkedin } from 'react-icons/fa';
 import About from '@/components/sections/about/About';
 import { CallToAction } from '@/components/sections/intro/CallToAction';
 import { Intro } from '@/components/sections/intro';
-import { CurrentlyPlayingContextProvider, Nav } from '@/components/index';
+import { CurrentlyPlayingContextProvider, Nav, NavSpacer } from '@/components/index';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import {

@@ -7,6 +7,7 @@ import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext
 import { FaCompactDisc } from 'react-icons/fa';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import { SlideInText } from '@/components/SlideInText';
+import { useRef } from 'react';
 
 const ContainerVariants: Variants = {
     hidden: { opacity: 0, height: '100vh' },
@@ -56,18 +57,20 @@ function IntroText() {
 }
 
 export function Intro() {
-    const { scrollYProgress } = useScroll();
+    const target = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({target, offset: ['start start', 'end end']});
+    scrollYProgress.onChange((v) => console.log(v))
     const currentlyPlaying = useCurrentlyPlayingContext();
-    const height = useTransform(scrollYProgress, [0, 1], ['100vh', '30vh']);
-
+    const height = useTransform(scrollYProgress, [0, 1], ['100vh', '0vh']); //TODO:Figure this out
+    
     return (
         <section
             className={clsx(
                 'themed-bg sticky top-0 flex h-[150vh] w-full flex-col items-center justify-start overflow-clip',
                 title.className
-            )}>
+            )} ref={target}>
             <motion.div
-                className="themed-bg relative sticky top-0 flex h-screen w-full items-center justify-center overflow-clip py-16"
+                className="themed-bg sticky top-0 flex h-screen w-full items-center justify-center overflow-clip py-16"
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
