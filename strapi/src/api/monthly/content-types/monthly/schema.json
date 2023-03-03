@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "monthlies",
+  "info": {
+    "singularName": "monthly",
+    "pluralName": "monthlies",
+    "displayName": "Monthly"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "description": {
+      "type": "text"
+    },
+    "month": {
+      "type": "enumeration",
+      "enum": [
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+        "January"
+      ]
+    }
+  }
+}
