@@ -48,17 +48,17 @@ function IntroText() {
     const sm = useMediaQuery('sm');
     return (
         <motion.div className="themed-bg-invert themed-text-invert relative flex h-full w-full flex-grow items-center justify-start overflow-clip py-12">
-            <motion.div className="flex w-full flex-col items-start justify-center p-4 text-3xl font-medium sm:p-10 sm:text-5xl">
-                <motion.h1
+            <motion.div className="flex w-full flex-col items-start justify-center p-4 text-3xl font-bold sm:p-10 sm:text-4xl">
+                <motion.div
                     style={{ writingMode: sm ? 'inherit' : 'vertical-rl' }}
                     variants={IntroTextVariants}>
                     hi, I&apos;m omari
-                </motion.h1>
-                <motion.h2
+                </motion.div>
+                <motion.div
                     className="hidden text-primary md:block"
                     variants={IntroTextVariants}>
                     web developer + student
-                </motion.h2>
+                </motion.div>
             </motion.div>
         </motion.div>
     );

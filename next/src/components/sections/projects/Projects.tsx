@@ -19,7 +19,7 @@ export function Projects() {
     return (
         <section
             className={clsx(
-                'themed-bg themed-text absolute flex min-h-screen w-full flex-col items-center justify-center gap-4',
+                'themed-bg themed-text relative z-10 flex min-h-screen w-full flex-col items-center justify-center gap-4',
                 title.className
             )}
             id="projects">
@@ -119,7 +119,7 @@ function MobileProject({
             <div className={clsx('flex h-full  w-full flex-col gap-8')}>
                 <p
                     className={clsx(
-                        'invertwhitespace-pre-line text-xl',
+                        'whitespace-pre-line text-xl',
                         text.className
                     )}>
                     {brief}

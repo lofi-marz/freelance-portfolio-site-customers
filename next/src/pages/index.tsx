@@ -43,6 +43,7 @@ import {
 import { StrapiContentContextProvider } from '@/components/StrapiContextProvider';
 import { Projects } from '@/components/sections/projects';
 import qs from 'qs';
+import { Contact } from '@/components/sections/contact';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -175,6 +176,7 @@ export default function Home({
                                 <Intro />
                                 <About />
                                 <Projects />
+                                <Contact />
                             </motion.div>
                         </AnimatePresence>
                     )}

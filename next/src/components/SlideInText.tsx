@@ -4,10 +4,10 @@ import clsx from 'clsx';
 import { title } from '../fonts';
 
 const lineVariants: Variants = {
-    hidden: {
+    hide: {
         transition: { duration: 0.1 },
     },
-    visible: {
+    show: {
         transition: {
             staggerChildren: 0.1,
             ease: 'easeOut',
@@ -17,9 +17,10 @@ const lineVariants: Variants = {
     },
 };
 const charVariants = {
-    hidden: { y: '120%' },
-    visible: {
+    hide: { y: '120%', opacity: 0 },
+    show: {
         y: 0,
+        opacity: 1,
         transition: {
             ease: 'easeOut',
             bounce: 1,
@@ -32,31 +33,36 @@ function SlideInChar({ char }: { char: string }) {
     return <motion.div variants={charVariants}>{char}</motion.div>;
 }
 
+function SlideInWord({ word }: { word: string }) {
+    return (
+        <motion.div
+            className="themed-bg-invert flex flex-row whitespace-pre"
+            variants={lineVariants}
+            transition={{ staggerChildren: 1 }}>
+            {[...word].map((c, i) => (
+                <SlideInChar key={c + i} char={c} />
+            ))}
+        </motion.div>
+    );
+}
+
 //TODO: Add some sort of reusability to this
 export function SlideInText({
     children,
 }: WithChildrenProps): JSX.Element | null {
-    if (Array.isArray(children)) {
+    if (typeof children === 'string') {
+        const words = children.split(' ');
         return (
             <motion.div
-                className={clsx('flex flex-col gap-2', title.className)}
-                variants={lineVariants}
-                transition={{ staggerChildren: 1 }}>
-                {children.map((e) =>
-                    typeof e === 'string' ? (
-                        <motion.div
-                            key={e}
-                            className="flex flex-row overflow-clip"
-                            variants={lineVariants}
-                            transition={{ staggerChildren: 1 }}>
-                            {[...e].map((c, i) => (
-                                <SlideInChar key={c} char={c + i} />
-                            ))}
-                        </motion.div>
-                    ) : null
-                )}
+                className="flex flex-row flex-wrap items-center justify-center whitespace-pre"
+                variants={{ hide: {}, show: {} }}
+                transition={{ staggerChildren: 0.1 }}>
+                {words.map((w, i) => (
+                    <SlideInWord key={w + i} word={w + ' '} />
+                ))}
             </motion.div>
         );
     }
+
     return null;
 }
