@@ -20,7 +20,7 @@ export function Contact() {
             whileInView="show"
             transition={{ staggerChildren: 1 }}
             className={clsx(
-                'themed-bg-invert themed-text-invert relative z-30 flex h-screen w-full flex-col items-center justify-center p-12 text-6xl md:text-8xl lg:text-9xl',
+                'themed-bg-invert themed-text-invert relative z-30 flex h-screen w-full flex-col items-center justify-center overflow-clip p-12 text-6xl md:text-8xl lg:text-9xl',
                 title.className
             )}>
             <LinksRow links={firstHalf} />
@@ -44,7 +44,7 @@ function LinksRow({ links }: { links: [string, string][] }) {
     return (
         <motion.div
             variants={linksRowVariants}
-            className="flex w-full w-full flex-row justify-between text-sm font-bold uppercase">
+            className="flex w-full flex-row justify-between text-sm font-bold uppercase">
             {links.map(([text, url]) => (
                 <motion.a
                     variants={linkVariants}

@@ -10,16 +10,21 @@ import { motion, Variants } from 'framer-motion';
 import { WithChildrenProps } from 'types';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import { NavSpacer } from '../..';
+import { useState } from 'react';
 
-type ProjectProps = ProjectContent['attributes'] & { odd?: boolean };
+type ProjectProps = ProjectContent['attributes'] & {
+    odd?: boolean;
+};
 
 export function Projects() {
     const { projects } = useStrapiContentContext()!;
-    const desktop = useMediaQuery('lg');
+    const [current, setCurrent] = useState<number>(2);
+    console.log(projects);
+    const desktop = useMediaQuery('md');
     return (
         <section
             className={clsx(
-                'themed-bg themed-text relative z-10 flex min-h-screen w-full flex-col items-center justify-center gap-4',
+                'themed-bg themed-text relative z-10 flex min-h-screen w-full flex-col items-center justify-center gap-16 p-4 pt-0 md:p-16',
                 title.className
             )}
             id="projects">
@@ -28,23 +33,11 @@ export function Projects() {
                 stuff I&apos;ve made
                 <div className="-mt-4 h-4 w-2/3 bg-primary"></div>
             </h2>
-            <ul className="flex w-full flex-col gap-32 p-6 lg:p-16">
-                {projects.map((p, i) => {
-                    return !desktop ? (
-                        <MobileProject
-                            key={p.id}
-                            {...p.attributes}
-                            odd={i % 2 == 1}
-                        />
-                    ) : (
-                        <Project
-                            key={p.id}
-                            {...p.attributes}
-                            odd={i % 2 == 1}
-                        />
-                    );
-                })}
-            </ul>
+            <div className="flex h-full w-full flex-col gap-12">
+                {projects.map((p) => (
+                    <Project key={p.attributes.title} {...p.attributes} />
+                ))}
+            </div>
         </section>
     );
 }
@@ -66,20 +59,11 @@ function ProjectHeader({
     return (
         <div
             className={clsx(
-                'w-18 flex flex-col content-end items-start justify-center text-5xl font-bold lowercase',
+                'flex h-full w-16 flex-col content-end items-center justify-center text-xs font-bold uppercase',
                 !odd && 'rotate-180'
             )}
             style={{ writingMode: 'vertical-rl' }}>
             <h3 className="z-10">{children}</h3>
-            <div className="-z-5 -mr-3 h-2/3 w-4 bg-primary">
-                <motion.div
-                    className="h-full w-full bg-primary"
-                    variants={verticalUnderlineVariants}
-                    initial="hidden"
-                    whileInView="show"
-                    exit="hidden"
-                />
-            </div>
         </div>
     );
 }
@@ -180,10 +164,9 @@ function Project({
     return (
         <li
             className={clsx(
-                'flex h-96 items-start justify-between gap-16 ',
-                odd ? 'flex-row' : 'flex-row-reverse'
+                'relative flex h-auto w-full flex-row items-center justify-between gap-4 text-sm'
             )}>
-            <div className="relative flex h-full w-[48rem] items-center justify-center overflow-visible rounded">
+            <div className="relative aspect-[16/9] w-[90%] md:w-4/5">
                 <Image
                     src={
                         'https://marimari.tech/cms' +
@@ -191,24 +174,14 @@ function Project({
                     }
                     alt=""
                     fill
-                    className="object-contain"
+                    className="object-cover brightness-90 saturate-0 transition-all hover:brightness-100 hover:saturate-100"
                 />
             </div>
-            <div
-                className={clsx(
-                    'mt-16 flex h-full w-[36rem] flex-col gap-8',
-                    odd ? '-ml-48 items-end' : '-mr-48 items-start'
-                )}>
-                <p
-                    className={clsx(
-                        'themed-text whitespace-pre-line p-4 text-xl font-bold mix-blend-difference invert saturate-0 dark:invert-0',
-                        text.className
-                    )}>
-                    {brief}
-                </p>
-                <ProjectLinks />
+            <div className="absolute right-0 bottom-0 flex w-1/2 flex-row items-end justify-end">
+                <a className="relative w-full text-end text-3xl font-bold lowercase lg:text-8xl">
+                    <p className="text-primary">{title}</p>
+                </a>
             </div>
-            <ProjectHeader odd={odd}>{title}</ProjectHeader>
         </li>
     );
 }
