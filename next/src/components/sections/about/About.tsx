@@ -50,7 +50,7 @@ const charVariants = {
     hover: { color: '#e76f51', transition: { duration: 0.1 } },
     noHover: {
         color: '#00000000',
-        transition: { ease: 'easeOut', delay: 1, duration: 5 },
+        transition: { ease: 'easeOut', delay: 1, duration: 3 },
     },
 };
 

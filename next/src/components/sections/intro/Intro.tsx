@@ -65,7 +65,7 @@ function IntroText() {
 }
 
 const trackVariants: Variants = {
-    hide: { opacity: 0, height: 0 },
+    hide: { opacity: 0, height: 0, transition: { delay: 5 } },
     show: { opacity: 1, height: 'auto' },
 };
 function CurrentlyPlaying() {
@@ -73,11 +73,14 @@ function CurrentlyPlaying() {
     const [trackShown, setTrackShown] = useState(false);
     const showTrack = () => setTrackShown(true);
     const hideTrack = () => setTrackShown(false);
+    const isDesktop = useMediaQuery('md');
     return (
         <motion.div
             className="flex h-full w-full rotate-180 flex-row items-center justify-center gap-2"
             style={{ writingMode: 'vertical-rl' }}
             onHoverEnd={() => hideTrack()}
+            onTapStart={() => showTrack()}
+            onTap={(e) => hideTrack()}
             layout>
             <motion.div
                 animate={{
@@ -104,13 +107,19 @@ function CurrentlyPlaying() {
                         exit="hide"
                         layout>
                         Currently Listening
-                        <a
-                            href={currentlyPlaying.item.external_urls.spotify}
-                            target="_blank"
-                            className="transition-all hover:text-primary hover:underline"
-                            rel="noreferrer">
-                            {currentlyPlaying.item.name}
-                        </a>
+                        {isDesktop ? (
+                            <a
+                                href={
+                                    currentlyPlaying.item.external_urls.spotify
+                                }
+                                target="_blank"
+                                className="transition-all hover:text-primary hover:underline"
+                                rel="noreferrer">
+                                {currentlyPlaying.item.name}
+                            </a>
+                        ) : (
+                            currentlyPlaying.item.name
+                        )}
                         ({currentlyPlaying.item.artists[0].name})
                     </motion.div>
                 )}
