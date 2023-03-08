@@ -20,7 +20,7 @@ import {
 } from '@/components/sections/projects/variants';
 import { useRef } from 'react';
 
-type ProjectProps = ProjectContent['attributes'] & {
+export type ProjectProps = ProjectContent['attributes'] & {
     odd?: boolean;
     first?: boolean;
 };
