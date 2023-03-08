@@ -95,7 +95,7 @@ export function Project({
                         <FaLink />
                     </div>
                 </motion.div>
-                <motion.div className="relative flex aspect-[9/19] h-full items-center justify-center md:aspect-[16/9]">
+                <motion.div className="relative flex aspect-[9/19] h-full max-w-md items-center justify-center md:aspect-[16/9] md:max-w-none">
                     <Image
                         src={
                             'https://marimari.tech/cms' +

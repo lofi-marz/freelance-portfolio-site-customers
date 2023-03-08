@@ -47,7 +47,7 @@ type ProjectLinksProps = {
 };
 function ProjectLinks({ repoLink, liveLink }: ProjectLinksProps) {
     return (
-        <div className="z-10 flex flex-row text-xl font-bold">
+        <div className="f lex  z-10 flex-row text-xl font-bold">
             {repoLink && (
                 <a
                     className="themed-bg-invert themed-text-invert p-2 px-4"

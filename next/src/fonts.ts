@@ -6,7 +6,7 @@ import {
     PT_Sans,
     Rubik,
     Vollkorn,
-} from "next/font/google";
+} from 'next/font/google';
 
 export const title = IBM_Plex_Sans({
     subsets: ['latin'],
