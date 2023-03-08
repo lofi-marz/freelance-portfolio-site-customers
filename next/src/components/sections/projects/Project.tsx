@@ -91,8 +91,24 @@ export function Project({
                     {brief}
                     <div className="themed-bg my-4 h-[1px] w-full rounded opacity-90" />
                     <div className="flex flex-row gap-4">
-                        <FaGithub />
-                        <FaLink />
+                        {repoLink && (
+                            <a
+                                className="transition-all hover:text-primary"
+                                href={repoLink}
+                                target="_blank"
+                                rel="noreferrer">
+                                <FaGithub />
+                            </a>
+                        )}
+                        {liveLink && (
+                            <a
+                                className="transition-all hover:text-primary"
+                                href={liveLink}
+                                target="_blank"
+                                rel="noreferrer">
+                                <FaLink />
+                            </a>
+                        )}
                     </div>
                 </motion.div>
                 <motion.div className="relative flex aspect-[9/19] h-full max-w-md items-center justify-center md:aspect-[16/9] md:max-w-none">
@@ -158,13 +174,13 @@ function MobileProject({
                 </p>
                 <div className="flex flex-row text-xl font-bold">
                     <a
-                        className="themed-bg-invert themed-text-invert p-4"
+                        className="themed-bg-invert themed-text-invert p-4 transition-all hover:text-primary"
                         href={repoLink}>
                         <FaGithub />
                     </a>
                     {liveLink && (
                         <a
-                            className="themed-text bg-primary p-4"
+                            className="themed-text bg-primary p-4 transition-all hover:text-primary"
                             href={liveLink}>
                             <FaLink />
                         </a>
