@@ -1,7 +1,14 @@
 import clsx from 'clsx';
 import { title } from '../../../fonts';
 import { SlideInText } from '@/components/SlideInText';
-import { motion, Variants } from 'framer-motion';
+import {
+    motion,
+    useMotionValueEvent,
+    useScroll,
+    useTransform,
+    Variants,
+} from 'framer-motion';
+import { useRef } from 'react';
 
 export function Contact() {
     const links = {
@@ -12,6 +19,7 @@ export function Contact() {
         UpWork: 'https://www.upwork.com/freelancers/~019c194b11d5dfabbc',
         CV: 'Omari Thompson-Edwards CV.pdf',
     };
+
     const firstHalf = Object.entries(links).slice(0, 3);
     const secondHalf = Object.entries(links).slice(3);
     return (

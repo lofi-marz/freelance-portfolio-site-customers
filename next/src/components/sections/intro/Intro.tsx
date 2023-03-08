@@ -1,6 +1,7 @@
 import {
     AnimatePresence,
     motion,
+    useMotionValueEvent,
     useScroll,
     useTransform,
     Variants,
@@ -55,7 +56,7 @@ function IntroText() {
                     hi, I&apos;m omari
                 </motion.div>
                 <motion.div
-                    className="hidden text-primary md:block"
+                    className="hidden max-w-sm text-primary md:block"
                     variants={IntroTextVariants}>
                     web developer + student
                 </motion.div>
@@ -129,18 +130,20 @@ function CurrentlyPlaying() {
 }
 
 export function Intro() {
-    const target = useRef<HTMLElement>(null);
+    const target = useRef(null);
     const { scrollYProgress } = useScroll({
         target,
         offset: ['start start', 'end end'],
     });
     const currentlyPlaying = useCurrentlyPlayingContext();
-    const height = useTransform(scrollYProgress, [0, 1], ['100vh', '0vh']); //TODO:Figure this out
-
+    const width = useTransform(scrollYProgress, [0, 0.75], ['100%', '0%']); //TODO:Figure this out
+    useMotionValueEvent(width, 'change', (v) => {
+        console.log('Progress:', v);
+    });
     return (
         <section
             className={clsx(
-                'themed-bg sticky top-0 flex h-[150vh] w-full flex-col items-center justify-start overflow-clip',
+                'themed-bg sticky flex h-[200vh] w-full flex-col items-center justify-start overflow-clip',
                 title.className
             )}
             ref={target}>
@@ -157,9 +160,11 @@ export function Intro() {
                     <motion.div
                         className="flex h-screen w-full flex-row items-start justify-center shadow"
                         layout>
-                        <div className="relative flex h-full w-[100%] items-center justify-end bg-primary text-dark-50 md:w-[100%]">
+                        <motion.div
+                            className="relative flex h-full w-[100%] items-center justify-end bg-primary text-dark-50"
+                            style={{ width }}>
                             <SocialsDesktop />
-                        </div>
+                        </motion.div>
                         <IntroText />
                     </motion.div>
                 </div>
