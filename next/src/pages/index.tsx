@@ -187,7 +187,6 @@ export default function Home({
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const spotify = await getSpotifyProps();
     const query = qs.stringify(
         {
             populate: ['*', 'desktopPreview', 'mobilePreview'],
@@ -197,8 +196,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
         }
     );
     //TODO: How do I scale this up for more data
-    const about = (await getStrapiContent<AboutContent>('about')) || {};
-    const projects =
-        (await getStrapiContent<ProjectContent[]>('projects?' + query)) || [];
+    const [spotify, about = {}, projects = []] = await Promise.all([
+        getSpotifyProps(),
+        getStrapiContent<AboutContent>('about'),
+        getStrapiContent<ProjectContent[]>('projects?' + query),
+    ]);
+
     return { props: { spotify, content: { about, projects } } };
 };
