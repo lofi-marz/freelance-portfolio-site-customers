@@ -10,21 +10,16 @@ import { motion, Variants } from 'framer-motion';
 import { WithChildrenProps } from 'types';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import { NavSpacer } from '../..';
-import { useState } from 'react';
 
-type ProjectProps = ProjectContent['attributes'] & {
-    odd?: boolean;
-};
+type ProjectProps = ProjectContent['attributes'] & { odd?: boolean };
 
 export function Projects() {
     const { projects } = useStrapiContentContext()!;
-    const [current, setCurrent] = useState<number>(2);
-    console.log(projects);
-    const desktop = useMediaQuery('md');
+    const desktop = useMediaQuery('lg');
     return (
         <section
             className={clsx(
-                'themed-bg themed-text relative z-10 flex min-h-screen w-full flex-col items-center justify-center gap-16 p-4 pt-0 md:p-16',
+                'themed-bg themed-text relative z-10 flex min-h-screen w-full flex-col items-center justify-center gap-24',
                 title.className
             )}
             id="projects">
@@ -33,11 +28,11 @@ export function Projects() {
                 stuff I&apos;ve made
                 <div className="-mt-4 h-4 w-2/3 bg-primary"></div>
             </h2>
-            <div className="flex h-full w-full flex-col gap-12">
-                {projects.map((p) => (
-                    <Project key={p.attributes.title} {...p.attributes} />
+            <ul className="flex w-full flex-col gap-32 p-6 lg:p-16">
+                {projects.map((p, i) => (
+                    <Project key={p.id} {...p.attributes} odd={i % 2 == 1} />
                 ))}
-            </div>
+            </ul>
         </section>
     );
 }
@@ -59,11 +54,20 @@ function ProjectHeader({
     return (
         <div
             className={clsx(
-                'flex h-full w-16 flex-col content-end items-center justify-center text-xs font-bold uppercase',
+                'w-18 flex flex-col content-end items-start justify-center text-5xl font-bold lowercase',
                 !odd && 'rotate-180'
             )}
             style={{ writingMode: 'vertical-rl' }}>
             <h3 className="z-10">{children}</h3>
+            <div className="-z-5 -mr-3 h-2/3 w-4 bg-primary">
+                <motion.div
+                    className="h-full w-full bg-primary"
+                    variants={verticalUnderlineVariants}
+                    initial="hidden"
+                    whileInView="show"
+                    exit="hidden"
+                />
+            </div>
         </div>
     );
 }
@@ -160,28 +164,29 @@ function Project({
     mobilePreview,
     odd = false,
 }: ProjectProps) {
-    console.log(description);
+    console.log(mobilePreview.data.attributes.url);
+    const desktop = useMediaQuery('md');
     return (
         <li
             className={clsx(
-                'relative flex h-auto w-full flex-row items-center justify-between gap-4 text-sm'
+                'flex h-96 w-full items-start justify-between gap-16 ',
+                odd ? 'flex-row' : 'flex-row-reverse'
             )}>
-            <div className="relative aspect-[16/9] w-[90%] md:w-4/5">
+            <div className="relative flex aspect-[9/19] h-full items-center justify-center overflow-clip rounded md:aspect-[16/9]">
                 <Image
                     src={
                         'https://marimari.tech/cms' +
-                        desktopPreview.data.attributes.url
+                        (desktop
+                            ? desktopPreview.data.attributes.url
+                            : mobilePreview.data.attributes.url)
                     }
                     alt=""
                     fill
-                    className="object-cover brightness-90 saturate-0 transition-all hover:brightness-100 hover:saturate-100"
+                    className="object-cover"
                 />
             </div>
-            <div className="absolute right-0 bottom-0 flex w-1/2 flex-row items-end justify-end">
-                <a className="relative w-full text-end text-3xl font-bold lowercase lg:text-8xl">
-                    <p className="text-primary">{title}</p>
-                </a>
-            </div>
+
+            <ProjectHeader odd={odd}>{title}</ProjectHeader>
         </li>
     );
 }
