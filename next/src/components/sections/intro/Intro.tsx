@@ -17,6 +17,7 @@ import { SlideInText } from '@/components/SlideInText';
 import { useRef, useState } from 'react';
 import React from 'react';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
+import { TARGET_AUDIENCE } from '../../../env';
 
 const ContainerVariants: Variants = {
     hidden: { opacity: 0, height: '100vh' },
@@ -45,8 +46,14 @@ function SideSpacer({ children }: Partial<WithChildrenProps>) {
     );
 }
 
+const subtitle =
+    TARGET_AUDIENCE === 'freelance'
+        ? 'nottingham-based web development'
+        : 'web developer + student';
+
 function IntroText() {
     const sm = useMediaQuery('sm');
+
     return (
         <motion.div className="themed-bg-invert themed-text-invert relative flex h-full w-full flex-grow items-center justify-start overflow-clip py-12">
             <motion.div className="flex w-full flex-col items-start justify-center p-4 text-3xl font-bold sm:p-10 sm:text-4xl">
@@ -58,7 +65,7 @@ function IntroText() {
                 <motion.div
                     className="hidden max-w-sm text-primary md:block"
                     variants={IntroTextVariants}>
-                    web developer + student
+                    {subtitle}
                 </motion.div>
             </motion.div>
         </motion.div>
@@ -143,16 +150,16 @@ export function Intro() {
     return (
         <section
             className={clsx(
-                'themed-bg sticky flex h-[200vh] w-full flex-col items-center justify-start overflow-clip',
+                'themed-bg sticky top-0 flex h-[100vh] w-full flex-col items-center justify-start overflow-clip',
                 title.className
-            )}
-            ref={target}>
+            )}>
             <motion.div
                 className="themed-bg sticky top-0 flex h-screen w-full items-center justify-center overflow-clip py-16"
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                variants={ContainerVariants}>
+                variants={ContainerVariants}
+                ref={target}>
                 <SideSpacer>
                     {currentlyPlaying && <CurrentlyPlaying />}
                 </SideSpacer>
@@ -160,9 +167,7 @@ export function Intro() {
                     <motion.div
                         className="flex h-screen w-full flex-row items-start justify-center shadow"
                         layout>
-                        <motion.div
-                            className="relative flex h-full w-[100%] items-center justify-end bg-primary text-dark-50"
-                            style={{ width }}>
+                        <motion.div className="relative flex h-full w-[100%] items-center justify-end bg-primary text-dark-50">
                             <SocialsDesktop />
                         </motion.div>
                         <IntroText />
