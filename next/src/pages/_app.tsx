@@ -7,7 +7,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     return (
         <DarkModeContextProvider>
             <Head>
-                <title>Omari</title>
+                <title>Omari Thompson-Edwards</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Component {...pageProps} />
