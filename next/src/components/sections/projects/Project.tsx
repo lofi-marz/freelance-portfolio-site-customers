@@ -63,10 +63,6 @@ export function Project({
         offset: ['start end', 'end start'],
     });
 
-    useMotionValueEvent(scrollYProgress, 'change', (latestValue) => {
-        console.log(title, latestValue);
-    });
-
     const previewParallax = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
     const textParallax = useTransform(scrollYProgress, [0, 1], [450, -450]);

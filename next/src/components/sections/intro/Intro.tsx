@@ -165,7 +165,7 @@ export function Intro() {
                 </SideSpacer>
                 <div className="flex h-full w-full flex-col items-start justify-start overflow-clip">
                     <motion.div
-                        className="flex h-screen w-full flex-row items-start justify-center shadow"
+                        className="flex-ro Iw flex h-screen w-full items-start justify-center shadow"
                         layout>
                         <motion.div className="relative flex h-full w-[100%] items-center justify-end bg-primary text-dark-50">
                             <SocialsDesktop />
