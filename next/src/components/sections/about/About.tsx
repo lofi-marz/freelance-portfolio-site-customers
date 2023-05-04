@@ -7,7 +7,6 @@ import { WithChildrenProps } from '../../../types';
 import { motion, Variants } from 'framer-motion';
 
 export default function About() {
-    const { about } = useStrapiContentContext()!;
     return (
         <section
             id="about"
@@ -15,9 +14,15 @@ export default function About() {
                 'themed-text themed-bg relative flex h-screen w-full flex-col items-center justify-center gap-8',
                 title.className
             )}>
-            <p className="whitespace-pre-line p-6 text-center text-3xl font-medium sm:text-4xl md:text-4xl  lg:p-12 lg:text-5xl">
-                <HighlightText>{about.attributes.aboutText}</HighlightText>
-            </p>
+            <div className="whitespace-pre-line p-6 text-center text-3xl font-medium sm:text-4xl md:text-4xl  lg:p-12 lg:text-5xl">
+                <HighlightText>
+                    Hi, I&apos;m Omari! I&apos;m a Web Developer from England,
+                    currently studying in Nottingham. I like making fun,
+                    creative things with code. Creating new experiences,
+                    implementing eye pleasing designs, and bringing them to life
+                    with eye-catching animations is what I do best.
+                </HighlightText>
+            </div>
             <CallToAction />
         </section>
     );

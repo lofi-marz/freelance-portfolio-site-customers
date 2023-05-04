@@ -144,9 +144,7 @@ export function Intro() {
     });
     const currentlyPlaying = useCurrentlyPlayingContext();
     const width = useTransform(scrollYProgress, [0, 0.75], ['100%', '0%']); //TODO:Figure this out
-    useMotionValueEvent(width, 'change', (v) => {
-        console.log('Progress:', v);
-    });
+
     return (
         <section
             className={clsx(

@@ -11,6 +11,10 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
+            fontFamily: {
+                title: ['var(--font-title)', ...defaultTheme.fontFamily.sans],
+                body: ['var(--font-body)', ...defaultTheme.fontFamily.sans],
+            },
             colors: {
                 primary: '#e76f51',
                 secondary: colors.orange[500],

@@ -146,7 +146,6 @@ export default function Home({
     useEffect(() => console.log('Loading:', loading), [loading]);
     const darkMode = useDarkModeContext();
     const theme = darkMode === 'dark' ? darkMode : 'light';
-    console.log(content);
     if (content === undefined) return <div>Hi! Somethings gone wrong</div>;
 
     //TODO: Better error handling here
@@ -165,21 +164,17 @@ export default function Home({
                         <link rel="icon" href="/favicon.ico" />
                     </Head>
 
-                    {loading ? (
-                        <LoadingScreen onEnd={() => setLoading(false)} />
-                    ) : (
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={theme + 'content'}
-                                className="themed-bg themed-text w-full">
-                                <Nav />
-                                <Intro />
-                                <About />
-                                <Projects />
-                                <Contact />
-                            </motion.div>
-                        </AnimatePresence>
-                    )}
+                    <LoadingScreen onEnd={() => setLoading(false)} />
+
+                    <motion.div
+                        key={theme + 'content'}
+                        className="themed-bg themed-text w-full">
+                        <Nav />
+                        <Intro />
+                        <About />
+                        <Projects />
+                        <Contact />
+                    </motion.div>
                 </motion.div>
             </CurrentlyPlayingContextProvider>
         </StrapiContentContextProvider>

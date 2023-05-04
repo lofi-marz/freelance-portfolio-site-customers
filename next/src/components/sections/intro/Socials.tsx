@@ -27,7 +27,6 @@ function Arrow() {
 export function SocialsDesktop() {
     const [selectedSocial, setSelectedSocial] = useState<number | null>(null);
     const onEnter = (index: number | null) => {
-        console.log(index);
         setSelectedSocial(index);
     };
 
