@@ -55,7 +55,6 @@ export function Project({
     odd = false,
     first = false,
 }: ProjectProps) {
-    console.log(mobilePreview.data.attributes.url);
     const desktop = useMediaQuery('md');
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -120,7 +119,7 @@ export function Project({
                         className="z-10 object-cover shadow brightness-75 "
                     />
                     <motion.div
-                        className="absolute mt-8 ml-8 h-full w-full bg-primary brightness-75"
+                        className="absolute ml-8 mt-8 h-full w-full bg-primary brightness-75"
                         style={{ y: previewParallax }}
                     />
                 </motion.div>

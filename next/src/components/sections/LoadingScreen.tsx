@@ -41,7 +41,14 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
             <motion.div
                 className="themed-bg flex w-full items-center justify-center overflow-hidden"
                 variants={topRectVariants}>
-                hey.
+                <motion.h1
+                    className="text-8xl"
+                    animate={{
+                        rotate: [-10, 10, -10, 10, 10],
+                        scale: [0.9, 1.1, 1.1, 1.1, 1],
+                    }}>
+                    👋
+                </motion.h1>
             </motion.div>
             <motion.div
                 className="w-full bg-primary"
