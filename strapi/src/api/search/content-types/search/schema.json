@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "searches",
+  "info": {
+    "singularName": "search",
+    "pluralName": "searches",
+    "displayName": "Search",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "search": {
+      "type": "text",
+      "required": true
+    }
+  }
+}
