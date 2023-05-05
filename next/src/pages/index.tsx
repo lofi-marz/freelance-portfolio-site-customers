@@ -14,7 +14,7 @@ import { LoadingScreen } from '@/components/sections/LoadingScreen';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
 import { useDarkModeContext } from '@/components/DarkModeContextProvider';
 import { SlideInText } from '@/components/SlideInText';
-import { text, title } from '../fonts';
+import { body, title } from '../fonts';
 import { SocialsDesktop } from '@/components/sections/intro/Socials';
 import { IoMdLeaf } from 'react-icons/io';
 import { FaArrowDown, FaInstagram } from 'react-icons/fa';
@@ -156,7 +156,9 @@ export default function Home({
                 <motion.div
                     className={clsx(
                         'relative flex min-h-screen w-full flex-col items-center justify-center shadow ',
-                        theme
+                        theme,
+                        title.variable,
+                        body.variable
                     )}
                     id="home">
                     <Head>

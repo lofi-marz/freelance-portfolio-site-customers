@@ -11,7 +11,6 @@ import {
     useTransform,
     Variants,
 } from 'framer-motion';
-import { text } from '../../../fonts';
 import { FaGithub, FaLink } from 'react-icons/fa';
 import {
     projectTitleVariants,
@@ -58,8 +57,7 @@ const ProjectPreviewVariants = {
 };
 
 export type ProjectProps = ProjectContent['attributes'] & {
-    odd?: boolean;
-    first?: boolean;
+    onView: () => void;
 };
 
 function ProjectsHeading() {
@@ -89,8 +87,7 @@ export function Project({
     brief,
     desktopPreview,
     mobilePreview,
-    odd = false,
-    first = false,
+    onView,
 }: ProjectProps) {
     const [colourIndex, setColourIndex] = useState(0);
     useEffect(() => {
@@ -103,141 +100,22 @@ export function Project({
     return (
         <motion.div
             className={clsx(
-                'relative aspect-[16/10] w-auto w-full overflow-clip rounded p-2',
-                colour
+                'relative flex h-screen w-full flex-row items-center justify-between'
             )}
             initial="initial"
             whileHover="hover"
+            onViewportEnter={() => onView()}
+            viewport={{ margin: '-50%' }}
             transition={{ staggerChildren: 0.1 }}>
-            <motion.div
-                className="absolute left-0 top-0 flex h-full w-full items-center justify-center overflow-clip rounded"
-                variants={ProjectPreviewVariants}>
-                <Image
-                    src={
-                        'https://marimari.tech/cms' +
-                        desktopPreview.data.attributes.url
-                    }
-                    alt=""
-                    fill
-                    className="object-cover"
-                />
-            </motion.div>
-            <motion.div
-                key="title"
-                className={clsx(
-                    'absolute left-0 m-5 h-fit text-4xl',
-                    colour === 'themed-bg-invert' && 'themed-text-invert'
-                )}
-                variants={NoHoverTitleVariants}
-                transition={{ ease: 'easeInOut', duration: 0.5 }}
-                layout>
-                {title}
-            </motion.div>
-
-            <motion.div
-                key="hover-title"
-                className="absolute left-0 flex flex-row p-5 text-9xl mix-blend-difference"
-                variants={HoverTitleVariants}
-                transition={{ ease: 'easeInOut', duration: 0.5 }}
-                layout>
-                <motion.div
-                    className="relative flex flex-row"
-                    variants={ScrollingTextVariants}>
-                    <span className="absolute right-[100%] whitespace-nowrap px-4">
-                        {title}
-                    </span>
-                    <span className="whitespace-nowrap px-4">{title}</span>
-                    <span className="absolute left-[100%] whitespace-nowrap px-4">
-                        {title}
-                    </span>
-                </motion.div>
-            </motion.div>
-        </motion.div>
-    );
-}
-
-export function OldProject({
-    title,
-    description,
-    repoLink,
-    liveLink,
-    brief,
-    desktopPreview,
-    mobilePreview,
-    odd = false,
-    first = false,
-}: ProjectProps) {
-    const desktop = useMediaQuery('md');
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ['start end', 'end start'],
-    });
-
-    const previewParallax = useTransform(scrollYProgress, [0, 1], [50, -50]);
-
-    const textParallax = useTransform(scrollYProgress, [0, 1], [450, -450]);
-    return (
-        <li
-            className={clsx(
-                'relative flex h-screen w-full flex-col items-center justify-center gap-32'
-            )}
-            ref={ref}>
-            {first && <ProjectsHeading />}
-            <div
-                className={clsx(
-                    'flex h-96 w-full items-center justify-end gap-16',
-                    odd ? 'flex-row' : 'flex-row-reverse'
-                )}>
-                <motion.div
-                    className={clsx(
-                        'themed-bg-invert themed-text-invert absolute z-50 w-1/2 p-8',
-                        odd ? 'left-0' : 'right-0'
-                    )}
-                    style={{ y: textParallax }}>
-                    {brief}
-                    <div className="themed-bg my-4 h-[1px] w-full rounded opacity-90" />
-                    <div className="flex flex-row gap-4">
-                        {repoLink && (
-                            <a
-                                className="transition-all hover:text-primary"
-                                href={repoLink}
-                                target="_blank"
-                                rel="noreferrer">
-                                <FaGithub />
-                            </a>
-                        )}
-                        {liveLink && (
-                            <a
-                                className="transition-all hover:text-primary"
-                                href={liveLink}
-                                target="_blank"
-                                rel="noreferrer">
-                                <FaLink />
-                            </a>
-                        )}
-                    </div>
-                </motion.div>
-                <motion.div className="relative flex aspect-[9/19] h-full max-w-md items-center justify-center md:aspect-[16/9] md:max-w-none">
-                    <Image
-                        src={
-                            'https://marimari.tech/cms' +
-                            (desktop
-                                ? desktopPreview.data.attributes.url
-                                : mobilePreview.data.attributes.url)
-                        }
-                        alt=""
-                        fill
-                        className="z-10 object-cover shadow brightness-75 "
-                    />
-                    <motion.div
-                        className="absolute ml-8 mt-8 h-full w-full bg-primary brightness-75"
-                        style={{ y: previewParallax }}
-                    />
-                </motion.div>
-                <ProjectHeader odd={odd}>{title}</ProjectHeader>
+            <div className="justify-baseline flex w-full flex-col items-start gap-12">
+                <h3 className="w-2/3 text-8xl font-bold">{title}</h3>
+                <div className="flex flex-row items-center justify-center rounded text-2xl">
+                    <a className="themed-bg-invert themed-text-invert flex flex-row items-center justify-center gap-2 rounded p-2 px-4">
+                        <FaLink /> Link
+                    </a>
+                </div>
             </div>
-        </li>
+        </motion.div>
     );
 }
 
@@ -249,7 +127,6 @@ function MobileProject({
     brief,
     desktopPreview,
     mobilePreview,
-    odd = false,
 }: ProjectProps) {
     return (
         <li

@@ -13,7 +13,7 @@ export const title = IBM_Plex_Sans({
     weight: ['500', '600', '700'],
     variable: '--font-title',
 });
-export const text = Inter({
+export const body = Inter({
     subsets: ['latin'],
     variable: '--font-body',
 });
