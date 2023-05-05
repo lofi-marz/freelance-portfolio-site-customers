@@ -16,7 +16,7 @@ const bottomRectVariants: Variants = {
     visible: { height: '10vh' },
     hidden: {
         height: '0vh',
-        transition: { duration: 1, delay: 1, ease: 'easeOut' },
+        transition: { duration: 2.5, delay: 1, ease: 'easeInOut' },
     },
 };
 
@@ -31,18 +31,17 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
 
     return (
         <motion.div
-            className="themed-text fixed top-0 z-50 flex min-h-screen w-screen flex-col items-center justify-start overflow-hidden font-title text-3xl font-bold"
+            className="themed-text fixed top-0 z-50 w-screen flex-col items-center justify-start overflow-hidden font-title text-8xl font-bold"
             initial="visible"
             animate={controls}
             layoutId="intro-section"
             variants={{ visible: {}, hidden: {} }}
-            transition={{ delay: 1 }}
+            transition={{ delay: 1, delayChildren: 1 }}
             style={{ originY: 0 }}>
             <motion.div
                 className="themed-bg flex w-full items-center justify-center overflow-hidden"
                 variants={topRectVariants}>
                 <motion.h1
-                    className="text-8xl"
                     animate={{
                         rotate: [-10, 10, -10, 10, 10],
                         scale: [0.9, 1.1, 1.1, 1.1, 1],
