@@ -18,7 +18,44 @@ import {
     underlineVariants,
     verticalUnderlineVariants,
 } from '@/components/sections/projects/variants';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+const NoHoverTitleVariants: Variants = {
+    initial: { bottom: 0, top: 'auto' },
+    hover: { top: '100%' },
+};
+
+const HoverTitleVariants: Variants = {
+    initial: { top: '100%', bottom: 'auto', transition: { delayChildren: 1 } },
+    hover: { bottom: 0, top: 'auto' },
+};
+
+const ScrollingTextVariants: Variants = {
+    initial: { x: '0%', transition: { ease: 'easeOut', duration: 10 } },
+    hover: {
+        x: '100%',
+        transition: {
+            repeat: Infinity,
+            ease: 'linear',
+            duration: 5,
+        },
+    },
+};
+
+const ProjectPreviewVariants = {
+    initial: {
+        x: '-100%',
+        transition: {
+            ease: 'easeOut',
+            duration: 2,
+            bounce: 0,
+        },
+    },
+    hover: {
+        x: 0,
+        transition: { ease: 'easeOut', duration: 1.5, bounce: 0 },
+    },
+};
 
 export type ProjectProps = ProjectContent['attributes'] & {
     odd?: boolean;
@@ -45,6 +82,81 @@ function ProjectsHeading() {
 }
 
 export function Project({
+    title,
+    description,
+    repoLink,
+    liveLink,
+    brief,
+    desktopPreview,
+    mobilePreview,
+    odd = false,
+    first = false,
+}: ProjectProps) {
+    const [colourIndex, setColourIndex] = useState(0);
+    useEffect(() => {
+        setColourIndex(Math.floor(Math.random() * 3));
+    }, []);
+    const colour = ['bg-primary', 'bg-secondary', 'themed-bg-invert'][
+        colourIndex
+    ];
+
+    return (
+        <motion.div
+            className={clsx(
+                'relative aspect-[16/10] w-auto w-full overflow-clip rounded p-2',
+                colour
+            )}
+            initial="initial"
+            whileHover="hover"
+            transition={{ staggerChildren: 0.1 }}>
+            <motion.div
+                className="absolute left-0 top-0 flex h-full w-full items-center justify-center overflow-clip rounded"
+                variants={ProjectPreviewVariants}>
+                <Image
+                    src={
+                        'https://marimari.tech/cms' +
+                        desktopPreview.data.attributes.url
+                    }
+                    alt=""
+                    fill
+                    className="object-cover"
+                />
+            </motion.div>
+            <motion.div
+                key="title"
+                className={clsx(
+                    'absolute left-0 m-5 h-fit text-4xl',
+                    colour === 'themed-bg-invert' && 'themed-text-invert'
+                )}
+                variants={NoHoverTitleVariants}
+                transition={{ ease: 'easeInOut', duration: 0.5 }}
+                layout>
+                {title}
+            </motion.div>
+
+            <motion.div
+                key="hover-title"
+                className="absolute left-0 flex flex-row p-5 text-9xl mix-blend-difference"
+                variants={HoverTitleVariants}
+                transition={{ ease: 'easeInOut', duration: 0.5 }}
+                layout>
+                <motion.div
+                    className="relative flex flex-row"
+                    variants={ScrollingTextVariants}>
+                    <span className="absolute right-[100%] whitespace-nowrap px-4">
+                        {title}
+                    </span>
+                    <span className="whitespace-nowrap px-4">{title}</span>
+                    <span className="absolute left-[100%] whitespace-nowrap px-4">
+                        {title}
+                    </span>
+                </motion.div>
+            </motion.div>
+        </motion.div>
+    );
+}
+
+export function OldProject({
     title,
     description,
     repoLink,

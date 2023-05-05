@@ -1,6 +1,7 @@
 import {
     AnimatePresence,
     motion,
+    useMotionValue,
     useMotionValueEvent,
     useScroll,
     useTransform,
@@ -11,21 +12,22 @@ import { title } from '../../../fonts';
 import { SocialsDesktop } from '@/components/sections/intro/Socials';
 import { WithChildrenProps } from '../../../types';
 import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext';
-import { FaCompactDisc } from 'react-icons/fa';
+import { FaArrowDown, FaChevronDown, FaCompactDisc } from 'react-icons/fa';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import { SlideInText } from '@/components/SlideInText';
 import { useRef, useState } from 'react';
 import React from 'react';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
 import { TARGET_AUDIENCE } from '../../../env';
+import { setState } from 'jest-circus';
 
 const ContainerVariants: Variants = {
-    hidden: { opacity: 0, height: '100vh' },
-    visible: {
+    hide: { opacity: 0, height: '100vh' },
+    show: {
         opacity: 1,
         height: '100vh',
         transition: {
-            ease: 'circOut',
+            ease: 'easeOut',
             delayChildren: 0.5,
             staggerChildren: 1,
         },
@@ -33,9 +35,17 @@ const ContainerVariants: Variants = {
     exit: { opacity: 0 },
 };
 
+const SubtitleVariants: Variants = {
+    hide: {
+        opacity: 0,
+        y: -10,
+    },
+    show: { opacity: 1, y: 0, transition: { ease: 'easeOut' } },
+};
+
 const IntroTextVariants: Variants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0 },
+    hide: { opacity: 0, transition: { duration: 0.5 } },
+    show: { opacity: 1, transition: { duration: 1 } },
 };
 
 function SideSpacer({ children }: Partial<WithChildrenProps>) {
@@ -48,7 +58,7 @@ function SideSpacer({ children }: Partial<WithChildrenProps>) {
 
 const subtitle =
     TARGET_AUDIENCE === 'freelance'
-        ? 'nottingham-based web development'
+        ? 'freelance developer'
         : 'web developer + student';
 
 function IntroText() {
@@ -63,7 +73,7 @@ function IntroText() {
                     hi, I&apos;m omari
                 </motion.div>
                 <motion.div
-                    className="hidden max-w-sm text-primary md:block"
+                    className="hide max-w-sm text-primary md:block"
                     variants={IntroTextVariants}>
                     {subtitle}
                 </motion.div>
@@ -136,6 +146,8 @@ function CurrentlyPlaying() {
     );
 }
 
+const lines = ["Hi, I'm Omari.", 'I create creative experiences with code.'];
+
 export function Intro() {
     const target = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -143,38 +155,56 @@ export function Intro() {
         offset: ['start start', 'end end'],
     });
     const currentlyPlaying = useCurrentlyPlayingContext();
-    const width = useTransform(scrollYProgress, [0, 0.75], ['100%', '0%']); //TODO:Figure this out
+    useMotionValueEvent(scrollYProgress, 'change', (v) => {
+        if (v < 0.3 && lineI !== 0) {
+            setLineI(0);
+        } else if (v >= 0.3 && lineI !== 1) {
+            setLineI(1);
+        }
+    });
+
+    //There has got to be a better way of doing this
+    const [lineI, setLineI] = useState(0);
 
     return (
         <section
             className={clsx(
-                'themed-bg sticky top-0 flex h-[100vh] w-full flex-col items-center justify-start overflow-clip',
+                'themed-bg relative flex h-[250vh] w-full flex-col items-center justify-start overflow-clip',
                 title.className
-            )}>
-            <motion.div
-                className="themed-bg sticky top-0 flex h-screen w-full items-center justify-center overflow-clip py-16"
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                variants={ContainerVariants}
-                ref={target}>
-                <SideSpacer>
-                    {currentlyPlaying && <CurrentlyPlaying />}
-                </SideSpacer>
-                <div className="flex h-full w-full flex-col items-start justify-start overflow-clip">
-                    <motion.div
-                        className="flex-ro Iw flex h-screen w-full items-start justify-center shadow"
-                        layout>
-                        <motion.div className="relative flex h-full w-[100%] items-center justify-end bg-primary text-dark-50">
-                            <SocialsDesktop />
+            )}
+            ref={target}>
+            <AnimatePresence mode="wait">
+                <motion.header
+                    key={lineI}
+                    layout
+                    className={clsx(
+                        'top-0 flex h-screen w-full flex-col items-center justify-center gap-6 p-12 text-center text-6xl font-bold md:text-7xl',
+                        lineI === 0 ? 'sticky' : 'fixed'
+                    )}
+                    initial="hide"
+                    animate="show"
+                    exit="hide"
+                    transition={{ staggerChildren: 0.5, staggerDirection: 1 }}>
+                    <SlideInText className="z-10 md:max-w-screen-lg">
+                        {lines[lineI]}
+                    </SlideInText>
+                    {lineI === 0 && (
+                        <motion.div
+                            className="text-xl uppercase text-primary"
+                            variants={SubtitleVariants}>
+                            {subtitle}
                         </motion.div>
-                        <IntroText />
-                    </motion.div>
-                </div>
-                <SideSpacer>
-                    <DarkModeToggle />
-                </SideSpacer>
-            </motion.div>
+                    )}
+                    <div className="absolute left-0 top-0 flex h-full w-12 flex-col items-center justify-end gap-4 py-12 text-base font-normal">
+                        <div
+                            className="rotate-180"
+                            style={{ writingMode: 'vertical-lr' }}>
+                            Scroll
+                        </div>
+                        <FaArrowDown />
+                    </div>
+                </motion.header>
+            </AnimatePresence>
         </section>
     );
 }

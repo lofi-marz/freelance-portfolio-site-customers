@@ -5,16 +5,19 @@ import { CallToAction } from '@/components/sections/intro/CallToAction';
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
 import { WithChildrenProps } from '../../../types';
 import { motion, Variants } from 'framer-motion';
+import theme from '../../../../tailwind.config';
+
+const primary = theme.theme.extend.colors.primary;
 
 export default function About() {
     return (
         <section
             id="about"
             className={clsx(
-                'themed-text themed-bg relative flex h-screen w-full flex-col items-center justify-center gap-8',
+                'themed-text-invert themed-bg-invert relative flex h-screen w-full flex-col items-center justify-center gap-8',
                 title.className
             )}>
-            <div className="whitespace-pre-line p-6 text-center text-3xl font-medium sm:text-4xl md:text-4xl  lg:p-12 lg:text-5xl">
+            <div className="whitespace-pre-line p-6 text-center text-3xl font-medium sm:text-4xl md:text-4xl lg:p-12 lg:text-5xl">
                 <HighlightText>
                     Hi, I&apos;m Omari! I&apos;m a Web Developer from England,
                     currently studying in Nottingham. I like making fun,
@@ -52,7 +55,10 @@ const charVariants = {
             duration: 1,
         },
     },
-    hover: { color: '#e76f51', transition: { duration: 0.1 } },
+    hover: {
+        color: primary,
+        transition: { duration: 0.1 },
+    },
     noHover: {
         color: '#00000000',
         transition: { ease: 'easeOut', delay: 1, duration: 3 },

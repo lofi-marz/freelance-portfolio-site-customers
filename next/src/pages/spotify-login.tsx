@@ -17,10 +17,9 @@ export default function SpotifyLogin({
     authLink: string;
     token?: SpotifyToken;
 }) {
- 
     return (
-        <div className="flex h-screen w-full items-center justify-center bg-dark-900">
-            <div className="prose prose-invert flex flex-col items-center justify-center bg-dark-900">
+        <div className="flex h-screen w-full items-center justify-center bg-dark-950">
+            <div className="prose prose-invert flex flex-col items-center justify-center bg-dark-950">
                 <p>
                     I&apos;m just using this page to get my spotify token. If
                     you&apos;re here, hi!
@@ -31,8 +30,6 @@ export default function SpotifyLogin({
         </div>
     );
 }
-
-
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     //TODO: Make this store in/pull the token from strapi

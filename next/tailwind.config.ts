@@ -1,9 +1,11 @@
-const colors = require('tailwindcss/colors');
-const defaultTheme = require('tailwindcss/defaultTheme');
-const plugin = require('tailwindcss/plugin');
+import type { Config } from 'tailwindcss';
 
-/** @type {import("tailwindcss").Config} */
-module.exports = {
+import colors from 'tailwindcss/colors';
+
+import defaultTheme from 'tailwindcss/defaultTheme';
+import typography from '@tailwindcss/typography';
+
+const theme = {
     content: [
         './src/pages/**/*.{js,ts,jsx,tsx}',
         './src/components/**/*.{js,ts,jsx,tsx}',
@@ -16,11 +18,14 @@ module.exports = {
                 body: ['var(--font-body)', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: '#e76f51',
-                secondary: colors.orange[500],
-                dark: colors.stone,
+                primary: colors.red[400],
+                secondary: colors.orange[400],
+                dark: colors.neutral,
             },
         },
     },
-    plugins: [require('@tailwindcss/typography')],
-};
+    plugins: [],
+} satisfies Config;
+
+export default theme;
+

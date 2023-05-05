@@ -10,7 +10,7 @@ import {
 
 export const title = IBM_Plex_Sans({
     subsets: ['latin'],
-    weight: ['100', '200', '300', '400', '500', '600', '700'],
+    weight: ['500', '600', '700'],
     variable: '--font-title',
 });
 export const text = Inter({

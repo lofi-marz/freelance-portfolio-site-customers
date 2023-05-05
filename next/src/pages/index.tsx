@@ -123,7 +123,7 @@ function Content() {
             <div className="relative flex h-full w-full flex-col items-start justify-evenly">
                 <Title />
                 <motion.p
-                    className="w-full text-center text-2xl text-dark-800 dark:text-dark-50 md:text-start"
+                    className="w-full text-center text-2xl text-dark-950 dark:text-dark-50 md:text-start"
                     variants={fadeVariants}>
                     Nottingham-based freelance web design and development.
                 </motion.p>
@@ -168,7 +168,7 @@ export default function Home({
 
                     <motion.div
                         key={theme + 'content'}
-                        className="themed-bg themed-text w-full">
+                        className="themed-bg themed-text w-full snap-y">
                         <Nav />
                         <Intro />
                         <About />

@@ -7,10 +7,12 @@ import { motion, Variants } from 'framer-motion';
 import { WithChildrenProps } from 'types';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import { NavSpacer } from '../..';
-import { Project } from './Project';
+import { OldProject, Project } from './Project';
 
 export function Projects() {
     const { projects } = useStrapiContentContext()!;
+    const project = projects[projects.length - 1];
+
     return (
         <section
             className={clsx(
@@ -20,7 +22,7 @@ export function Projects() {
             id="projects">
             <NavSpacer />
 
-            <ul className="flex w-full flex-col p-6 lg:p-16">
+            <ul className="grid w-full grid-cols-1 items-center justify-center gap-6 p-6 md:grid-cols-2 lg:p-16">
                 {projects.map((p, i) => (
                     <Project
                         key={p.id}
