@@ -145,7 +145,7 @@ function CurrentlyPlaying() {
         </motion.div>
     );
 }
-
+/* eslint-disable-next-line */
 const lines = ["Hi, I'm Omari.", 'I create creative experiences with code.'];
 
 export function Intro() {
