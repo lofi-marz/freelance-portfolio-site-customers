@@ -39,7 +39,7 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
             transition={{ delay: 1, delayChildren: 1 }}
             style={{ originY: 0 }}>
             <motion.div
-                className="themed-bg flex w-full items-center justify-center overflow-hidden"
+                className="themed-bg flex w-full items-center justify-center "
                 variants={topRectVariants}>
                 <motion.h1
                     animate={{

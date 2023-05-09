@@ -111,7 +111,7 @@ function Content() {
     return (
         <motion.main
             className={clsx(
-                'themed-bg themed-text flex h-full w-full flex-col items-center justify-center gap-10 bg-dark-50 px-10 md:w-1/2 md:max-w-2xl md:p-10',
+                'themed-bg themed-text flex h-full w-full flex-col items-center justify-center gap-10 bg-white px-10 md:w-1/2 md:max-w-2xl md:p-10',
                 title.className
             )}
             layoutId="intro-section"
@@ -123,7 +123,7 @@ function Content() {
             <div className="relative flex h-full w-full flex-col items-start justify-evenly">
                 <Title />
                 <motion.p
-                    className="w-full text-center text-2xl text-dark-950 dark:text-dark-50 md:text-start"
+                    className="w-full text-center text-2xl text-black dark:text-white md:text-start"
                     variants={fadeVariants}>
                     Nottingham-based freelance web design and development.
                 </motion.p>
@@ -155,7 +155,7 @@ export default function Home({
                 currentlyPlaying={currentlyPlaying}>
                 <motion.div
                     className={clsx(
-                        'relative flex min-h-screen w-full flex-col items-center justify-center shadow ',
+                        'relative flex min-h-screen w-full flex-col items-center justify-center',
                         theme,
                         title.variable,
                         body.variable
@@ -170,7 +170,7 @@ export default function Home({
 
                     <motion.div
                         key={theme + 'content'}
-                        className="themed-bg themed-text w-full snap-y">
+                        className="themed-bg themed-text w-full snap-y snap-mandatory">
                         <Nav />
                         <Intro />
                         <About />

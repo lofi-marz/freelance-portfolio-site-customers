@@ -18,6 +18,7 @@ import {
     verticalUnderlineVariants,
 } from '@/components/sections/projects/variants';
 import { useEffect, useRef, useState } from 'react';
+import { NavSpacer } from '@/components/Nav';
 
 const NoHoverTitleVariants: Variants = {
     initial: { bottom: 0, top: 'auto' },
@@ -79,6 +80,16 @@ function ProjectsHeading() {
     );
 }
 
+function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
+    return (
+        <a
+            className="themed-bg-invert themed-text-invert flex flex-row items-center justify-center gap-2 rounded p-2 px-4 transition-all hover:bg-primary hover:text-white"
+            href={href}>
+            {children}
+        </a>
+    );
+}
+
 export function Project({
     title,
     description,
@@ -100,19 +111,31 @@ export function Project({
     return (
         <motion.div
             className={clsx(
-                'relative flex h-screen w-full flex-row items-center justify-between'
+                'relative flex h-[100vh] w-full snap-start scroll-py-12 flex-col items-center justify-start pb-12 md:h-screen md:snap-center md:justify-center md:pb-6'
             )}
             initial="initial"
             whileHover="hover"
             onViewportEnter={() => onView()}
             viewport={{ margin: '-50%' }}
             transition={{ staggerChildren: 0.1 }}>
-            <div className="justify-baseline flex w-full flex-col items-start gap-12">
-                <h3 className="w-2/3 text-8xl font-bold">{title}</h3>
-                <div className="flex flex-row items-center justify-center rounded text-2xl">
-                    <a className="themed-bg-invert themed-text-invert flex flex-row items-center justify-center gap-2 rounded p-2 px-4">
-                        <FaLink /> Link
-                    </a>
+            <NavSpacer />
+            <div className="mb-6 aspect-square w-full md:hidden"></div>
+            <div className="justify-baseline flex w-full flex-col items-start gap-6 md:gap-6">
+                <h3 className="w-full text-5xl font-bold md:w-4/5 md:text-7xl lg:text-8xl">
+                    {title}
+                </h3>
+                <p className="w-full font-body md:w-1/2">{brief}</p>
+                <div className="mt-6 flex flex-row items-center justify-center gap-3 rounded text-xl">
+                    {liveLink && (
+                        <ProjectLink href={liveLink}>
+                            <FaLink /> Link
+                        </ProjectLink>
+                    )}
+                    {repoLink && (
+                        <ProjectLink href={repoLink}>
+                            <FaGithub /> Code
+                        </ProjectLink>
+                    )}
                 </div>
             </div>
         </motion.div>
@@ -149,11 +172,7 @@ function MobileProject({
                 />
             </div>
             <div className={clsx('flex h-full  w-full flex-col gap-8')}>
-                <p
-                    className={clsx(
-                        'whitespace-pre-line text-xl shadow',
-                        text.className
-                    )}>
+                <p className={clsx('whitespace-pre-line text-xl shadow')}>
                     {brief}
                 </p>
                 <div className="flex flex-row text-xl font-bold">

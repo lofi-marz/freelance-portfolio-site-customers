@@ -1,23 +1,10 @@
-import Image from 'next/image';
-import clsx from 'clsx';
-import { FaGithub, FaLink } from 'react-icons/fa';
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
-import {
-    AnimatePresence,
-    motion,
-    MotionValue,
-    useMotionValueEvent,
-    useScroll,
-    useSpring,
-    useTransform,
-    useVelocity,
-    Variants,
-} from 'framer-motion';
+import { motion, useScroll, useTransform, Variants } from 'framer-motion';
 import { WithChildrenProps } from 'types';
 import { useMediaQuery } from 'hooks/useMediaQuery';
-import { NavSpacer } from '../..';
 import { Project } from './Project';
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { ProjectPreview } from '@/components/sections/projects/ProjectPreview';
 
 type RepeatTextProps = {
     n: number;
@@ -33,7 +20,7 @@ function RepeatText({ n, children }: RepeatTextProps) {
     const x = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
     return (
-        <header className="relative flex w-full items-center justify-center overflow-clip pt-48 text-[24rem] font-bold">
+        <header className="relative flex w-full flex-col items-center justify-center overflow-clip py-36 text-8xl font-bold md:text-[18rem]">
             <motion.div
                 className="relative flex flex-row items-center justify-center gap-2"
                 ref={headerRef}
@@ -65,15 +52,14 @@ export function Projects() {
     const [projectI, setProjectI] = useState(0);
     const onChange = (p: number) => () => setProjectI(p);
     const project = projects[projectI];
-
+    const md = useMediaQuery('md');
     return (
         <section
-            className="themed-bg themed-text relative z-10 flex min-h-screen w-full flex-col items-center justify-center py-24 font-title"
+            className="themed-bg themed-text relative z-10 flex min-h-screen w-full flex-col items-center justify-center py-24 pb-[25vh] font-title md:pb-[50vh]"
             id="projects">
-            <NavSpacer />
-            <RepeatText n={1}>Projects</RepeatText>
-            <div className="flex w-full flex-row items-start justify-start px-24">
-                <div className="flex w-3/5 flex-col items-center justify-center">
+            <RepeatText n={2}>Projects</RepeatText>
+            <div className="flex w-full flex-col-reverse items-start justify-center px-6 md:flex-row md:items-start md:justify-start md:px-24">
+                <div className="-mt-[50vh] flex flex-col items-center justify-center md:z-50 md:mt-auto md:w-3/5">
                     {projects.map((p, i) => (
                         <Project
                             key={p.id}
@@ -82,32 +68,8 @@ export function Projects() {
                         />
                     ))}
                 </div>
-                <div className="sticky top-0 flex h-screen grow items-center justify-center">
-                    <AnimatePresence>
-                        <motion.div
-                            className="absolute flex aspect-square w-full items-center justify-center bg-primary p-12"
-                            key={'project-' + project.id}
-                            initial="hide"
-                            animate="show"
-                            exit="hide"
-                            variants={{
-                                hide: { opacity: 0 },
-                                show: { opacity: 1 },
-                            }}>
-                            <div className="relative aspect-[5/4] w-full">
-                                <Image
-                                    src={
-                                        'https://marimari.tech/cms' +
-                                        project.attributes.desktopPreview.data
-                                            .attributes.url
-                                    }
-                                    alt=""
-                                    fill
-                                    className="rounded object-cover object-top"
-                                />
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
+                <div className="sticky top-0 z-0 flex h-[50vh] w-full grow items-start justify-between md:h-screen md:w-auto md:items-center">
+                    <ProjectPreview project={project} />
                 </div>
             </div>
         </section>

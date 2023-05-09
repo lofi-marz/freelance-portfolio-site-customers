@@ -32,7 +32,7 @@ export function SocialsDesktop() {
 
     return (
         <div
-            className="flex h-full flex-col items-center justify-center gap-2 px-5 text-xl text-dark-50"
+            className="flex h-full flex-col items-center justify-center gap-2 px-5 text-xl text-white"
             onMouseLeave={() => setSelectedSocial(null)}>
             <div className="z-10 flex w-fit flex-col items-center justify-center gap-1 rounded-r">
                 <AnimatedIconLink
@@ -72,7 +72,7 @@ export function SocialsDesktop() {
 
 function SocialsMobile() {
     return (
-        <div className="flex w-full items-center justify-center gap-2 rounded md:flex-col md:bg-red-400 md:text-dark-50">
+        <div className="flex w-full items-center justify-center gap-2 rounded md:flex-col md:bg-red-400 md:text-white">
             <IconLink href="mailto:othompsonedwards@gmail.com">
                 <FaBook />
             </IconLink>

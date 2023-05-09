@@ -3,36 +3,36 @@
 @tailwind utilities;
 
 body {
-    @apply bg-dark-950;
+    @apply bg-black;
 }
 
 @layer base {
 
-
-
     html {
         scroll-behavior: smooth;
+        @apply snap-y snap-proximity;
     }
 }
 
 @layer utilities {
     .themed-bg {
-        @apply bg-dark-50 dark:bg-dark-950;
+        @apply bg-white dark:bg-black;
     }
 
     .themed-text {
-        @apply text-dark-950 dark:text-dark-50;
+        @apply text-black dark:text-white;
     }
 
     .themed-bg-invert {
-        @apply bg-dark-950 dark:bg-dark-50;
+        @apply bg-black dark:bg-white;
     }
 
     .themed-text-invert {
-        @apply text-dark-50 dark:text-dark-950;
+        @apply text-white dark:text-black;
     }
 
     .text-gradient {
         @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent !important
     }
+
 }
