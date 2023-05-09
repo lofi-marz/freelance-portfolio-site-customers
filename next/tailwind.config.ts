@@ -22,7 +22,7 @@ const theme = {
                 secondary: colors.orange[400],
                 dark: colors.neutral,
                 white: colors.neutral[50],
-                black: colors.neutral[900]
+                black: colors.neutral[950]
             },
         },
     },

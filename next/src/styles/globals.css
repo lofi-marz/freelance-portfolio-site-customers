@@ -36,3 +36,9 @@ body {
     }
 
 }
+
+@layer components {
+    .card {
+        @apply rounded-md;
+    }
+}

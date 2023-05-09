@@ -72,7 +72,7 @@ export function SocialsDesktop() {
 
 function SocialsMobile() {
     return (
-        <div className="flex w-full items-center justify-center gap-2 rounded md:flex-col md:bg-red-400 md:text-white">
+        <div className="card flex w-full items-center justify-center gap-2 md:flex-col md:bg-red-400 md:text-white">
             <IconLink href="mailto:othompsonedwards@gmail.com">
                 <FaBook />
             </IconLink>

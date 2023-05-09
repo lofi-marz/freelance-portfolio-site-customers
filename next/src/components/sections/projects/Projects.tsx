@@ -59,7 +59,7 @@ export function Projects() {
             id="projects">
             <RepeatText n={2}>Projects</RepeatText>
             <div className="flex w-full flex-col-reverse items-start justify-center px-6 md:flex-row md:items-start md:justify-start md:px-24">
-                <div className="-mt-[50vh] flex flex-col items-center justify-center md:z-50 md:mt-auto md:w-3/5">
+                <div className="flex w-full flex-col items-center justify-center md:z-50 md:-mt-[50vh] md:mt-auto md:w-3/5">
                     {projects.map((p, i) => (
                         <Project
                             key={p.id}
@@ -68,9 +68,11 @@ export function Projects() {
                         />
                     ))}
                 </div>
-                <div className="sticky top-0 z-0 flex h-[50vh] w-full grow items-start justify-between md:h-screen md:w-auto md:items-center">
-                    <ProjectPreview project={project} />
-                </div>
+                {md && (
+                    <div className="sticky top-0 z-0 flex h-[50vh] w-full grow items-start justify-between md:h-screen md:w-auto md:items-center">
+                        <ProjectPreview project={project} />
+                    </div>
+                )}
             </div>
         </section>
     );

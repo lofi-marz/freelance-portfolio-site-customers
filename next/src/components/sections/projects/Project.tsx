@@ -83,13 +83,25 @@ function ProjectsHeading() {
 function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
     return (
         <a
-            className="themed-bg-invert themed-text-invert flex flex-row items-center justify-center gap-2 rounded p-2 px-4 transition-all hover:bg-primary hover:text-white"
+            className="themed-bg-invert themed-text-invert card flex flex-row items-center justify-center gap-2 p-2 px-4 transition-all hover:bg-primary hover:text-white"
             href={href}>
             {children}
         </a>
     );
 }
 
+export function ProjectImage({ src }: { src: string }) {
+    return (
+        <div className="relative aspect-[16/9] w-full">
+            <Image
+                src={src}
+                alt=""
+                fill
+                className="card z-10 object-cover object-top"
+            />
+        </div>
+    );
+}
 export function Project({
     title,
     description,
@@ -107,11 +119,11 @@ export function Project({
     const colour = ['bg-primary', 'bg-secondary', 'themed-bg-invert'][
         colourIndex
     ];
-
+    const md = useMediaQuery('md');
     return (
         <motion.div
             className={clsx(
-                'relative flex h-[100vh] w-full snap-start flex-col items-center justify-start pb-12 md:h-screen md:snap-center md:justify-center md:pb-6'
+                'relative flex w-full flex-col items-center justify-start gap-6 md:h-[100vh] md:h-screen md:snap-center md:justify-center md:pb-12 md:pb-6'
             )}
             initial="initial"
             whileHover="hover"
@@ -119,13 +131,22 @@ export function Project({
             viewport={{ margin: '-50%' }}
             transition={{ staggerChildren: 0.1 }}>
             <NavSpacer />
-            <div className="mb-6 aspect-square w-full md:hidden"></div>
-            <div className="justify-baseline flex w-full flex-col items-start gap-6 md:gap-6">
-                <h3 className="w-full text-5xl font-bold md:w-4/5 md:text-7xl lg:text-8xl">
+            {!md && (
+                <ProjectImage
+                    src={
+                        'https://marimari.tech/cms' +
+                        desktopPreview.data.attributes.url
+                    }
+                />
+            )}
+            <div className="justify-baseline flex w-full flex-col items-start md:gap-6">
+                <h3 className="w-full text-4xl font-bold md:w-4/5 md:text-7xl lg:text-8xl">
                     {title}
                 </h3>
-                <p className="w-full font-body md:w-1/2">{brief}</p>
-                <div className="mt-6 flex flex-row items-center justify-center gap-3 rounded text-xl">
+                <p className="hidden w-full font-body md:block md:w-1/2">
+                    {brief}
+                </p>
+                <div className="card mt-6 flex flex-row items-center justify-center gap-3 text-xl">
                     {liveLink && (
                         <ProjectLink href={liveLink}>
                             <FaLink /> Link
@@ -139,85 +160,5 @@ export function Project({
                 </div>
             </div>
         </motion.div>
-    );
-}
-
-function MobileProject({
-    title,
-    description,
-    repoLink,
-    liveLink,
-    brief,
-    desktopPreview,
-    mobilePreview,
-}: ProjectProps) {
-    return (
-        <li
-            className={clsx(
-                'relative flex flex-col items-center justify-center gap-4'
-            )}>
-            <h3 className="w-full text-3xl font-bold">
-                {title}
-                <div className="-mt-3 h-4 w-full bg-primary"></div>
-            </h3>
-            <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-visible rounded shadow">
-                <Image
-                    src={
-                        'https://marimari.tech/cms' +
-                        desktopPreview.data.attributes.url
-                    }
-                    alt=""
-                    fill
-                    className="object-contain"
-                />
-            </div>
-            <div className={clsx('flex h-full  w-full flex-col gap-8')}>
-                <p className={clsx('whitespace-pre-line text-xl shadow')}>
-                    {brief}
-                </p>
-                <div className="flex flex-row text-xl font-bold">
-                    <a
-                        className="themed-bg-invert themed-text-invert p-4 transition-all hover:text-primary"
-                        href={repoLink}>
-                        <FaGithub />
-                    </a>
-                    {liveLink && (
-                        <a
-                            className="themed-text bg-primary p-4 transition-all hover:text-primary"
-                            href={liveLink}>
-                            <FaLink />
-                        </a>
-                    )}
-                </div>
-            </div>
-        </li>
-    );
-}
-
-function ProjectHeader({
-    children,
-    odd,
-}: { odd: boolean } & WithChildrenProps) {
-    return (
-        <motion.header
-            className={clsx(
-                'w-18 flex flex-col content-end items-start justify-center text-5xl font-bold lowercase',
-                !odd && 'rotate-180'
-            )}
-            style={{ writingMode: 'vertical-rl' }}
-            initial="hide"
-            whileInView="show"
-            exit="hide">
-            <motion.h3 variants={projectTitleVariants} className="z-10">
-                {children}
-            </motion.h3>
-            <div className="-z-5 -mr-3 h-2/3 w-4">
-                <motion.div
-                    className="h-full w-full bg-primary"
-                    style={{ originY: 0 }}
-                    variants={verticalUnderlineVariants}
-                />
-            </div>
-        </motion.header>
     );
 }
