@@ -111,7 +111,7 @@ export function Project({
     return (
         <motion.div
             className={clsx(
-                'relative flex h-[100vh] w-full snap-start scroll-py-12 flex-col items-center justify-start pb-12 md:h-screen md:snap-center md:justify-center md:pb-6'
+                'relative flex h-[100vh] w-full snap-start flex-col items-center justify-start pb-12 md:h-screen md:snap-center md:justify-center md:pb-6'
             )}
             initial="initial"
             whileHover="hover"
