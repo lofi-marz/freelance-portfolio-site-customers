@@ -138,10 +138,7 @@ type HomeProps = {
     content: GlobalContent;
 };
 
-export default function Home({
-    spotify: { currentlyPlaying },
-    content,
-}: HomeProps) {
+export default function Home({ content }: HomeProps) {
     const [loading, setLoading] = useState(true);
     useEffect(() => console.log('Loading:', loading), [loading]);
     const darkMode = useDarkModeContext();
@@ -151,34 +148,31 @@ export default function Home({
     //TODO: Better error handling here
     return (
         <StrapiContentContextProvider strapiContent={content}>
-            <CurrentlyPlayingContextProvider
-                currentlyPlaying={currentlyPlaying}>
+            <motion.div
+                className={clsx(
+                    'relative flex min-h-screen w-full flex-col items-center justify-center',
+                    theme,
+                    title.variable,
+                    body.variable
+                )}
+                id="home">
+                <Head>
+                    <title>Omari</title>
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
+
+                <LoadingScreen onEnd={() => setLoading(false)} />
+
                 <motion.div
-                    className={clsx(
-                        'relative flex min-h-screen w-full flex-col items-center justify-center',
-                        theme,
-                        title.variable,
-                        body.variable
-                    )}
-                    id="home">
-                    <Head>
-                        <title>Omari</title>
-                        <link rel="icon" href="/favicon.ico" />
-                    </Head>
-
-                    <LoadingScreen onEnd={() => setLoading(false)} />
-
-                    <motion.div
-                        key={theme + 'content'}
-                        className="themed-bg themed-text w-full snap-y snap-mandatory">
-                        <Nav />
-                        <Intro />
-                        <About />
-                        <Projects />
-                        <Contact />
-                    </motion.div>
+                    key={theme + 'content'}
+                    className="themed-bg themed-text w-full snap-y snap-mandatory">
+                    <Nav />
+                    <Intro />
+                    <About />
+                    <Projects />
+                    <Contact />
                 </motion.div>
-            </CurrentlyPlayingContextProvider>
+            </motion.div>
         </StrapiContentContextProvider>
     );
 }
@@ -193,11 +187,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
         }
     );
     //TODO: How do I scale this up for more data
-    const [spotify, about = {}, projects = []] = await Promise.all([
-        getSpotifyProps(),
+    const [about = {}, projects = []] = await Promise.all([
+        //getSpotifyProps(),
         getStrapiContent<AboutContent>('about'),
         getStrapiContent<ProjectContent[]>('projects?' + query),
     ]);
 
-    return { props: { spotify, content: { about, projects } } };
+    return { props: { content: { about, projects } } };
 };
