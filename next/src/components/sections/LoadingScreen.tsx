@@ -9,14 +9,14 @@ const loadingScreenVariants: Variants = {
 
 const topRectVariants: Variants = {
     visible: { height: '100vh' },
-    hidden: { height: '0vh', transition: { duration: 2, ease: 'easeOut' } },
+    hidden: { height: '0vh', transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
 const bottomRectVariants: Variants = {
     visible: { height: '10vh' },
     hidden: {
         height: '0vh',
-        transition: { duration: 2.5, delay: 1, ease: 'easeInOut' },
+        transition: { duration: 1, delay: 1, ease: 'easeInOut' },
     },
 };
 

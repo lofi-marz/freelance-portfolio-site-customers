@@ -152,18 +152,6 @@ export default function Home({ content }: HomeProps) {
     const darkMode = useDarkModeContext();
     const theme = darkMode === 'dark' ? darkMode : 'light';
 
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ['center end', 'center start'],
-    });
-    const spring = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001,
-    });
-    const colour = useTransform(spring, [0, 1], [light, dark]);
-    const invertColour = useTransform(spring, [0, 1], [dark, light]);
-    useMotionValueEvent(scrollYProgress, 'change', (v) => console.log(v));
     if (content === undefined) return <div>Hi! Somethings gone wrong</div>;
 
     //TODO: Better error handling here
@@ -189,12 +177,8 @@ export default function Home({ content }: HomeProps) {
                     className="themed-bg themed-text w-full snap-y snap-mandatory">
                     <Nav />
                     <Intro />
-                    <About
-                        ref={ref}
-                        colour={colour}
-                        invertColour={invertColour}
-                    />
-                    <Projects colour={colour} />
+                    <About />
+                    <Projects />
                     <Contact />
                 </motion.div>
             </motion.div>
@@ -212,6 +196,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         }
     );
     //TODO: How do I scale this up for more data
+
     const [about = {}, projects = []] = await Promise.all([
         //getSpotifyProps(),
         getStrapiContent<AboutContent>('about'),

@@ -37,7 +37,7 @@ export function ProjectPreview({ project }: { project: ProjectContent }) {
                         }
                         alt=""
                         fill
-                        className="card z-10 object-cover object-top"
+                        className="card themed-bg z-10 object-cover object-top"
                     />
                     <motion.div className="card absolute mt-8 h-full w-full bg-primary brightness-75 md:ml-8" />
                 </motion.div>
