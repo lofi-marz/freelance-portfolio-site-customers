@@ -12,7 +12,13 @@ import { title } from '../../../fonts';
 import { SocialsDesktop } from '@/components/sections/intro/Socials';
 import { WithChildrenProps } from '../../../types';
 import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext';
-import { FaArrowDown, FaChevronDown, FaCompactDisc } from 'react-icons/fa';
+import {
+    FaArrowDown,
+    FaArrowLeft,
+    FaArrowUp,
+    FaChevronDown,
+    FaCompactDisc,
+} from 'react-icons/fa';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import { SlideInText } from '@/components/SlideInText';
 import { useRef, useState } from 'react';
@@ -196,12 +202,13 @@ export function Intro() {
                         </motion.div>
                     )}
                     <div className="absolute left-0 top-0 flex h-full w-12 flex-col items-center justify-end gap-4 py-12 text-base font-normal">
-                        <div
-                            className="rotate-180"
+                        <a
+                            className="flex rotate-180 flex-row items-center justify-center gap-4 transition-all hover:text-primary"
+                            href="#about"
                             style={{ writingMode: 'vertical-lr' }}>
+                            <FaArrowUp />
                             Scroll
-                        </div>
-                        <FaArrowDown />
+                        </a>
                     </div>
                 </motion.header>
             </AnimatePresence>

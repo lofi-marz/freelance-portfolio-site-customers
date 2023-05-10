@@ -4,19 +4,37 @@ import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext
 import { CallToAction } from '@/components/sections/intro/CallToAction';
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
 import { WithChildrenProps } from '../../../types';
-import { motion, Variants } from 'framer-motion';
+import {
+    motion,
+    MotionValue,
+    useMotionValueEvent,
+    useScroll,
+    useSpring,
+    useTransform,
+    Variants,
+} from 'framer-motion';
 import theme from '../../../../tailwind.config';
+import { forwardRef, MutableRefObject, useRef } from 'react';
 
 const primary = theme.theme.extend.colors.primary;
 
-export default function About() {
+type AboutProps = {
+    colour: MotionValue<string>;
+    invertColour: MotionValue<string>;
+};
+export const About = forwardRef<HTMLElement, AboutProps>(function About(
+    { colour, invertColour }: AboutProps,
+    ref
+) {
     return (
-        <section
+        <motion.section
             id="about"
             className={clsx(
-                'themed-text-invert themed-bg-invert relative flex h-screen w-full flex-col items-center justify-center gap-8',
+                'relative flex h-screen w-full flex-col items-center justify-center gap-8',
                 title.className
-            )}>
+            )}
+            style={{ backgroundColor: colour, color: invertColour }}
+            ref={ref}>
             <div className="whitespace-pre-line p-6 text-center text-3xl font-medium sm:text-4xl md:text-4xl lg:p-12 lg:text-5xl">
                 <HighlightText>
                     Hi, I&apos;m Omari! I&apos;m a Web Developer from England,
@@ -27,9 +45,9 @@ export default function About() {
                 </HighlightText>
             </div>
             <CallToAction />
-        </section>
+        </motion.section>
     );
-}
+});
 
 const lineVariants: Variants = {
     hide: {

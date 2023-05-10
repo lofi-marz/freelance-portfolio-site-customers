@@ -5,11 +5,13 @@ import clsx from 'clsx';
 import {
     AnimatePresence,
     motion,
+    useMotionValueEvent,
     useScroll,
+    useSpring,
     useTransform,
     Variants,
 } from 'framer-motion';
-import { createContext, Fragment, useEffect, useState } from 'react';
+import { createContext, Fragment, useEffect, useRef, useState } from 'react';
 import { LoadingScreen } from '@/components/sections/LoadingScreen';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
 import { useDarkModeContext } from '@/components/DarkModeContextProvider';
@@ -19,7 +21,7 @@ import { SocialsDesktop } from '@/components/sections/intro/Socials';
 import { IoMdLeaf } from 'react-icons/io';
 import { FaArrowDown, FaInstagram } from 'react-icons/fa';
 import { FaAt, FaGithub, FaLinkedin } from 'react-icons/fa';
-import About from '@/components/sections/about/About';
+import { About } from '@/components/sections/about/About';
 import { CallToAction } from '@/components/sections/intro/CallToAction';
 import { Intro } from '@/components/sections/intro';
 import {
@@ -44,6 +46,7 @@ import { StrapiContentContextProvider } from '@/components/StrapiContextProvider
 import { Projects } from '@/components/sections/projects';
 import qs from 'qs';
 import { Contact } from '@/components/sections/contact';
+import theme from '../../tailwind.config';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -55,6 +58,9 @@ const underlineVariants: Variants = {
     hidden: { width: '0%' },
     visible: { width: '100%', transition: { duration: 1, ease: 'easeInOut' } },
 };
+
+const dark = theme.theme.extend.colors.black as string;
+const light = theme.theme.extend.colors.light as string;
 
 function Title() {
     return (
@@ -111,7 +117,7 @@ function Content() {
     return (
         <motion.main
             className={clsx(
-                'themed-bg themed-text flex h-full w-full flex-col items-center justify-center gap-10 bg-white px-10 md:w-1/2 md:max-w-2xl md:p-10',
+                'themed-bg themed-text flex h-full w-full flex-col items-center justify-center gap-10 bg-light px-10 md:w-1/2 md:max-w-2xl md:p-10',
                 title.className
             )}
             layoutId="intro-section"
@@ -123,7 +129,7 @@ function Content() {
             <div className="relative flex h-full w-full flex-col items-start justify-evenly">
                 <Title />
                 <motion.p
-                    className="w-full text-center text-2xl text-black dark:text-white md:text-start"
+                    className="w-full text-center text-2xl text-black dark:text-light md:text-start"
                     variants={fadeVariants}>
                     Nottingham-based freelance web design and development.
                 </motion.p>
@@ -139,10 +145,25 @@ type HomeProps = {
 };
 
 export default function Home({ content }: HomeProps) {
+    const ref = useRef(null);
+
     const [loading, setLoading] = useState(true);
     useEffect(() => console.log('Loading:', loading), [loading]);
     const darkMode = useDarkModeContext();
     const theme = darkMode === 'dark' ? darkMode : 'light';
+
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ['center end', 'center start'],
+    });
+    const spring = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001,
+    });
+    const colour = useTransform(spring, [0, 1], [light, dark]);
+    const invertColour = useTransform(spring, [0, 1], [dark, light]);
+    useMotionValueEvent(scrollYProgress, 'change', (v) => console.log(v));
     if (content === undefined) return <div>Hi! Somethings gone wrong</div>;
 
     //TODO: Better error handling here
@@ -168,8 +189,12 @@ export default function Home({ content }: HomeProps) {
                     className="themed-bg themed-text w-full snap-y snap-mandatory">
                     <Nav />
                     <Intro />
-                    <About />
-                    <Projects />
+                    <About
+                        ref={ref}
+                        colour={colour}
+                        invertColour={invertColour}
+                    />
+                    <Projects colour={colour} />
                     <Contact />
                 </motion.div>
             </motion.div>

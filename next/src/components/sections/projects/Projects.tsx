@@ -1,5 +1,13 @@
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
-import { motion, useScroll, useTransform, Variants } from 'framer-motion';
+import {
+    motion,
+    MotionValue,
+    useMotionValueEvent,
+    useScroll,
+    useSpring,
+    useTransform,
+    Variants,
+} from 'framer-motion';
 import { WithChildrenProps } from 'types';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import { Project } from './Project';
@@ -12,15 +20,24 @@ type RepeatTextProps = {
 const toPercent = (n: number) => n * 100 + '%';
 function RepeatText({ n, children }: RepeatTextProps) {
     const headerRef = useRef(null);
+    const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: headerRef,
         offset: ['start end', 'end start'],
     });
+    const spring = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001,
+    });
+    const x = useTransform(spring, [0, 1], ['-50%', '50%']);
 
-    const x = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+    /*useMotionValueEvent(x, 'change', (v) => {
+        console.log(scrollYProgress.get(), spring.get(), v);
+    });*/
 
     return (
-        <header className="relative flex w-full flex-col items-center justify-center overflow-clip py-36 text-8xl font-bold md:text-[18rem]">
+        <motion.header className="relative flex w-full flex-col items-center justify-center overflow-clip py-36 text-8xl font-bold md:text-[18rem]">
             <motion.div
                 className="relative flex flex-row items-center justify-center gap-2"
                 ref={headerRef}
@@ -43,20 +60,21 @@ function RepeatText({ n, children }: RepeatTextProps) {
                     </span>
                 ))}
             </motion.div>
-        </header>
+        </motion.header>
     );
 }
 
-export function Projects() {
+export function Projects({ colour }: { colour: MotionValue<string> }) {
     const { projects } = useStrapiContentContext()!;
     const [projectI, setProjectI] = useState(0);
     const onChange = (p: number) => () => setProjectI(p);
     const project = projects[projectI];
     const md = useMediaQuery('md');
     return (
-        <section
-            className="themed-bg themed-text relative z-10 flex min-h-screen w-full flex-col items-center justify-center py-24 pb-[25vh] font-title md:pb-[50vh]"
-            id="projects">
+        <motion.section
+            className="themed-bg themed-text relative z-10 mt-[-1px] flex min-h-screen w-full flex-col items-center justify-center py-24 pb-[25vh] font-title md:pb-[50vh]"
+            id="projects"
+            style={{ backgroundColor: colour }}>
             <RepeatText n={2}>Projects</RepeatText>
             <div className="flex w-full flex-col-reverse items-start justify-center px-6 md:flex-row md:items-start md:justify-start md:px-24">
                 <div className="flex w-full flex-col items-center justify-center md:z-50 md:-mt-[50vh] md:mt-auto md:w-3/5">
@@ -74,7 +92,7 @@ export function Projects() {
                     </div>
                 )}
             </div>
-        </section>
+        </motion.section>
     );
 }
 

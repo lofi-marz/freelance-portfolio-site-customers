@@ -83,7 +83,7 @@ function ProjectsHeading() {
 function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
     return (
         <a
-            className="themed-bg-invert themed-text-invert card flex flex-row items-center justify-center gap-2 p-2 px-4 transition-all hover:bg-primary hover:text-white"
+            className="themed-bg-invert themed-text-invert card flex flex-row items-center justify-center gap-2 p-2 px-4 transition-all hover:bg-primary hover:text-light"
             href={href}>
             {children}
         </a>
@@ -97,7 +97,7 @@ export function ProjectImage({ src }: { src: string }) {
                 src={src}
                 alt=""
                 fill
-                className="card z-10 object-cover object-top"
+                className="card themed-bg z-10 object-cover object-top"
             />
         </div>
     );
