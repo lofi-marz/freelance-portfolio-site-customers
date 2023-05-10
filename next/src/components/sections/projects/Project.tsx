@@ -92,7 +92,7 @@ function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
 
 export function MobileProjectImage({ src }: { src: string }) {
     return (
-        <div className="flex aspect-[4/5] w-full flex-col items-center justify-start overflow-clip bg-primary pt-12 shadow-inner">
+        <div className="card flex aspect-[4/5] w-full flex-col items-center justify-start overflow-clip bg-primary pt-12 shadow-inner">
             <div className="relative aspect-[9/16] w-2/3 drop-shadow-md">
                 <Image
                     src={src}
