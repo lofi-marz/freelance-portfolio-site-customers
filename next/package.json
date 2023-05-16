@@ -8,6 +8,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "@tailwindcss/typography": "^0.5.9",
     "@vercel/analytics": "^1.0.1",
     "axios": "^1.4.0",

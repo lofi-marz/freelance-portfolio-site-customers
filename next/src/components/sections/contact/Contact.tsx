@@ -9,9 +9,10 @@ import {
     Variants,
 } from 'framer-motion';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useRef } from 'react';
-import qs from 'querystring';
+import { useRef, useState } from 'react';
+
 import axios from 'axios';
+import { FaCheck } from 'react-icons/fa';
 
 type FormInputs = {
     name: string;
@@ -37,20 +38,29 @@ export function Contact() {
         shouldUseNativeValidation: true,
     });
 
-    const firstHalf = Object.entries(links).slice(0, 3);
-    const secondHalf = Object.entries(links).slice(3);
     const onSubmit: SubmitHandler<FormInputs> = (data) => {
-        const params = qs.stringify({ email: data.email });
-        console.log('Sending email:', data.email);
-        axios.post('/api/send-email?' + params).then((res) => console.log(res));
+        const params = new URLSearchParams(data);
+        setStatus('submitting');
+        console.log('Sending email:', data, params.toString());
+        axios
+            .post('/api/contact?' + params.toString())
+            .then((res) => setStatus('done'))
+            .catch((e) => {
+                console.log(e);
+                setStatus('error');
+            });
     };
+    const [status, setStatus] = useState<
+        null | 'submitting' | 'done' | 'error'
+    >(null);
     return (
         <motion.section
+            id="contact"
             initial="hide"
             whileInView="show"
             transition={{ staggerChildren: 1 }}
             className={clsx(
-                'themed-bg-invert themed-text-invert relative z-30 flex h-screen w-full flex-col items-center justify-center gap-6 overflow-clip p-12 text-6xl md:text-7xl',
+                'themed-bg-invert themed-text-invert relative z-30 flex h-screen w-full flex-col items-center justify-center gap-12 overflow-clip p-12 text-6xl md:text-7xl',
                 title.className
             )}>
             <div className="flex items-center justify-center text-center font-medium md:w-2/3">
@@ -65,18 +75,26 @@ export function Contact() {
                     <input
                         placeholder="Name"
                         className="w-full border-b-2 border-dark-800 bg-dark-900 p-4 placeholder:text-dark-700"
+                        {...register('name')}
                     />
                     <input
                         placeholder="Email"
                         className="w-full border-b-2 border-dark-800 bg-dark-900 p-4 placeholder:text-dark-700"
+                        {...register('email')}
                     />
                 </div>
                 <textarea
                     className="rounded border-b-2 border-dark-800 bg-dark-900 p-4 placeholder:text-dark-700"
                     placeholder="Message"
-                    rows={5}></textarea>
-                <button className="hover:button-solid-light card-primary hover:card-solid w-full p-4">
-                    Submit
+                    rows={5}
+                    {...register('message')}
+                />
+                <button
+                    className={clsx(
+                        'hover:button-solid-light card-primary hover:card-solid flex w-full items-center justify-center p-4 transition-all',
+                        status === 'done' ? 'bg-green-400' : 'bg-primary'
+                    )}>
+                    {status === 'done' ? <FaCheck /> : 'Submit'}
                 </button>
             </form>
         </motion.section>

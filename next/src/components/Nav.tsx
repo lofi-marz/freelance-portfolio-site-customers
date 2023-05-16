@@ -37,11 +37,12 @@ export function Nav() {
                         {w}
                     </motion.div>
                 ))}
-                <motion.div
+                <motion.a
                     className="hover:themed-bg-invert hover:themed-text-invert rounded-full border-2 border-black px-8 py-3 transition-all"
-                    layout>
+                    layout
+                    href="#contact">
                     let's chat
-                </motion.div>
+                </motion.a>
             </motion.div>
             <button className="md:hidden">
                 <FaBars />

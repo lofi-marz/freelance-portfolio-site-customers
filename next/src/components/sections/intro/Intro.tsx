@@ -181,7 +181,9 @@ export function Intro() {
                     No page builders or templates - I create 100% hand-coded
                     websites with personalised results.
                 </div>
-                <a className="card-solid-invert hover:card-primary w-full py-4 text-2xl font-normal md:w-auto md:px-12 md:py-6">
+                <a
+                    className="card-solid-invert hover:card-primary w-full py-4 text-2xl font-normal md:w-auto md:px-12 md:py-6"
+                    href="#contact">
                     Let's chat
                 </a>
             </header>
