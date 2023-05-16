@@ -39,6 +39,20 @@ body {
 
 @layer components {
     .card {
-        @apply rounded-md;
+        @apply rounded-full transition-all;
     }
+
+    .card-solid {
+        @apply card themed-bg themed-text;
+    }
+
+    .card-solid-invert {
+        @apply card themed-bg-invert themed-text-invert;
+    }
+
+    .card-primary {
+        @apply card bg-primary themed-text-invert;
+    }
+
+
 }

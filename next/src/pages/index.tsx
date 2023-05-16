@@ -47,6 +47,8 @@ import { Projects } from '@/components/sections/projects';
 import qs from 'qs';
 import { Contact } from '@/components/sections/contact';
 import theme from '../../tailwind.config';
+import { WhatIDo } from '@/components/sections/whatido';
+import { Bespoke } from '@/components/sections/bespoke';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -174,9 +176,12 @@ export default function Home({ content }: HomeProps) {
 
                 <motion.div
                     key={theme + 'content'}
-                    className="themed-bg themed-text w-full snap-y snap-mandatory">
+                    className="themed-bg themed-text relative w-full snap-y snap-mandatory">
                     <Nav />
                     <Intro />
+                    <WhatIDo />
+                    <Bespoke />
+
                     <About />
                     <Projects />
                     <Contact />

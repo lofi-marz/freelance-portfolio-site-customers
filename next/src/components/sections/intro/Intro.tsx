@@ -18,6 +18,8 @@ import {
     FaArrowUp,
     FaChevronDown,
     FaCompactDisc,
+    FaHandPointer,
+    FaMousePointer,
 } from 'react-icons/fa';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import { SlideInText } from '@/components/SlideInText';
@@ -26,6 +28,9 @@ import React from 'react';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
 import { TARGET_AUDIENCE } from '../../../env';
 import { setState } from 'jest-circus';
+import { NavSpacer } from '@/components/Nav';
+import { useStrapiContentContext } from '@/components/StrapiContextProvider';
+import Image from 'next/image';
 
 const ContainerVariants: Variants = {
     hide: { opacity: 0, height: '100vh' },
@@ -158,60 +163,28 @@ export function Intro() {
     const target = useRef(null);
     const { scrollYProgress } = useScroll({
         target,
-        offset: ['start start', 'end end'],
     });
-    const currentlyPlaying = useCurrentlyPlayingContext();
-    useMotionValueEvent(scrollYProgress, 'change', (v) => {
-        if (v < 0.3 && lineI !== 0) {
-            setLineI(0);
-        } else if (v >= 0.3 && lineI !== 1) {
-            setLineI(1);
-        }
-    });
-
-    //There has got to be a better way of doing this
-    const [lineI, setLineI] = useState(0);
-
+    useMotionValueEvent(scrollYProgress, 'change', (v) =>
+        console.log('Scroll:', v)
+    );
     return (
-        <section
-            className={clsx(
-                'themed-bg relative flex h-[250vh] w-full flex-col items-center justify-start overflow-clip',
-                title.className
-            )}
+        <motion.section
+            className="themed-bg themed-text relative z-10 flex flex min-h-screen flex-col items-center justify-start gap-12 px-8 pb-8 font-title md:min-h-[150vh] md:px-36"
             ref={target}>
-            <AnimatePresence mode="wait">
-                <motion.header
-                    key={lineI}
-                    layout
-                    className={clsx(
-                        'top-0 flex h-screen w-full flex-col items-center justify-center gap-6 p-12 text-center text-6xl font-bold md:text-7xl',
-                        lineI === 0 ? 'sticky' : 'fixed'
-                    )}
-                    initial="hide"
-                    animate="show"
-                    exit="hide"
-                    transition={{ staggerChildren: 0.5, staggerDirection: 1 }}>
-                    <SlideInText className="z-10 md:max-w-screen-lg">
-                        {lines[lineI]}
-                    </SlideInText>
-                    {lineI === 0 && (
-                        <motion.div
-                            className="text-xl uppercase text-primary"
-                            variants={SubtitleVariants}>
-                            {subtitle}
-                        </motion.div>
-                    )}
-                    <div className="absolute left-0 top-0 flex h-full w-12 flex-col items-center justify-end gap-4 py-12 text-base font-normal">
-                        <a
-                            className="flex rotate-180 flex-row items-center justify-center gap-4 transition-all hover:text-primary"
-                            href="#about"
-                            style={{ writingMode: 'vertical-lr' }}>
-                            <FaArrowUp />
-                            Scroll
-                        </a>
-                    </div>
-                </motion.header>
-            </AnimatePresence>
-        </section>
+            <NavSpacer />
+            <header className="flex grow flex-col items-center text-center text-4xl font-semibold leading-[1] md:items-start md:text-start md:text-7xl">
+                <div>
+                    Hi, I'm <span className="text-primary">Omari</span>.
+                </div>
+                <div>I build bespoke websites for small businesses.</div>
+                <div className="py-8 text-xl font-normal leading-tight md:text-4xl md:font-light">
+                    No page builders or templates - I create 100% hand-coded
+                    websites with personalised results.
+                </div>
+                <a className="card-solid-invert hover:card-primary w-full py-4 text-2xl font-normal md:w-auto md:px-12 md:py-6">
+                    Let's chat
+                </a>
+            </header>
+        </motion.section>
     );
 }

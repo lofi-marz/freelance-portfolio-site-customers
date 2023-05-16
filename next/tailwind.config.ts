@@ -4,6 +4,7 @@ import colors from 'tailwindcss/colors';
 
 import defaultTheme from 'tailwindcss/defaultTheme';
 import typography from '@tailwindcss/typography';
+import forms from '@tailwindcss/forms';
 
 const theme = {
     content: [
@@ -22,11 +23,11 @@ const theme = {
                 secondary: colors.orange[400],
                 dark: colors.stone,
                 light: colors.stone[50],
-                black: colors.stone[950]
+                black: colors.stone[900]
             },
         },
     },
-    plugins: [],
+    plugins: [forms],
 } satisfies Config;
 
 export default theme;

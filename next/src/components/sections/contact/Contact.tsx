@@ -8,7 +8,16 @@ import {
     useTransform,
     Variants,
 } from 'framer-motion';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRef } from 'react';
+import qs from 'querystring';
+import axios from 'axios';
+
+type FormInputs = {
+    name: string;
+    email: string;
+    message: string;
+};
 
 export function Contact() {
     const links = {
@@ -20,24 +29,56 @@ export function Contact() {
         CV: 'Omari Thompson-Edwards CV.pdf',
     };
 
+    const {
+        register,
+        handleSubmit,
+        formState: { isSubmitted },
+    } = useForm<FormInputs>({
+        shouldUseNativeValidation: true,
+    });
+
     const firstHalf = Object.entries(links).slice(0, 3);
     const secondHalf = Object.entries(links).slice(3);
+    const onSubmit: SubmitHandler<FormInputs> = (data) => {
+        const params = qs.stringify({ email: data.email });
+        console.log('Sending email:', data.email);
+        axios.post('/api/send-email?' + params).then((res) => console.log(res));
+    };
     return (
         <motion.section
             initial="hide"
             whileInView="show"
             transition={{ staggerChildren: 1 }}
             className={clsx(
-                'themed-bg-invert themed-text-invert relative z-30 flex h-screen w-full flex-col items-center justify-center overflow-clip p-12 text-6xl md:text-8xl lg:text-9xl',
+                'themed-bg-invert themed-text-invert relative z-30 flex h-screen w-full flex-col items-center justify-center gap-6 overflow-clip p-12 text-6xl md:text-7xl',
                 title.className
             )}>
-            <LinksRow links={firstHalf} />
-            <div className="mb-[2.5%] flex h-full items-center justify-center text-center font-medium md:w-2/3">
+            <div className="flex items-center justify-center text-center font-medium md:w-2/3">
                 <SlideInText invert>
                     Let&apos;s talk about your project
                 </SlideInText>
             </div>
-            <LinksRow links={secondHalf} />
+            <form
+                className="themed-text-invert flex w-full flex-col gap-4 text-xl  md:w-2/3"
+                onSubmit={handleSubmit(onSubmit)}>
+                <div className="flex w-full grid-cols-2 flex-col gap-4 md:grid">
+                    <input
+                        placeholder="Name"
+                        className="w-full border-b-2 border-dark-800 bg-dark-900 p-4 placeholder:text-dark-700"
+                    />
+                    <input
+                        placeholder="Email"
+                        className="w-full border-b-2 border-dark-800 bg-dark-900 p-4 placeholder:text-dark-700"
+                    />
+                </div>
+                <textarea
+                    className="rounded border-b-2 border-dark-800 bg-dark-900 p-4 placeholder:text-dark-700"
+                    placeholder="Message"
+                    rows={5}></textarea>
+                <button className="hover:button-solid-light card-primary hover:card-solid w-full p-4">
+                    Submit
+                </button>
+            </form>
         </motion.section>
     );
 }

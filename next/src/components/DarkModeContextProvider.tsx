@@ -19,7 +19,7 @@ export function useSetStoredModeContext() {
 export function DarkModeContextProvider({ children }: WithChildrenProps) {
     const [darkMode, setStoredMode] = useDarkMode();
     return (
-        <DarkModeContext.Provider value={darkMode ?? 'light'}>
+        <DarkModeContext.Provider value={'light'}>
             <SetStoredModeContext.Provider value={setStoredMode}>
                 {children}
             </SetStoredModeContext.Provider>
