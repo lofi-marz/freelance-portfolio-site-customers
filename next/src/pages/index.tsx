@@ -180,10 +180,9 @@ export default function Home({ content }: HomeProps) {
                     <Nav />
                     <Intro />
                     <WhatIDo />
+                    <About />
                     <Bespoke />
 
-                    <About />
-                    <Projects />
                     <Contact />
                 </motion.div>
             </motion.div>

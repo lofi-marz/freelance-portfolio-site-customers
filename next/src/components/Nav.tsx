@@ -14,13 +14,18 @@ export function Nav() {
     const { scrollY } = useScroll();
     const [atPageStart, setAtPageStart] = useState(true);
     useMotionValueEvent(scrollY, 'change', (v) => {
-        setAtPageStart(v < 10);
+        setAtPageStart(v < 20);
     });
 
     return (
         <motion.nav
-            className="themed-text fixed top-0 z-50 flex w-full flex-row items-center justify-between px-6 font-title text-2xl  md:px-24 md:text-xl"
-            style={{ height: atPageStart ? '9rem' : '6rem' }}
+            className={clsx(
+                ' fixed top-0 z-50 flex w-full flex-row items-center justify-between px-6 font-title text-2xl transition-all duration-500 md:px-24 md:text-xl',
+                atPageStart
+                    ? 'themed-text themed-bg'
+                    : 'themed-text-invert themed-bg-invert shadow-md'
+            )}
+            style={{ height: atPageStart ? '9rem' : '4rem' }}
             layout>
             <motion.div
                 className="flex flex-row items-center justify-center gap-1 lowercase tracking-wide"
@@ -30,9 +35,9 @@ export function Nav() {
                 <span className="hidden md:inline">leon web design</span>
             </motion.div>
             <motion.div
-                className="hidden h-full grow items-center justify-end gap-16 font-normal md:flex"
+                className="hidden h-full grow items-center justify-end gap-20 font-normal md:flex"
                 layout>
-                {['what I do', 'work', 'who am I'].map((w) => (
+                {['services', 'work', 'me'].map((w) => (
                     <motion.div key={w} layout>
                         {w}
                     </motion.div>

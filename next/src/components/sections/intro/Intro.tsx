@@ -169,7 +169,7 @@ export function Intro() {
     );
     return (
         <motion.section
-            className="themed-bg themed-text relative z-10 flex flex min-h-screen flex-col items-center justify-start gap-12 px-8 pb-8 font-title md:min-h-[150vh] md:px-36"
+            className="themed-bg themed-text sticky top-0 flex flex min-h-screen flex-col items-center justify-start gap-12  px-8 pb-8 font-title md:min-h-[150vh] md:px-36"
             ref={target}>
             <NavSpacer />
             <header className="flex grow flex-col items-center text-center text-4xl font-semibold leading-[1] md:items-start md:text-start md:text-7xl">

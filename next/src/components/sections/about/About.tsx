@@ -22,21 +22,7 @@ export function About() {
     return (
         <motion.section
             id="about"
-            className={clsx(
-                'themed-bg-invert themed-text-invert relative flex h-screen w-full flex-col items-center justify-center gap-8',
-                title.className
-            )}>
-            <div className="whitespace-pre-line p-6 text-center text-3xl font-medium sm:text-4xl md:text-4xl lg:p-12 lg:text-5xl">
-                <HighlightText>
-                    Hi, I&apos;m Omari! I&apos;m a Web Developer from England,
-                    currently studying in Nottingham. I like making fun,
-                    creative things with code. Creating new experiences,
-                    implementing eye pleasing designs, and bringing them to life
-                    with eye-catching animations is what I do best.
-                </HighlightText>
-            </div>
-            <CallToAction />
-        </motion.section>
+            className="themed-bg relative z-10 h-screen w-full"></motion.section>
     );
 }
 

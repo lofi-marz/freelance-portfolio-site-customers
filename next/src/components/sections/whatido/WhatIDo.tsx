@@ -18,7 +18,8 @@ const OptionVariants: Variants = {
     show: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: '-1em' },
 };
-export function WhatIDo() {
+
+function Ticker() {
     const colours = ['text-primary', 'text-secondary'];
     const options = [
         'bring their vision to life',
@@ -28,9 +29,6 @@ export function WhatIDo() {
     const [optionIndex, setOptionIndex] = useState(0);
     const text = options[optionIndex];
     const colour = colours[optionIndex % colours.length];
-
-    const desktop = useMediaQuery('md');
-
     const time = useTime();
     const index = useTransform(time, (v) => {
         const seconds = Math.floor((1.35 * v) / 2000);
@@ -43,26 +41,34 @@ export function WhatIDo() {
         //setOptionIndex(0);
     });
     return (
-        <section className="themed-bg-invert themed-text-invert relative z-50 flex min-h-screen w-full flex-col items-center justify-start gap-12 p-36 font-title">
-            <div className="flex w-full flex-col items-start justify-center font-title text-4xl font-bold md:text-5xl lg:flex-row lg:items-center lg:justify-start">
-                <span className="md:flex md:h-[1em] md:whitespace-pre lg:h-[1.5em] lg:items-center">
-                    I help businesses{' '}
-                </span>
-                <motion.div className="relative flex h-[1.1em] w-full flex-col items-start justify-start overflow-clip md:h-[1em] lg:h-[1.5em] lg:w-auto lg:grow lg:justify-center">
-                    <AnimatePresence>
-                        <motion.span
-                            key={text}
-                            className={clsx('absolute', colour)}
-                            initial="hide"
-                            animate="show"
-                            exit="exit"
-                            variants={OptionVariants}
-                            transition={{ ease: 'easeOut' }}>
-                            {text}
-                        </motion.span>
-                    </AnimatePresence>
-                </motion.div>
-            </div>
+        <div className="flex w-full flex-col items-start justify-center font-title text-4xl font-bold md:text-5xl lg:flex-row lg:items-center lg:justify-start">
+            <span className="md:flex md:h-[1em] md:whitespace-pre lg:h-[1.5em] lg:items-center">
+                I help businesses{' '}
+            </span>
+            <motion.div className="relative flex h-[1.1em] w-full flex-col items-start justify-start overflow-clip md:h-[1em] lg:h-[1.5em] lg:w-auto lg:grow lg:justify-center">
+                <AnimatePresence>
+                    <motion.span
+                        key={text}
+                        className={clsx('absolute', colour)}
+                        initial="hide"
+                        animate="show"
+                        exit="exit"
+                        variants={OptionVariants}
+                        transition={{ ease: 'easeOut' }}>
+                        {text}
+                    </motion.span>
+                </AnimatePresence>
+            </motion.div>
+        </div>
+    );
+}
+
+export function WhatIDo() {
+    const desktop = useMediaQuery('md');
+
+    return (
+        <section className="themed-bg-invert themed-text-invert relative z-10 flex min-h-screen w-full flex-col items-center justify-start gap-12 p-36 font-title">
+            <Ticker />
             <div className="-mt-6 self-start text-start text-2xl leading-snug">
                 I specialize in bespoke web design and development, to ensure
                 the best performance, bring more customers to your site and
