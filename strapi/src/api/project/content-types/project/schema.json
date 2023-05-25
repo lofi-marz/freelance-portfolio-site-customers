@@ -45,6 +45,23 @@
     },
     "brief": {
       "type": "text"
+    },
+    "fullDesktop": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "preferredPreview": {
+      "type": "enumeration",
+      "enum": [
+        "desktop",
+        "desktopFull",
+        "mobile"
+      ],
+      "default": "desktop"
     }
   }
 }
