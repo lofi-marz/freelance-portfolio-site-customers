@@ -8,10 +8,7 @@ type IconLinkProps = {
 
 export function IconLink({ href, children }: IconLinkProps) {
     return (
-        <a
-            key={href}
-            href={href}
-            className="rounded p-3 text-2xl transition-all">
+        <a key={href} href={href} className="card p-3 text-2xl transition-all">
             {children}
         </a>
     );
@@ -41,12 +38,12 @@ export function AnimatedIconLink({
             key={href}
             href={href}
             target="_blank"
-            className="relative flex items-center justify-center overflow-visible rounded p-2 transition-all"
+            className="card relative flex items-center justify-center overflow-visible p-2 transition-all"
             rel="noreferrer">
             <AnimatePresence>
                 {index === social && (
                     <motion.div
-                        className="themed-bg-invert absolute mx-auto h-full w-full rounded"
+                        className="themed-bg-invert card absolute mx-auto h-full w-full"
                         layoutId="social"
                         key="social"
                         variants={iconBackgroundVariants}

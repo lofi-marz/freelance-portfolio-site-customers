@@ -33,7 +33,9 @@ export function Contact() {
             )}>
             <LinksRow links={firstHalf} />
             <div className="mb-[2.5%] flex h-full items-center justify-center text-center font-medium md:w-2/3">
-                <SlideInText>Let&apos;s talk about your project</SlideInText>
+                <SlideInText invert>
+                    Let&apos;s talk about your project
+                </SlideInText>
             </div>
             <LinksRow links={secondHalf} />
         </motion.section>

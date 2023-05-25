@@ -5,14 +5,19 @@ import { title } from '../fonts';
 
 const lineVariants: Variants = {
     hide: {
-        transition: { duration: 0.1 },
+        transition: {
+            duration: 0.1,
+            staggerChildren: 0.05,
+            ease: 'easeOut',
+            bounce: 0,
+        },
     },
     show: {
         transition: {
             staggerChildren: 0.1,
             ease: 'easeOut',
             bounce: 0,
-            duration: 5,
+            duration: 4,
         },
     },
 };
@@ -33,10 +38,13 @@ function SlideInChar({ char }: { char: string }) {
     return <motion.div variants={charVariants}>{char}</motion.div>;
 }
 
-function SlideInWord({ word }: { word: string }) {
+function SlideInWord({ word, invert }: { word: string; invert: boolean }) {
     return (
         <motion.div
-            className="themed-bg-invert flex flex-row whitespace-pre"
+            className={clsx(
+                'flex flex-row whitespace-pre',
+                invert ? 'themed-bg-invert' : 'themed-bg'
+            )}
             variants={lineVariants}
             transition={{ staggerChildren: 1 }}>
             {[...word].map((c, i) => (
@@ -46,19 +54,30 @@ function SlideInWord({ word }: { word: string }) {
     );
 }
 
+type SlideInTextProps = {
+    invert?: boolean;
+    className?: string;
+} & WithChildrenProps;
+
 //TODO: Add some sort of reusability to this
 export function SlideInText({
+    invert = false,
+    className,
     children,
-}: WithChildrenProps): JSX.Element | null {
+}: SlideInTextProps): JSX.Element | null {
     if (typeof children === 'string') {
         const words = children.split(' ');
         return (
             <motion.div
-                className="flex flex-row flex-wrap items-center justify-center whitespace-pre"
+                className={clsx(
+                    'flex flex-row flex-wrap items-center justify-center whitespace-pre',
+                    className
+                )}
+                layout
                 variants={{ hide: {}, show: {} }}
                 transition={{ staggerChildren: 0.1 }}>
                 {words.map((w, i) => (
-                    <SlideInWord key={w + i} word={w + ' '} />
+                    <SlideInWord key={w + i} word={w + ' '} invert={invert} />
                 ))}
             </motion.div>
         );

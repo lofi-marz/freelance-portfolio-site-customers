@@ -27,13 +27,12 @@ function Arrow() {
 export function SocialsDesktop() {
     const [selectedSocial, setSelectedSocial] = useState<number | null>(null);
     const onEnter = (index: number | null) => {
-        console.log(index);
         setSelectedSocial(index);
     };
 
     return (
         <div
-            className="flex h-full flex-col items-center justify-center gap-2 px-5 text-xl text-dark-50"
+            className="text-light flex h-full flex-col items-center justify-center gap-2 px-5 text-xl"
             onMouseLeave={() => setSelectedSocial(null)}>
             <div className="z-10 flex w-fit flex-col items-center justify-center gap-1 rounded-r">
                 <AnimatedIconLink
@@ -73,7 +72,7 @@ export function SocialsDesktop() {
 
 function SocialsMobile() {
     return (
-        <div className="flex w-full items-center justify-center gap-2 rounded md:flex-col md:bg-red-400 md:text-dark-50">
+        <div className="card md:text-light flex w-full items-center justify-center gap-2 md:flex-col md:bg-red-400">
             <IconLink href="mailto:othompsonedwards@gmail.com">
                 <FaBook />
             </IconLink>

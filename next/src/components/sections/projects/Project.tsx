@@ -11,18 +11,54 @@ import {
     useTransform,
     Variants,
 } from 'framer-motion';
-import { text } from '../../../fonts';
 import { FaGithub, FaLink } from 'react-icons/fa';
 import {
     projectTitleVariants,
     underlineVariants,
     verticalUnderlineVariants,
 } from '@/components/sections/projects/variants';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { NavSpacer } from '@/components/Nav';
+
+const NoHoverTitleVariants: Variants = {
+    initial: { bottom: 0, top: 'auto' },
+    hover: { top: '100%' },
+};
+
+const HoverTitleVariants: Variants = {
+    initial: { top: '100%', bottom: 'auto', transition: { delayChildren: 1 } },
+    hover: { bottom: 0, top: 'auto' },
+};
+
+const ScrollingTextVariants: Variants = {
+    initial: { x: '0%', transition: { ease: 'easeOut', duration: 10 } },
+    hover: {
+        x: '100%',
+        transition: {
+            repeat: Infinity,
+            ease: 'linear',
+            duration: 5,
+        },
+    },
+};
+
+const ProjectPreviewVariants = {
+    initial: {
+        x: '-100%',
+        transition: {
+            ease: 'easeOut',
+            duration: 2,
+            bounce: 0,
+        },
+    },
+    hover: {
+        x: 0,
+        transition: { ease: 'easeOut', duration: 1.5, bounce: 0 },
+    },
+};
 
 export type ProjectProps = ProjectContent['attributes'] & {
-    odd?: boolean;
-    first?: boolean;
+    onView: () => void;
 };
 
 function ProjectsHeading() {
@@ -44,6 +80,42 @@ function ProjectsHeading() {
     );
 }
 
+function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
+    return (
+        <a
+            className="themed-bg-invert themed-text-invert card flex flex-row items-center justify-center gap-2 p-2 px-4 transition-all hover:bg-primary hover:text-light"
+            href={href}>
+            {children}
+        </a>
+    );
+}
+
+export function MobileProjectImage({ src }: { src: string }) {
+    return (
+        <div className="card flex aspect-[4/5] w-full flex-col items-center justify-start overflow-clip bg-primary pt-12 shadow-inner">
+            <div className="relative aspect-[9/16] w-2/3 drop-shadow-md">
+                <Image
+                    src={src}
+                    alt=""
+                    fill
+                    className="themed-bg z-10 rounded-t-xl object-cover object-top"
+                />
+            </div>
+        </div>
+    );
+}
+export function ProjectImage({ src }: { src: string }) {
+    return (
+        <div className="relative aspect-[16/9] w-full">
+            <Image
+                src={src}
+                alt=""
+                fill
+                className="card themed-bg z-10 object-cover object-top"
+            />
+        </div>
+    );
+}
 export function Project({
     title,
     description,
@@ -52,165 +124,55 @@ export function Project({
     brief,
     desktopPreview,
     mobilePreview,
-    odd = false,
-    first = false,
+    onView,
 }: ProjectProps) {
-    console.log(mobilePreview.data.attributes.url);
-    const desktop = useMediaQuery('md');
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ['start end', 'end start'],
-    });
-
-    const previewParallax = useTransform(scrollYProgress, [0, 1], [50, -50]);
-
-    const textParallax = useTransform(scrollYProgress, [0, 1], [450, -450]);
+    const [colourIndex, setColourIndex] = useState(0);
+    useEffect(() => {
+        setColourIndex(Math.floor(Math.random() * 3));
+    }, []);
+    const colour = ['bg-primary', 'bg-secondary', 'themed-bg-invert'][
+        colourIndex
+    ];
+    const md = useMediaQuery('md');
     return (
-        <li
+        <motion.div
             className={clsx(
-                'relative flex h-screen w-full flex-col items-center justify-center gap-32'
+                'relative flex w-full flex-col items-center justify-start gap-6 md:h-[100vh] md:h-screen md:snap-center md:justify-center md:pb-12 md:pb-6'
             )}
-            ref={ref}>
-            {first && <ProjectsHeading />}
-            <div
-                className={clsx(
-                    'flex h-96 w-full items-center justify-end gap-16',
-                    odd ? 'flex-row' : 'flex-row-reverse'
-                )}>
-                <motion.div
-                    className={clsx(
-                        'themed-bg-invert themed-text-invert absolute z-50 w-1/2 p-8',
-                        odd ? 'left-0' : 'right-0'
-                    )}
-                    style={{ y: textParallax }}>
-                    {brief}
-                    <div className="themed-bg my-4 h-[1px] w-full rounded opacity-90" />
-                    <div className="flex flex-row gap-4">
-                        {repoLink && (
-                            <a
-                                className="transition-all hover:text-primary"
-                                href={repoLink}
-                                target="_blank"
-                                rel="noreferrer">
-                                <FaGithub />
-                            </a>
-                        )}
-                        {liveLink && (
-                            <a
-                                className="transition-all hover:text-primary"
-                                href={liveLink}
-                                target="_blank"
-                                rel="noreferrer">
-                                <FaLink />
-                            </a>
-                        )}
-                    </div>
-                </motion.div>
-                <motion.div className="relative flex aspect-[9/19] h-full max-w-md items-center justify-center md:aspect-[16/9] md:max-w-none">
-                    <Image
-                        src={
-                            'https://marimari.tech/cms' +
-                            (desktop
-                                ? desktopPreview.data.attributes.url
-                                : mobilePreview.data.attributes.url)
-                        }
-                        alt=""
-                        fill
-                        className="z-10 object-cover shadow brightness-75 "
-                    />
-                    <motion.div
-                        className="absolute mt-8 ml-8 h-full w-full bg-primary brightness-75"
-                        style={{ y: previewParallax }}
-                    />
-                </motion.div>
-                <ProjectHeader odd={odd}>{title}</ProjectHeader>
-            </div>
-        </li>
-    );
-}
-
-function MobileProject({
-    title,
-    description,
-    repoLink,
-    liveLink,
-    brief,
-    desktopPreview,
-    mobilePreview,
-    odd = false,
-}: ProjectProps) {
-    return (
-        <li
-            className={clsx(
-                'relative flex flex-col items-center justify-center gap-4'
-            )}>
-            <h3 className="w-full text-3xl font-bold">
-                {title}
-                <div className="-mt-3 h-4 w-full bg-primary"></div>
-            </h3>
-            <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-visible rounded shadow">
-                <Image
+            initial="initial"
+            whileHover="hover"
+            onViewportEnter={() => onView()}
+            viewport={{ margin: '-50%' }}
+            transition={{ staggerChildren: 0.1 }}>
+            <NavSpacer />
+            {!md && (
+                <MobileProjectImage
                     src={
                         'https://marimari.tech/cms' +
-                        desktopPreview.data.attributes.url
+                        mobilePreview.data.attributes.url
                     }
-                    alt=""
-                    fill
-                    className="object-contain"
                 />
-            </div>
-            <div className={clsx('flex h-full  w-full flex-col gap-8')}>
-                <p
-                    className={clsx(
-                        'whitespace-pre-line text-xl shadow',
-                        text.className
-                    )}>
+            )}
+            <div className="justify-baseline flex w-full flex-col items-start md:gap-6">
+                <h3 className="w-full text-4xl font-bold md:w-4/5 md:text-7xl lg:text-8xl">
+                    {title}
+                </h3>
+                <p className="hidden w-full font-body md:block md:w-1/2">
                     {brief}
                 </p>
-                <div className="flex flex-row text-xl font-bold">
-                    <a
-                        className="themed-bg-invert themed-text-invert p-4 transition-all hover:text-primary"
-                        href={repoLink}>
-                        <FaGithub />
-                    </a>
+                <div className="card mt-6 flex flex-row items-center justify-center gap-3 text-xl">
                     {liveLink && (
-                        <a
-                            className="themed-text bg-primary p-4 transition-all hover:text-primary"
-                            href={liveLink}>
-                            <FaLink />
-                        </a>
+                        <ProjectLink href={liveLink}>
+                            <FaLink /> Link
+                        </ProjectLink>
+                    )}
+                    {repoLink && (
+                        <ProjectLink href={repoLink}>
+                            <FaGithub /> Code
+                        </ProjectLink>
                     )}
                 </div>
             </div>
-        </li>
-    );
-}
-
-function ProjectHeader({
-    children,
-    odd,
-}: { odd: boolean } & WithChildrenProps) {
-    return (
-        <motion.header
-            className={clsx(
-                'w-18 flex flex-col content-end items-start justify-center text-5xl font-bold lowercase',
-                !odd && 'rotate-180'
-            )}
-            style={{ writingMode: 'vertical-rl' }}
-            initial="hide"
-            whileInView="show"
-            exit="hide">
-            <motion.h3 variants={projectTitleVariants} className="z-10">
-                {children}
-            </motion.h3>
-            <div className="-z-5 -mr-3 h-2/3 w-4">
-                <motion.div
-                    className="h-full w-full bg-primary"
-                    style={{ originY: 0 }}
-                    variants={verticalUnderlineVariants}
-                />
-            </div>
-        </motion.header>
+        </motion.div>
     );
 }

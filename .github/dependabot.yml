@@ -6,6 +6,15 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/next/"
     schedule:
       interval: "weekly"
+    labels:
+      - "frontend"
+
+  - package-ecosystem: "npm"
+    directory: "/strapi/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "backend"
