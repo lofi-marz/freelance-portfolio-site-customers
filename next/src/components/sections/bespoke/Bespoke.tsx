@@ -1,11 +1,14 @@
 import {
     AnimatePresence,
+    MotionValue,
     useMotionValueEvent,
+    useScroll,
+    useSpring,
     useTime,
     useTransform,
     Variants,
 } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
@@ -41,6 +44,27 @@ function BespokePoint({
         </li>
     );
 }
+
+function CodeWindow({ yOffset }: { yOffset: MotionValue<number> }) {
+    return (
+        <motion.div
+            className="themed-bg flex aspect-video w-full flex-col overflow-clip rounded-xl"
+            style={{ y: yOffset }}>
+            <div className=" flex h-6 w-full gap-2 bg-primary p-1 px-2">
+                {['bg-red-400', 'bg-amber-400', 'bg-green-400'].map((c) => (
+                    <div
+                        key={c}
+                        className={clsx('aspect-square h-full rounded-full', c)}
+                    />
+                ))}
+            </div>
+            <div className="flex grow items-center justify-center">
+                <FaCode className="text-9xl text-primary" />
+            </div>
+        </motion.div>
+    );
+}
+
 export function Bespoke() {
     const desktop = useMediaQuery('md');
     const { projects } = useStrapiContentContext()!;
@@ -50,6 +74,18 @@ export function Bespoke() {
         (desktop
             ? project.attributes.desktopPreview.data.attributes.url
             : project.attributes.mobilePreview.data.attributes.url);
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ['start end', 'end start'],
+    });
+    const spring = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001,
+    });
+    const yOffset = useTransform(spring, [0, 1], [500, -500]);
+
     return (
         <section className="themed-text-invert themed-bg-invert relative z-0 flex min-h-screen w-full flex-col items-center justify-start gap-6 px-6 py-36 font-title md:flex-row md:px-36">
             <div className="z-20 flex h-full w-full flex-col items-start justify-start gap-12 md:justify-center lg:w-1/2">
@@ -83,24 +119,7 @@ export function Bespoke() {
                 </div>
             </div>
             <div className="hidden grow items-center justify-center p-12 lg:flex">
-                <div className="themed-bg flex aspect-video w-full flex-col overflow-clip rounded-xl">
-                    <div className=" flex h-6 w-full gap-2 bg-primary p-1 px-2">
-                        {['bg-red-400', 'bg-amber-400', 'bg-green-400'].map(
-                            (c) => (
-                                <div
-                                    key={c}
-                                    className={clsx(
-                                        'aspect-square h-full rounded-full',
-                                        c
-                                    )}
-                                />
-                            )
-                        )}
-                    </div>
-                    <div className="flex grow items-center justify-center">
-                        <FaCode className="text-9xl text-primary" />
-                    </div>
-                </div>
+                <CodeWindow yOffset={yOffset} />
             </div>
         </section>
     );
