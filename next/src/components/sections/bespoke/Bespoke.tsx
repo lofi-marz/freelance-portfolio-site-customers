@@ -26,6 +26,7 @@ import {
 } from 'react-icons/fa';
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
 import Image from 'next/image';
+import { useParallax } from '../../../hooks/useParallax';
 
 function BespokePoint({
     Icon,
@@ -75,16 +76,12 @@ export function Bespoke() {
             ? project.attributes.desktopPreview.data.attributes.url
             : project.attributes.mobilePreview.data.attributes.url);
     const containerRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ['start end', 'end start'],
-    });
-    const spring = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001,
-    });
-    const yOffset = useTransform(spring, [0, 1], [500, -500]);
+
+    const yOffset: MotionValue<number> = useParallax(
+        containerRef,
+        [500, -500],
+        ['start end', 'end start']
+    );
 
     return (
         <section className="themed-text-invert themed-bg-invert relative z-0 flex min-h-screen w-full flex-col items-center justify-start gap-6 px-6 py-36 font-title md:flex-row md:px-36">
