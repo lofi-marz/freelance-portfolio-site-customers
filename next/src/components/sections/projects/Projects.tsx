@@ -1,5 +1,6 @@
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
 import {
+    AnimatePresence,
     motion,
     MotionValue,
     useMotionValueEvent,
@@ -12,12 +13,50 @@ import { WithChildrenProps } from 'types';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import { Project } from './Project';
 import { useRef, useState } from 'react';
+import styles from './Projects.module.css';
 import { ProjectPreview } from '@/components/sections/projects/ProjectPreview';
-
+import clsx from 'clsx';
+import Image from 'next/image';
+import mockup from './omni-mockup.webp';
+import { FaLink } from 'react-icons/fa';
 type RepeatTextProps = {
     n: number;
 } & WithChildrenProps;
 const toPercent = (n: number) => n * 100 + '%';
+
+const sidebar = {
+    show: ([x, y]: [number, number]) => {
+        console.log('Pos:', x, y);
+        return {
+            clipPath: `circle(1000px at ${x}px ${y}px)`,
+            transition: {
+                type: 'spring',
+                stiffness: 20,
+                restDelta: 2,
+            },
+        };
+    },
+    hide: ([x, y]: [number, number]) => ({
+        clipPath: `circle(30px at ${x}px ${y}px)`,
+        transition: {
+            delay: 0.5,
+            type: 'spring',
+            stiffness: 400,
+            damping: 40,
+        },
+    }),
+    exit: ([x, y]: [number, number]) => ({
+        clipPath: `circle(30px at ${x}px ${y}px)`,
+        opacity: 0,
+        transition: {
+            type: 'spring',
+            stiffness: 400,
+            damping: 40,
+            delay: 0.5,
+        },
+    }),
+};
+
 function RepeatText({ n, children }: RepeatTextProps) {
     const headerRef = useRef(null);
     const containerRef = useRef(null);
@@ -66,30 +105,75 @@ function RepeatText({ n, children }: RepeatTextProps) {
 
 export function Projects() {
     const { projects } = useStrapiContentContext()!;
-    const [projectI, setProjectI] = useState(0);
+    const [projectI, setProjectI] = useState<number | null>(0);
+    const [mousePos, setMousePos] = useState([0, 0]);
+    const featured = projects.filter((p) => p.attributes.mockup.data);
     const onChange = (p: number) => () => setProjectI(p);
-    const project = projects[projectI];
+    const project = projectI ? projects[projectI] : null;
     const md = useMediaQuery('md');
+
     return (
         <motion.section
-            className="themed-bg themed-text relative z-10 mt-[-1px] flex min-h-screen w-full flex-col items-center justify-center py-24 pb-[25vh] font-title md:pb-[50vh]"
+            className="themed-bg themed-text relative z-10 flex min-h-screen flex-col gap-12 px-6 py-24 font-title md:px-24"
             id="projects">
-            <RepeatText n={2}>Projects</RepeatText>
-            <div className="flex w-full flex-col-reverse items-start justify-center px-6 md:flex-row md:items-start md:justify-start md:px-24">
-                <div className="flex w-full flex-col items-center justify-center md:z-50 md:-mt-[50vh] md:mt-auto md:w-3/5">
-                    {projects.map((p, i) => (
-                        <Project
-                            key={p.id}
-                            {...p.attributes}
-                            onView={onChange(i)}
+            <h2 className="text-5xl font-bold">my work</h2>
+            <div className="grid w-full grid-cols-1 flex-col gap-6 md:aspect-[3/2] md:grid-cols-3 md:grid-rows-2">
+                {featured.map((p, i) => (
+                    <motion.div
+                        onHoverStart={(e, info) => {
+                            const { x: tx, y: ty } = (
+                                e.target as HTMLDivElement
+                            ).getBoundingClientRect();
+                            console.log(e.clientX - tx, e.clientY - ty);
+                            setMousePos(
+                                [e.clientX - tx, e.clientY - ty].map(Math.round)
+                            );
+                            setProjectI(i);
+                        }}
+                        onHoverEnd={() => setProjectI(null)}
+                        key={p.id}
+                        className={clsx(
+                            'relative aspect-[16/10] overflow-clip rounded-lg text-light  md:aspect-auto',
+                            md && styles.project
+                        )}>
+                        <Image
+                            src={
+                                'https://marimari.tech/cms' +
+                                p.attributes.mockup.data.attributes.url
+                            }
+                            alt=""
+                            fill
+                            className="object-cover brightness-50"
                         />
-                    ))}
-                </div>
-                {md && (
-                    <div className="sticky top-0 z-0 flex h-[50vh] w-full grow items-start justify-between md:h-screen md:w-auto md:items-center">
-                        <ProjectPreview project={project} />
-                    </div>
-                )}
+                        <div className="absolute flex h-full w-full flex-col justify-between p-6 text-xl font-bold text-light">
+                            <div className="flex justify-end transition-all hover:text-primary">
+                                <a href={p.attributes.liveLink}>
+                                    <FaLink />
+                                </a>
+                            </div>
+                            <div className="z-10">{p.attributes.title}</div>
+                        </div>
+                        <AnimatePresence>
+                            {projectI === i && (
+                                <motion.div
+                                    key={'project-cover-' + i}
+                                    variants={sidebar}
+                                    initial="hide"
+                                    animate="show"
+                                    exit="exit"
+                                    custom={mousePos}
+                                    className="absolute flex h-full w-full flex-col justify-between bg-primary p-6">
+                                    <p>{p.attributes.brief}</p>
+                                    <div className="flex justify-end transition-all hover:text-primary">
+                                        <a href={p.attributes.liveLink}>
+                                            <FaLink />
+                                        </a>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
+                ))}
             </div>
         </motion.section>
     );

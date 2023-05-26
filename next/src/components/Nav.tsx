@@ -23,7 +23,7 @@ export function Nav() {
                 ' fixed top-0 z-50 flex w-full flex-row items-center justify-between px-6 font-title text-2xl transition-all duration-500 md:px-24 md:text-xl',
                 atPageStart
                     ? 'themed-text themed-bg'
-                    : 'themed-text-invert themed-bg-invert shadow-md'
+                    : 'themed-text-invert themed-bg-invert shadow'
             )}
             style={{ height: atPageStart ? '9rem' : '4rem' }}
             layout>
@@ -43,7 +43,7 @@ export function Nav() {
                     </motion.div>
                 ))}
                 <motion.a
-                    className="hover:themed-bg-invert hover:themed-text-invert rounded-full border-2 border-black px-8 py-3 transition-all"
+                    className="hover:card-primary rounded-full  border-2 border-black px-8 py-3 transition-all hover:border-primary"
                     layout
                     href="#contact">
                     let's chat

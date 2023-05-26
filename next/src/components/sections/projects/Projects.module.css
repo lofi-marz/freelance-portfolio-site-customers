@@ -1,0 +1,13 @@
+
+
+
+.project:nth-child(1) {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.project:nth-child(4) {
+    grid-column-start: 2;
+    grid-column-end: 4;
+}
+

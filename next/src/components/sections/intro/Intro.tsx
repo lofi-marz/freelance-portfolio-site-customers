@@ -164,15 +164,14 @@ export function Intro() {
     const { scrollYProgress } = useScroll({
         target,
     });
-    useMotionValueEvent(scrollYProgress, 'change', (v) =>
-        console.log('Scroll:', v)
-    );
+
     return (
         <motion.section
-            className="themed-bg themed-text sticky top-0 flex flex min-h-screen flex-col items-center justify-start gap-12  px-8 pb-8 font-title md:min-h-[150vh] md:px-36"
+            className="themed-bg-invert themed-text relative sticky top-0 flex flex h-screen flex-col items-center justify-start gap-12 px-8 pb-8 font-title md:min-h-[150vh] md:px-36"
             ref={target}>
+            <div className="themed-bg absolute top-0 h-screen w-full rounded-b-[4rem]" />
             <NavSpacer />
-            <header className="flex grow flex-col items-center text-center text-4xl font-semibold leading-[1] md:items-start md:text-start md:text-7xl">
+            <header className="z-10 flex grow flex-col items-center text-center text-4xl font-semibold leading-loose md:items-start md:text-start md:text-7xl">
                 <div>
                     Hi, I'm <span className="text-primary">Omari</span>.
                 </div>

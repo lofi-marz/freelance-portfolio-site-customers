@@ -11,10 +11,36 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { IconType } from 'react-icons';
 import { WithChildrenProps } from '../../../types';
-import { FaCalendar, FaPhone, FaServer, FaFlask } from 'react-icons/fa';
+import {
+    FaCalendar,
+    FaPhone,
+    FaServer,
+    FaFlask,
+    FaTachometerAlt,
+    FaCode,
+    FaLock,
+    FaPalette,
+} from 'react-icons/fa';
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
 import Image from 'next/image';
 
+function BespokePoint({
+    Icon,
+    title,
+    children,
+}: { Icon: IconType; title: string } & WithChildrenProps) {
+    return (
+        <li className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:items-start">
+            <Icon className="h-fit text-6xl text-primary" />
+            <div className="flex flex-col gap-2">
+                <div className="text-center font-title text-2xl font-bold lg:text-start">
+                    {title}
+                </div>
+                <div className="text-md max-w-md font-light">{children}</div>
+            </div>
+        </li>
+    );
+}
 export function Bespoke() {
     const desktop = useMediaQuery('md');
     const { projects } = useStrapiContentContext()!;
@@ -25,19 +51,56 @@ export function Bespoke() {
             ? project.attributes.desktopPreview.data.attributes.url
             : project.attributes.mobilePreview.data.attributes.url);
     return (
-        <section className="themed-text-invert themed-bg-invert relative z-0 flex h-screen  w-full flex-col items-center justify-start gap-6 px-6 py-36 font-title md:flex-row-reverse md:px-36">
-            <div className="z-50 -mt-96 w-4/5 md:mt-auto md:grow">
-                <Preview src={src} />
-            </div>
-            <div className="z-20 flex h-full w-full flex-col items-start justify-start gap-6 md:w-1/2 md:justify-center">
-                <h2 className="text-center text-5xl font-bold md:text-start">
+        <section className="themed-text-invert themed-bg-invert relative z-0 flex min-h-screen w-full flex-col items-center justify-start gap-6 px-6 py-36 font-title md:flex-row md:px-36">
+            <div className="z-20 flex h-full w-full flex-col items-start justify-start gap-12 md:justify-center lg:w-1/2">
+                <h2 className="text-center text-5xl font-bold lg:whitespace-nowrap lg:text-start">
                     Bespoke Web Development
                 </h2>
-                <p className="text-center font-body text-xl leading-normal md:pr-24 md:text-start">
+                <p className="text-center text-2xl lg:text-start">
                     I specialise in bespoke sites, built from scratch for your
-                    needs. For you, this means a blazingly fast site, secure by
-                    design, and optimised to rank highly on Google.
+                    needs.
                 </p>
+                <div className="w-full px-6 text-center text-xl leading-normal md:px-0 md:text-start lg:max-w-[50vw]">
+                    <ul className="flex flex-col items-center justify-start gap-20 lg:items-start lg:gap-12">
+                        <BespokePoint
+                            Icon={FaTachometerAlt}
+                            title="Blazingly Fast">
+                            Building a site from scratch skips all of the
+                            outdated, bloated features of template servies like
+                            Wix.
+                        </BespokePoint>
+                        <BespokePoint Icon={FaLock} title="Secure By Design">
+                            Built with top-notch security measures, your website
+                            is fortified against potential threats.
+                        </BespokePoint>
+                        <BespokePoint
+                            Icon={FaPalette}
+                            title="Completely Custom">
+                            No templates - Our websites are crafted from
+                            scratch, ensuring you stand out from the competition
+                        </BespokePoint>
+                    </ul>
+                </div>
+            </div>
+            <div className="hidden grow items-center justify-center p-12 lg:flex">
+                <div className="themed-bg flex aspect-video w-full flex-col overflow-clip rounded-xl">
+                    <div className=" flex h-6 w-full gap-2 bg-primary p-1 px-2">
+                        {['bg-red-400', 'bg-amber-400', 'bg-green-400'].map(
+                            (c) => (
+                                <div
+                                    key={c}
+                                    className={clsx(
+                                        'aspect-square h-full rounded-full',
+                                        c
+                                    )}
+                                />
+                            )
+                        )}
+                    </div>
+                    <div className="flex grow items-center justify-center">
+                        <FaCode className="text-9xl text-primary" />
+                    </div>
+                </div>
             </div>
         </section>
     );

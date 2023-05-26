@@ -11,77 +11,30 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { IconType } from 'react-icons';
 import { WithChildrenProps } from '../../../types';
-import { FaCalendar, FaPhone, FaServer, FaFlask } from 'react-icons/fa';
-
-const OptionVariants: Variants = {
-    hide: { opacity: 0, y: '1em' },
-    show: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: '-1em' },
-};
-
-function Ticker() {
-    const colours = ['text-primary', 'text-secondary'];
-    const options = [
-        'bring their vision to life',
-        'showcase their products',
-        'establish an online presence',
-    ];
-    const [optionIndex, setOptionIndex] = useState(0);
-    const text = options[optionIndex];
-    const colour = colours[optionIndex % colours.length];
-    const time = useTime();
-    const index = useTransform(time, (v) => {
-        const seconds = Math.floor((1.35 * v) / 2000);
-        return seconds % options.length;
-    });
-
-    useMotionValueEvent(index, 'change', (v) => {
-        setOptionIndex(v);
-
-        //setOptionIndex(0);
-    });
-    return (
-        <div className="flex w-full flex-col items-start justify-center font-title text-4xl font-bold md:text-5xl lg:flex-row lg:items-center lg:justify-start">
-            <span className="md:flex md:h-[1em] md:whitespace-pre lg:h-[1.5em] lg:items-center">
-                I help businesses{' '}
-            </span>
-            <motion.div className="relative flex h-[1.1em] w-full flex-col items-start justify-start overflow-clip md:h-[1em] lg:h-[1.5em] lg:w-auto lg:grow lg:justify-center">
-                <AnimatePresence>
-                    <motion.span
-                        key={text}
-                        className={clsx('absolute', colour)}
-                        initial="hide"
-                        animate="show"
-                        exit="exit"
-                        variants={OptionVariants}
-                        transition={{ ease: 'easeOut' }}>
-                        {text}
-                    </motion.span>
-                </AnimatePresence>
-            </motion.div>
-        </div>
-    );
-}
+import {
+    FaCalendar,
+    FaPhone,
+    FaServer,
+    FaFlask,
+    FaMobile,
+    FaMobileAlt,
+} from 'react-icons/fa';
 
 export function WhatIDo() {
     const desktop = useMediaQuery('md');
 
     return (
-        <section className="themed-bg-invert themed-text-invert relative z-10 flex min-h-screen w-full flex-col items-center justify-start gap-12 p-36 font-title">
-            <Ticker />
-            <div className="-mt-6 self-start text-start text-2xl leading-snug">
-                I specialize in bespoke web design and development, to ensure
-                the best performance, bring more customers to your site and
-                bring more revenue to your business.
-            </div>
-            <h3 className="text-5xl font-bold">What I can do for you</h3>
-            <div className="grid w-full grid-cols-3 grid-rows-2 gap-6">
+        <section className="themed-bg themed-text relative z-10 flex w-full flex-col items-center justify-start gap-24 p-6 py-24 font-title md:px-36">
+            <h3 className="text-5xl font-bold">
+                why leon <span className="text-primary">?</span>
+            </h3>
+            <div className="grid grid-rows-3 items-start gap-6 md:grid-rows-1 lg:grid-cols-3">
                 <Card Icon={FaServer} title="Reliable Hosting">
                     We can host your website for you. No matter how big or small
                     your website, our hosting is fast, reliable, and we sort out
                     problems quickly.
                 </Card>
-                <Card Icon={FaPhone} title="Responsive Design">
+                <Card Icon={FaMobileAlt} title="Responsive Design">
                     We build sites from a mobile-first perspective, to create
                     website layouts that look great & adapt to small or large
                     screens.
@@ -101,10 +54,10 @@ function Card({
     children,
 }: { Icon: IconType; title: string } & WithChildrenProps) {
     return (
-        <div className="themed-bg themed-text flex flex-col items-center justify-center gap-4 rounded-md p-12 text-center">
-            <Icon className="mb-6 text-5xl" />
+        <div className="themed-bg themed-text flex flex-col items-center justify-center gap-4 rounded-md p-6 text-center">
+            <Icon className="mb-6 text-5xl text-primary" />
             <header className="text-4xl font-bold">{title}</header>
-            <p>{children}</p>
+            <p className="max-w-xs">{children}</p>
         </div>
     );
 }

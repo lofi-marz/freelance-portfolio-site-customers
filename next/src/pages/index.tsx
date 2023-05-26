@@ -41,6 +41,7 @@ import {
     getStrapiContent,
     GlobalContent,
     ProjectContent,
+    TestimonialContent,
 } from '../utils/strapi';
 import { StrapiContentContextProvider } from '@/components/StrapiContextProvider';
 import { Projects } from '@/components/sections/projects';
@@ -49,6 +50,8 @@ import { Contact } from '@/components/sections/contact';
 import theme from '../../tailwind.config';
 import { WhatIDo } from '@/components/sections/whatido';
 import { Bespoke } from '@/components/sections/bespoke';
+import { Ticker } from '@/components/Ticker';
+import { Testimonials } from '@/components/sections/testimonials/Testimonials';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -179,10 +182,13 @@ export default function Home({ content }: HomeProps) {
                     className="themed-bg themed-text relative w-full snap-y snap-mandatory">
                     <Nav />
                     <Intro />
-                    <WhatIDo />
                     <About />
-                    <Bespoke />
+                    <Ticker />
+                    <WhatIDo />
 
+                    <Bespoke />
+                    <Projects />
+                    <Testimonials />
                     <Contact />
                 </motion.div>
             </motion.div>
@@ -193,7 +199,7 @@ export default function Home({ content }: HomeProps) {
 export const getServerSideProps: GetServerSideProps = async () => {
     const query = qs.stringify(
         {
-            populate: ['*', 'desktopPreview', 'mobilePreview'],
+            populate: ['*', 'desktopPreview', 'mobilePreview', 'mockup'],
         },
         {
             encodeValuesOnly: true, // prettify URL
@@ -201,11 +207,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
     );
     //TODO: How do I scale this up for more data
 
-    const [about = {}, projects = []] = await Promise.all([
+    const [about = {}, projects = [], testimonials = []] = await Promise.all([
         //getSpotifyProps(),
         getStrapiContent<AboutContent>('about'),
         getStrapiContent<ProjectContent[]>('projects?' + query),
+        getStrapiContent<TestimonialContent[]>('testimonials'),
     ]);
 
-    return { props: { content: { about, projects } } };
+    return { props: { content: { about, projects, testimonials } } };
 };

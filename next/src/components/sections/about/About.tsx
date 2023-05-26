@@ -14,7 +14,7 @@ import {
     Variants,
 } from 'framer-motion';
 import theme from '../../../../tailwind.config';
-import { forwardRef, MutableRefObject, useRef } from 'react';
+import React, { forwardRef, MutableRefObject, useRef } from 'react';
 
 const primary = theme.theme.extend.colors.primary;
 
@@ -22,7 +22,21 @@ export function About() {
     return (
         <motion.section
             id="about"
-            className="themed-bg relative z-10 h-screen w-full"></motion.section>
+            className={clsx(
+                'themed-bg-invert themed-text-invert relative flex h-screen w-full flex-col items-center justify-center gap-8',
+                title.className
+            )}>
+            <div className="whitespace-pre-line p-6 text-center text-3xl font-medium sm:text-4xl md:text-4xl lg:p-12 lg:text-5xl">
+                <HighlightText>
+                    Hi, I&apos;m Omari! I&apos;m a Web Developer based in
+                    Nottingam. I like making fun, creative things with code. I
+                    specialize in bespoke web design and development, to ensure
+                    the best performance, bring more customers to your site and
+                    bring more revenue to your business.
+                </HighlightText>
+            </div>
+            <CallToAction />
+        </motion.section>
     );
 }
 

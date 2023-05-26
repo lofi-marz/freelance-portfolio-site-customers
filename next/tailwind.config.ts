@@ -19,11 +19,11 @@ const theme = {
                 body: ['var(--font-body)', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: colors.red[400],
-                secondary: colors.orange[400],
-                dark: colors.stone,
-                light: colors.stone[50],
-                black: colors.stone[900]
+                primary: colors.emerald[500],
+                secondary: colors.orange[500],
+                dark: colors.neutral,
+                light: colors.neutral[50],
+                black: colors.neutral[900]
             },
         },
     },
