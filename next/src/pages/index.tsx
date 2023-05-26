@@ -214,5 +214,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
         getStrapiContent<TestimonialContent[]>('testimonials'),
     ]);
 
-    return { props: { content: { about, projects, testimonials } } };
+    return {
+        props: { content: { about, projects, testimonials } },
+        revalidate: 600,
+    };
 };
