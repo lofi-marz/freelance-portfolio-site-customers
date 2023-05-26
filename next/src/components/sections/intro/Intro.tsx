@@ -31,7 +31,7 @@ import { setState } from 'jest-circus';
 import { NavSpacer } from '@/components/Nav';
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
 import Image from 'next/image';
-
+import me from './me-transparent.png';
 const ContainerVariants: Variants = {
     hide: { opacity: 0, height: '100vh' },
     show: {
@@ -160,18 +160,20 @@ function CurrentlyPlaying() {
 const lines = ["Hi, I'm Omari.", 'I create creative experiences with code.'];
 
 export function Intro() {
-    const target = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target,
-    });
-
     return (
-        <motion.section
-            className="themed-bg-invert themed-text relative sticky top-0 flex flex h-screen flex-col items-center justify-start gap-12 px-8 pb-8 font-title md:min-h-[150vh] md:px-36"
-            ref={target}>
-            <div className="themed-bg absolute top-0 h-screen w-full rounded-b-[4rem]" />
+        <motion.section className="themed-bg-invert themed-text sticky top-0 flex h-[100vh] flex-col items-center justify-center gap-12 px-8 pb-0 pb-8 font-title md:min-h-[150vh] md:justify-start md:px-36">
+            <div className="themed-bg absolute top-0 h-full w-full overflow-clip rounded-b-[4rem] md:h-screen">
+                <div className="absolute bottom-0 aspect-square w-full md:hidden">
+                    <Image
+                        src={me}
+                        alt="Picture of me"
+                        className="themed-bg object-contain opacity-[.4] bg-blend-difference brightness-[1] grayscale"
+                        fill
+                    />
+                </div>
+            </div>
             <NavSpacer />
-            <header className="z-10 flex grow flex-col items-center text-center text-4xl font-semibold leading-loose md:items-start md:text-start md:text-7xl">
+            <header className="z-10 flex grow flex-col items-center justify-center text-center text-4xl font-semibold leading-tight md:items-start md:justify-start md:text-start md:text-7xl">
                 <div>
                     Hi, I'm <span className="text-primary">Omari</span>.
                 </div>
@@ -185,6 +187,7 @@ export function Intro() {
                     href="#contact">
                     Let's chat
                 </a>
+                <div className="aspect-square w-full" />
             </header>
         </motion.section>
     );

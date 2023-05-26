@@ -129,7 +129,7 @@ export function Projects() {
                         onHoverEnd={() => setProjectI(-1)}
                         key={p.id}
                         className={clsx(
-                            'relative aspect-[16/10] overflow-clip rounded-lg text-light  md:aspect-auto',
+                            'relative aspect-square overflow-clip rounded-lg text-light md:aspect-auto',
                             md && styles.project
                         )}>
                         <Image
@@ -139,7 +139,7 @@ export function Projects() {
                             }
                             alt=""
                             fill
-                            className="object-cover brightness-50"
+                            className="aspect-[16/10] object-cover brightness-50"
                         />
                         <div className="absolute flex h-full w-full flex-col justify-between p-6 text-xl font-bold text-light">
                             <div className="flex justify-end transition-all hover:text-primary">
