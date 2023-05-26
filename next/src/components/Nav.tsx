@@ -20,7 +20,7 @@ export function Nav() {
     return (
         <motion.nav
             className={clsx(
-                ' fixed top-0 z-50 flex w-full flex-row items-center justify-between px-6 font-title text-2xl transition-all duration-500 md:px-24 md:text-xl',
+                'fixed top-0 z-40 flex w-full flex-row items-center justify-between px-6 font-title text-2xl transition-all duration-500 md:px-24 md:text-xl',
                 atPageStart
                     ? 'themed-text themed-bg'
                     : 'themed-text-invert themed-bg-invert shadow'
@@ -37,7 +37,7 @@ export function Nav() {
             <motion.div
                 className="hidden h-full grow items-center justify-end gap-20 font-normal md:flex"
                 layout>
-                {['services', 'work', 'me'].map((w) => (
+                {[].map((w) => (
                     <motion.div key={w} layout>
                         {w}
                     </motion.div>

@@ -38,7 +38,7 @@ export function Contact() {
     });
 
     const parallax = useTransform(scrollYProgress, [0, 1], [-250, 0]);
-    useMotionValueEvent(scrollYProgress, 'change', (v) => console.log(v));
+    //useMotionValueEvent(scrollYProgress, 'change', (v) => console.log(v));
     const {
         register,
         handleSubmit,

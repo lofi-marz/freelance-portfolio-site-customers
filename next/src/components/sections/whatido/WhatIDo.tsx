@@ -40,8 +40,9 @@ export function WhatIDo() {
                     screens.
                 </Card>
                 <Card Icon={FaFlask} title="SEO Optimisation">
-                    Design strategies & optimisation tactics to rank higher on
-                    Google
+                    Your website is built with SEO in mind, using advanced
+                    design and pre-rendering techniques to improve your
+                    website's ranking potential.
                 </Card>
             </div>
         </section>

@@ -35,7 +35,6 @@ export function Testimonials() {
     });
     useMotionValueEvent(index, 'change', (v) => {
         setQuoteIndex(v);
-        console.log(v);
         //setOptionIndex(0);
     });
     return (
@@ -45,7 +44,7 @@ export function Testimonials() {
             <Quote />
             <AnimatePresence presenceAffectsLayout={false} mode="popLayout">
                 <motion.blockquote
-                    className="themed-text-invert flex h-[40vh] items-center justify-start py-6 text-start leading-tight md:h-32"
+                    className="themed-text-invert flex h-[20vh] items-center justify-start py-6 text-start text-xl leading-tight md:h-32 md:text-4xl"
                     key={'quote-' + quoteIndex}
                     variants={QuoteVariants}
                     initial="hide"

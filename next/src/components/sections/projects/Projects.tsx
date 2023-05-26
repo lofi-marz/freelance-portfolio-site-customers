@@ -25,17 +25,14 @@ type RepeatTextProps = {
 const toPercent = (n: number) => n * 100 + '%';
 
 const sidebar = {
-    show: ([x, y]: [number, number]) => {
-        console.log('Pos:', x, y);
-        return {
-            clipPath: `circle(1000px at ${x}px ${y}px)`,
-            transition: {
-                type: 'spring',
-                stiffness: 20,
-                restDelta: 2,
-            },
-        };
-    },
+    show: ([x, y]: [number, number]) => ({
+        clipPath: `circle(1000px at ${x}px ${y}px)`,
+        transition: {
+            type: 'spring',
+            stiffness: 20,
+            restDelta: 2,
+        },
+    }),
     hide: ([x, y]: [number, number]) => ({
         clipPath: `circle(30px at ${x}px ${y}px)`,
         transition: {
@@ -124,7 +121,7 @@ export function Projects() {
                             const { x: tx, y: ty } = (
                                 e.target as HTMLDivElement
                             ).getBoundingClientRect();
-                            console.log(e.clientX - tx, e.clientY - ty);
+                            //console.log(e.clientX - tx, e.clientY - ty);
                             setMousePos(
                                 [e.clientX - tx, e.clientY - ty].map(Math.round)
                             );
