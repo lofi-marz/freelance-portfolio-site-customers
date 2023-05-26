@@ -26,7 +26,7 @@ export function About() {
                 'themed-bg-invert themed-text-invert relative flex h-screen w-full flex-col items-center justify-center gap-8',
                 title.className
             )}>
-            <div className="whitespace-pre-line p-6 text-center text-3xl font-medium sm:text-4xl md:text-4xl lg:p-12 lg:text-5xl">
+            <div className="xs:text-3xl whitespace-pre-line p-6 text-center text-2xl font-medium md:text-4xl lg:p-12 lg:text-5xl">
                 <HighlightText>
                     Hi, I&apos;m Omari! I&apos;m a Web Developer based in
                     Nottingam. I like making fun, creative things with code. I

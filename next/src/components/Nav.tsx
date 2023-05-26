@@ -19,6 +19,7 @@ import {
 } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { Property } from 'csstype';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 const CircleFillVariants = {
     show: ([x, y]: [number, number]) => ({
         clipPath: `circle(2000px at ${x}px ${y}px)`,
@@ -147,12 +148,14 @@ export function Nav() {
     const [atPageStart, setAtPageStart] = useState(true);
     const [menuIsOpen, toggleMenuIsOpen] = useReducer((state) => !state, false);
     const { scrollY } = useScroll();
-
+    const desktop = useMediaQuery('md');
     useMotionValueEvent(scrollY, 'change', (v) => {
         setAtPageStart(v < 20);
     });
 
-    const height = atPageStart ? '9rem' : '6rem';
+    const desktopHeight = atPageStart ? '9rem' : '6rem';
+    const mobileHeight = '4rem';
+    const height = desktop ? desktopHeight : mobileHeight;
     return (
         <motion.nav
             className={clsx(
@@ -198,5 +201,5 @@ export function Nav() {
 }
 
 export function NavSpacer() {
-    return <div className="w-full md:h-36"></div>;
+    return <div className="h-16 w-full md:h-36"></div>;
 }

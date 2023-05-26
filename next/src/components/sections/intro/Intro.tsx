@@ -161,7 +161,7 @@ const lines = ["Hi, I'm Omari.", 'I create creative experiences with code.'];
 
 export function Intro() {
     return (
-        <motion.section className="themed-bg-invert themed-text sticky top-0 flex h-[100vh] flex-col items-center justify-center gap-12 px-8 pb-0 pb-8 font-title md:min-h-[150vh] md:justify-start md:px-36">
+        <motion.section className="themed-bg-invert themed-text sticky top-0 flex h-[100vh] flex-col items-center justify-center gap-12 px-8 pb-8 font-title md:min-h-[150vh] md:justify-start lg:px-36">
             <div className="themed-bg absolute top-0 flex h-full w-full items-center justify-center overflow-clip rounded-b-[4rem] md:h-screen">
                 <div className="absolute bottom-0 mx-auto aspect-square w-full max-w-sm md:right-0">
                     <Image
@@ -173,7 +173,7 @@ export function Intro() {
                 </div>
             </div>
 
-            <header className="z-10 flex grow flex-col items-center justify-center text-center text-4xl font-semibold leading-tight md:items-start md:justify-start md:text-start md:text-7xl">
+            <header className="z-10 flex grow flex-col items-center justify-start text-center text-2xl font-semibold leading-tight sm:text-4xl md:items-start md:justify-start md:text-start md:text-6xl lg:text-7xl">
                 <NavSpacer />
                 <div>
                     Hi, I'm <span className="text-primary">Omari</span>.
@@ -188,7 +188,6 @@ export function Intro() {
                     href="#contact">
                     Let's chat
                 </a>
-                <div className="aspect-square w-full max-w-sm" />
             </header>
         </motion.section>
     );
