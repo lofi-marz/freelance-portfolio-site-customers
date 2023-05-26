@@ -2,17 +2,69 @@ import { DarkModeToggle } from '@/components/DarkModeToggle';
 import clsx from 'clsx';
 import { title } from 'fonts';
 import { WithChildrenProps } from '../types';
-import { FaBars, FaHamburger, FaMousePointer } from 'react-icons/fa';
-import React, { useState } from 'react';
-import { useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
+import {
+    FaBars,
+    FaCross,
+    FaHamburger,
+    FaMousePointer,
+    FaTimes,
+    FaWindowClose,
+} from 'react-icons/fa';
+import React, { useReducer, useRef, useState } from 'react';
+import {
+    AnimatePresence,
+    useMotionValueEvent,
+    useScroll,
+    useTransform,
+} from 'framer-motion';
 import { motion } from 'framer-motion';
-
+const CircleFillVariants = {
+    show: ([x, y]: [number, number]) => ({
+        clipPath: `circle(2000px at ${x}px ${y}px)`,
+        transition: {
+            type: 'spring',
+            stiffness: 20,
+            restDelta: 2,
+        },
+    }),
+    hide: ([x, y]: [number, number]) => ({
+        clipPath: `circle(30px at ${x}px ${y}px)`,
+        transition: {
+            delay: 0.5,
+            type: 'spring',
+            stiffness: 400,
+            damping: 40,
+        },
+    }),
+    exit: ([x, y]: [number, number]) => ({
+        clipPath: `circle(30px at ${x}px ${y}px)`,
+        opacity: 0,
+        transition: {
+            type: 'spring',
+            stiffness: 400,
+            damping: 40,
+            delay: 0,
+        },
+    }),
+};
 export function NavLink({ children }: WithChildrenProps) {}
-
+const links = {
+    LinkedIn: 'https://www.linkedin.com/in/omari-thompson-edwards-b7307b195',
+    Email: 'mailto:othompsonedwards@gmail.com',
+    GitHub: 'https://github.com/lofi-marz',
+    UpWork: 'https://www.upwork.com/freelancers/~019c194b11d5dfabbc',
+    CV: 'Omari Thompson-Edwards CV.pdf',
+};
 export function Nav() {
     const heights = ['h-24', 'h-12'];
+
+    const [pos, setPos] = useState<[number, number]>([0, 0]);
+
     const { scrollY } = useScroll();
     const [atPageStart, setAtPageStart] = useState(true);
+
+    const [menuIsOpen, toggleMenuIsOpen] = useReducer((state) => !state, false);
+
     useMotionValueEvent(scrollY, 'change', (v) => {
         setAtPageStart(v < 20);
     });
@@ -25,7 +77,7 @@ export function Nav() {
                     ? 'themed-text themed-bg'
                     : 'themed-text-invert themed-bg-invert shadow'
             )}
-            style={{ height: atPageStart ? '9rem' : '4rem' }}
+            style={{ height: atPageStart ? '9rem' : '6rem' }}
             layout>
             <motion.div
                 className="flex flex-row items-center justify-center gap-1 lowercase tracking-wide"
@@ -49,9 +101,61 @@ export function Nav() {
                     let's chat
                 </motion.a>
             </motion.div>
-            <button className="md:hidden">
+            <button
+                className="md:hidden"
+                onClick={(e) => {
+                    console.log(e.currentTarget.getBoundingClientRect().width);
+                    setPos([
+                        e.currentTarget.getBoundingClientRect().x,
+                        e.currentTarget.getBoundingClientRect().y,
+                    ]);
+                    toggleMenuIsOpen();
+                }}>
                 <FaBars />
             </button>
+            <AnimatePresence>
+                {menuIsOpen && (
+                    <motion.div className="themed-text-invert absolute right-0 top-0 z-50 flex h-screen w-full flex-col text-3xl font-bold">
+                        <motion.div
+                            className=" flex w-full flex-col gap-4 bg-primary p-12 "
+                            variants={CircleFillVariants}
+                            custom={pos}
+                            initial="hide"
+                            animate="show"
+                            exit="exit">
+                            {Object.entries(links).map(([name, link]) => (
+                                <a
+                                    key={name}
+                                    href={link}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    onClick={toggleMenuIsOpen}>
+                                    {name}
+                                </a>
+                            ))}
+                            <a
+                                className="card-solid-invert mt-4 py-4 text-center"
+                                href="#contact"
+                                onClick={toggleMenuIsOpen}>
+                                Get in touch.
+                            </a>
+                            <div
+                                className="absolute right-0 top-0 flex items-center justify-center px-6"
+                                style={{
+                                    height: atPageStart ? '9rem' : '6rem',
+                                }}>
+                                <button onClick={toggleMenuIsOpen}>
+                                    <FaTimes />
+                                </button>
+                            </div>
+                        </motion.div>
+                        <div
+                            className="w-full grow"
+                            onClick={toggleMenuIsOpen}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.nav>
     );
 }

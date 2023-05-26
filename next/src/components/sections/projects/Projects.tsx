@@ -24,7 +24,7 @@ type RepeatTextProps = {
 } & WithChildrenProps;
 const toPercent = (n: number) => n * 100 + '%';
 
-const sidebar = {
+const CircleFillVariants = {
     show: ([x, y]: [number, number]) => ({
         clipPath: `circle(1000px at ${x}px ${y}px)`,
         transition: {
@@ -153,7 +153,7 @@ export function Projects() {
                             {projectI === i && (
                                 <motion.div
                                     key={'project-cover-' + i}
-                                    variants={sidebar}
+                                    variants={CircleFillVariants}
                                     initial="hide"
                                     animate="show"
                                     exit="exit"

@@ -21,15 +21,6 @@ type FormInputs = {
 };
 
 export function Contact() {
-    const links = {
-        LinkedIn:
-            'https://www.linkedin.com/in/omari-thompson-edwards-b7307b195',
-        Email: 'mailto:othompsonedwards@gmail.com',
-        GitHub: 'https://github.com/lofi-marz',
-        UpWork: 'https://www.upwork.com/freelancers/~019c194b11d5dfabbc',
-        CV: 'Omari Thompson-Edwards CV.pdf',
-    };
-
     const ref = useRef(null);
 
     const { scrollYProgress } = useScroll({
