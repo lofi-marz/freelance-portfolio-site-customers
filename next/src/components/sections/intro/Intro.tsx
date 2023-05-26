@@ -163,7 +163,7 @@ export function Intro() {
     return (
         <motion.section className="themed-bg-invert themed-text sticky top-0 flex h-[100vh] flex-col items-center justify-center gap-12 px-8 pb-8 font-title md:min-h-[150vh] md:justify-start lg:px-36">
             <div className="themed-bg absolute top-0 flex h-full w-full items-center justify-center overflow-clip rounded-b-[4rem] md:h-screen">
-                <div className="absolute bottom-0 mx-auto aspect-square w-full max-w-sm md:right-0">
+                <div className="absolute bottom-0 mx-auto aspect-square w-full max-w-xs md:right-0 md:max-w-sm">
                     <Image
                         src={me}
                         alt="Picture of me"
