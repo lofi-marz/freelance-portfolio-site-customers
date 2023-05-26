@@ -167,7 +167,7 @@ export function Intro() {
                     <Image
                         src={me}
                         alt="Picture of me"
-                        className="themed-bg object-contain opacity-[.4] bg-blend-difference brightness-[1] grayscale"
+                        className="object-contain opacity-[.4]  brightness-[1.2] grayscale"
                         fill
                     />
                 </div>
