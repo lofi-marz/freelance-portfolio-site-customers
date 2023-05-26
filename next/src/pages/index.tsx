@@ -171,7 +171,7 @@ export default function Home({ content }: HomeProps) {
                 )}
                 id="home">
                 <Head>
-                    <title>Omari</title>
+                    <title>Omari Leon - Nottingham-Based Web Design</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
 
