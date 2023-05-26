@@ -102,11 +102,10 @@ function RepeatText({ n, children }: RepeatTextProps) {
 
 export function Projects() {
     const { projects } = useStrapiContentContext()!;
-    const [projectI, setProjectI] = useState<number | null>(0);
+    const [projectI, setProjectI] = useState<number>(-1);
     const [mousePos, setMousePos] = useState([0, 0]);
     const featured = projects.filter((p) => p.attributes.mockup.data);
     const onChange = (p: number) => () => setProjectI(p);
-    const project = projectI ? projects[projectI] : null;
     const md = useMediaQuery('md');
 
     return (
@@ -127,7 +126,7 @@ export function Projects() {
                             );
                             setProjectI(i);
                         }}
-                        onHoverEnd={() => setProjectI(null)}
+                        onHoverEnd={() => setProjectI(-1)}
                         key={p.id}
                         className={clsx(
                             'relative aspect-[16/10] overflow-clip rounded-lg text-light  md:aspect-auto',
