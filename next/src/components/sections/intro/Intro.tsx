@@ -31,7 +31,7 @@ import { setState } from 'jest-circus';
 import { NavSpacer } from '@/components/Nav';
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
 import Image from 'next/image';
-import me from './me-transparent.png';
+import me from './me-transparent@2x.png';
 const ContainerVariants: Variants = {
     hide: { opacity: 0, height: '100vh' },
     show: {
@@ -162,23 +162,24 @@ const lines = ["Hi, I'm Omari.", 'I create creative experiences with code.'];
 export function Intro() {
     return (
         <motion.section className="themed-bg-invert themed-text sticky top-0 flex h-[100vh] flex-col items-center justify-center gap-12 px-8 pb-0 pb-8 font-title md:min-h-[150vh] md:justify-start md:px-36">
-            <div className="themed-bg absolute top-0 h-full w-full overflow-clip rounded-b-[4rem] md:h-screen">
-                <div className="absolute bottom-0 aspect-square w-full md:hidden">
+            <div className="themed-bg absolute top-0 flex h-full w-full items-center justify-center overflow-clip rounded-b-[4rem] md:h-screen">
+                <div className="absolute bottom-0 mx-auto aspect-square w-full max-w-sm md:right-0">
                     <Image
                         src={me}
                         alt="Picture of me"
-                        className="object-contain opacity-[.4]  brightness-[1.2] grayscale"
+                        className="object-contain opacity-[.4] brightness-[1.2] grayscale"
                         fill
                     />
                 </div>
             </div>
-            <NavSpacer />
+
             <header className="z-10 flex grow flex-col items-center justify-center text-center text-4xl font-semibold leading-tight md:items-start md:justify-start md:text-start md:text-7xl">
+                <NavSpacer />
                 <div>
                     Hi, I'm <span className="text-primary">Omari</span>.
                 </div>
                 <div>I build bespoke websites for small businesses.</div>
-                <div className="py-8 text-xl font-normal leading-tight md:text-4xl md:font-light">
+                <div className="w-4/5 py-8 text-xl font-normal leading-tight md:text-4xl md:font-light">
                     No page builders or templates - I create 100% hand-coded
                     websites with personalised results.
                 </div>
@@ -187,7 +188,7 @@ export function Intro() {
                     href="#contact">
                     Let's chat
                 </a>
-                <div className="aspect-square w-full" />
+                <div className="aspect-square w-full max-w-sm" />
             </header>
         </motion.section>
     );

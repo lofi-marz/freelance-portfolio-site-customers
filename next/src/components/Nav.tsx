@@ -10,7 +10,7 @@ import {
     FaTimes,
     FaWindowClose,
 } from 'react-icons/fa';
-import React, { useReducer, useRef, useState } from 'react';
+import React, { MouseEventHandler, useReducer, useRef, useState } from 'react';
 import {
     AnimatePresence,
     useMotionValueEvent,
@@ -18,6 +18,7 @@ import {
     useTransform,
 } from 'framer-motion';
 import { motion } from 'framer-motion';
+import { Property } from 'csstype';
 const CircleFillVariants = {
     show: ([x, y]: [number, number]) => ({
         clipPath: `circle(2000px at ${x}px ${y}px)`,
@@ -47,7 +48,26 @@ const CircleFillVariants = {
         },
     }),
 };
-export function NavLink({ children }: WithChildrenProps) {}
+export function NavLink({
+    name,
+    href,
+    onClick,
+}: {
+    name: string;
+    href: string;
+    onClick: MouseEventHandler;
+}) {
+    return (
+        <a
+            className="last-of-type:card-solid-invert last-of-type:mt-4 last-of-type:py-4  last-of-type:text-center"
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            onClick={onClick}>
+            {name}
+        </a>
+    );
+}
 const links = {
     LinkedIn: 'https://www.linkedin.com/in/omari-thompson-edwards-b7307b195',
     Email: 'mailto:othompsonedwards@gmail.com',
@@ -55,20 +75,84 @@ const links = {
     UpWork: 'https://www.upwork.com/freelancers/~019c194b11d5dfabbc',
     CV: 'Omari Thompson-Edwards CV.pdf',
 };
+
+function NavLogo() {
+    return (
+        <motion.div
+            className="flex flex-row items-center justify-center gap-1 lowercase tracking-wide"
+            layout>
+            <FaMousePointer className="text-primary" />{' '}
+            <span className="md:hidden">Ln</span>
+            <span className="hidden md:inline">leon web design</span>
+        </motion.div>
+    );
+}
+
+function NavMobileMenu({
+    custom,
+    onClick,
+    height,
+}: {
+    custom: [number, number];
+    onClick: MouseEventHandler;
+    height: Property.Height;
+}) {
+    return (
+        <motion.div className="themed-text-invert absolute right-0 top-0 z-50 flex h-screen w-full flex-col text-3xl font-bold">
+            <motion.div
+                className=" flex w-full flex-col gap-4 bg-primary p-12 "
+                variants={CircleFillVariants}
+                custom={custom}
+                initial="hide"
+                animate="show"
+                exit="exit">
+                {Object.entries(links).map(([name, href]) => (
+                    <NavLink
+                        key={name}
+                        name={name}
+                        href={href}
+                        onClick={onClick}
+                    />
+                ))}
+                <NavLink
+                    name="Get in touch."
+                    href="#contact"
+                    onClick={onClick}
+                />
+                <div
+                    className="absolute right-0 top-0 flex items-center justify-center px-6"
+                    style={{
+                        height,
+                    }}>
+                    <button onClick={onClick}>
+                        <FaTimes />
+                    </button>
+                </div>
+            </motion.div>
+            <div className="w-full grow" onClick={onClick} />
+        </motion.div>
+    );
+}
+
+function MenuIcon({ onClick }: { onClick: MouseEventHandler }) {
+    return (
+        <button className="md:hidden" onClick={onClick}>
+            <FaBars />
+        </button>
+    );
+}
+
 export function Nav() {
-    const heights = ['h-24', 'h-12'];
-
     const [pos, setPos] = useState<[number, number]>([0, 0]);
-
-    const { scrollY } = useScroll();
     const [atPageStart, setAtPageStart] = useState(true);
-
     const [menuIsOpen, toggleMenuIsOpen] = useReducer((state) => !state, false);
+    const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, 'change', (v) => {
         setAtPageStart(v < 20);
     });
 
+    const height = atPageStart ? '9rem' : '6rem';
     return (
         <motion.nav
             className={clsx(
@@ -77,23 +161,12 @@ export function Nav() {
                     ? 'themed-text themed-bg'
                     : 'themed-text-invert themed-bg-invert shadow'
             )}
-            style={{ height: atPageStart ? '9rem' : '6rem' }}
+            style={{ height }}
             layout>
-            <motion.div
-                className="flex flex-row items-center justify-center gap-1 lowercase tracking-wide"
-                layout>
-                <FaMousePointer className="text-primary" />{' '}
-                <span className="md:hidden">Ln</span>
-                <span className="hidden md:inline">leon web design</span>
-            </motion.div>
+            <NavLogo />
             <motion.div
                 className="hidden h-full grow items-center justify-end gap-20 font-normal md:flex"
                 layout>
-                {[].map((w) => (
-                    <motion.div key={w} layout>
-                        {w}
-                    </motion.div>
-                ))}
                 <motion.a
                     className="hover:card-primary rounded-full  border-2 border-black px-8 py-3 transition-all hover:border-primary"
                     layout
@@ -101,8 +174,7 @@ export function Nav() {
                     let's chat
                 </motion.a>
             </motion.div>
-            <button
-                className="md:hidden"
+            <MenuIcon
                 onClick={(e) => {
                     console.log(e.currentTarget.getBoundingClientRect().width);
                     setPos([
@@ -110,50 +182,15 @@ export function Nav() {
                         e.currentTarget.getBoundingClientRect().y,
                     ]);
                     toggleMenuIsOpen();
-                }}>
-                <FaBars />
-            </button>
+                }}
+            />
             <AnimatePresence>
                 {menuIsOpen && (
-                    <motion.div className="themed-text-invert absolute right-0 top-0 z-50 flex h-screen w-full flex-col text-3xl font-bold">
-                        <motion.div
-                            className=" flex w-full flex-col gap-4 bg-primary p-12 "
-                            variants={CircleFillVariants}
-                            custom={pos}
-                            initial="hide"
-                            animate="show"
-                            exit="exit">
-                            {Object.entries(links).map(([name, link]) => (
-                                <a
-                                    key={name}
-                                    href={link}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    onClick={toggleMenuIsOpen}>
-                                    {name}
-                                </a>
-                            ))}
-                            <a
-                                className="card-solid-invert mt-4 py-4 text-center"
-                                href="#contact"
-                                onClick={toggleMenuIsOpen}>
-                                Get in touch.
-                            </a>
-                            <div
-                                className="absolute right-0 top-0 flex items-center justify-center px-6"
-                                style={{
-                                    height: atPageStart ? '9rem' : '6rem',
-                                }}>
-                                <button onClick={toggleMenuIsOpen}>
-                                    <FaTimes />
-                                </button>
-                            </div>
-                        </motion.div>
-                        <div
-                            className="w-full grow"
-                            onClick={toggleMenuIsOpen}
-                        />
-                    </motion.div>
+                    <NavMobileMenu
+                        custom={pos}
+                        onClick={toggleMenuIsOpen}
+                        height={height}
+                    />
                 )}
             </AnimatePresence>
         </motion.nav>
@@ -161,5 +198,5 @@ export function Nav() {
 }
 
 export function NavSpacer() {
-    return <div className="h-24 md:h-36"></div>;
+    return <div className="w-full md:h-36"></div>;
 }
