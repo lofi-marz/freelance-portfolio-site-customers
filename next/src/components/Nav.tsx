@@ -150,7 +150,7 @@ export function Nav() {
     const { scrollY } = useScroll();
     const desktop = useMediaQuery('md');
     useMotionValueEvent(scrollY, 'change', (v) => {
-        setAtPageStart(v < 20);
+        setAtPageStart(v < 600);
     });
 
     const desktopHeight = atPageStart ? '9rem' : '6rem';
