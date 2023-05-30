@@ -170,10 +170,6 @@ export default function Home({ content }: HomeProps) {
                     body.variable
                 )}
                 id="home">
-                <Head>
-                    <title>Omari Leon - Nottingham-Based Web Design</title>
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
 
                 <LoadingScreen onEnd={() => setLoading(false)} />
 
