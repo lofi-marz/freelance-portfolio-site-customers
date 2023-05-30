@@ -165,11 +165,6 @@ export default function Home({ content }: HomeProps) {
                     body.variable
                 )}
                 id="home">
-                <Head>
-                    <title>Omari</title>
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
-
                 <LoadingScreen onEnd={() => setLoading(false)} />
 
                 <motion.div
