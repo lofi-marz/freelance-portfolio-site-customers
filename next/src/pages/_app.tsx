@@ -11,7 +11,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NextSeo
-                title="Omari Leon - Nottingham-Based Web Design"
+                title="Omari Leon - Nottingham-Based Bespoke Web Development"
                 description="Nottingham-based freelance web developer."
             />
             <Component {...pageProps} />
