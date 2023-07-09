@@ -169,6 +169,7 @@ export function Intro() {
                         alt="Picture of me"
                         className="object-contain opacity-[.4] brightness-[1.2] grayscale"
                         fill
+                        priority
                     />
                 </div>
             </div>
