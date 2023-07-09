@@ -170,7 +170,6 @@ export default function Home({ content }: HomeProps) {
                     body.variable
                 )}
                 id="home">
-
                 <LoadingScreen onEnd={() => setLoading(false)} />
 
                 <motion.div

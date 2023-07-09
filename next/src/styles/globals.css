@@ -7,7 +7,6 @@ body {
 }
 
 @layer base {
-
     html {
         scroll-behavior: smooth;
         @apply snap-y snap-proximity;
@@ -32,9 +31,8 @@ body {
     }
 
     .text-gradient {
-        @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent !important
+        @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent !important;
     }
-
 }
 
 @layer components {
@@ -51,8 +49,6 @@ body {
     }
 
     .card-primary {
-        @apply card bg-primary themed-text-invert;
+        @apply card themed-text-invert bg-primary;
     }
-
-
 }
