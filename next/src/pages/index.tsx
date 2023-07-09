@@ -211,6 +211,5 @@ export const getStaticProps: GetServerSideProps = async () => {
 
     return {
         props: { content: { about, projects, testimonials } },
-        revalidate: 600,
     };
 };

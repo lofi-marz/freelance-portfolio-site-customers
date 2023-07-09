@@ -9,7 +9,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <DarkModeContextProvider>
             <Head>
                 <link rel="icon" href="/favicon.ico" />
-                <meta name="google-site-verification" content="Yt65GonydGAWX9LfJcUou4dacAjaH7vOS5Q8kmZzxHs" />
+                <meta
+                    name="google-site-verification"
+                    content="Yt65GonydGAWX9LfJcUou4dacAjaH7vOS5Q8kmZzxHs"
+                />
             </Head>
             <NextSeo
                 title="Omari Leon - Nottingham-Based Bespoke Web Development"
