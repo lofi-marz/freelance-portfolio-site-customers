@@ -100,6 +100,13 @@ export function Contact() {
                         {status === 'done' ? <FaCheck /> : 'Submit'}
                     </button>
                 </form>
+                <p className="absolute bottom-0 right-0 p-3 text-sm text-dark-700">
+                    Directory of{' '}
+                    <a href="https://www.nottingham.co.uk/web-designers/">
+                        Nottingham Web Designers
+                    </a>{' '}
+                    - <a href="https://www.nottingham.co.uk/"> Nottingham</a>
+                </p>
             </motion.section>
         </section>
     );
