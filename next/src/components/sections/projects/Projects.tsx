@@ -143,14 +143,16 @@ export function Projects() {
                         />
                         <div className="absolute flex h-full w-full flex-col justify-between p-6 text-xl font-bold text-light">
                             <div className="flex justify-end transition-all hover:text-primary">
-                                <a href={p.attributes.liveLink}>
+                                <a href={p.attributes.liveLink} target="_blank">
                                     <FaLink />
                                 </a>
                             </div>
-                            <div className="z-10">{p.attributes.title}</div>
+                            <div className="z-10 w-fit">
+                                {p.attributes.title}
+                            </div>
                         </div>
                         <AnimatePresence>
-                            {projectI === i && (
+                            {true && (
                                 <motion.div
                                     key={'project-cover-' + i}
                                     variants={CircleFillVariants}
@@ -160,8 +162,10 @@ export function Projects() {
                                     custom={mousePos}
                                     className="absolute flex h-full w-full flex-col justify-between bg-primary p-6">
                                     <p>{p.attributes.brief}</p>
-                                    <div className="flex justify-end transition-all hover:text-primary">
-                                        <a href={p.attributes.liveLink}>
+                                    <div className="flex justify-end transition-all hover:text-black">
+                                        <a
+                                            href={p.attributes.liveLink}
+                                            target="_blank">
                                             <FaLink />
                                         </a>
                                     </div>
