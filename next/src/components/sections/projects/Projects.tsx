@@ -152,7 +152,7 @@ export function Projects() {
                             </div>
                         </div>
                         <AnimatePresence>
-                            {true && (
+                            {projectI === i && (
                                 <motion.div
                                     key={'project-cover-' + i}
                                     variants={CircleFillVariants}
