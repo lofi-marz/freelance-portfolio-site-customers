@@ -148,7 +148,7 @@ export function Project({
             {!md && (
                 <MobileProjectImage
                     src={
-                        'https://marimari.tech/cms' +
+                        'https://marileon.me/cms' +
                         mobilePreview.data.attributes.url
                     }
                 />

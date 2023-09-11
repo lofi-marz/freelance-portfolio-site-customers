@@ -134,7 +134,7 @@ export function Projects() {
                         )}>
                         <Image
                             src={
-                                'https://marimari.tech/cms' +
+                                'https://marileon.me/cms' +
                                 p.attributes.mockup.data.attributes.url
                             }
                             alt=""

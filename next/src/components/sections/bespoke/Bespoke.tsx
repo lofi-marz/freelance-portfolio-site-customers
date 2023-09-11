@@ -71,7 +71,7 @@ export function Bespoke() {
     const { projects } = useStrapiContentContext()!;
     const project = projects[4];
     const src =
-        'https://marimari.tech/cms' +
+        'https://marileon.me/cms' +
         (desktop
             ? project.attributes.desktopPreview.data.attributes.url
             : project.attributes.mobilePreview.data.attributes.url);
