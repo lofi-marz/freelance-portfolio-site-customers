@@ -21,7 +21,7 @@ import {
 } from 'react-icons/fa';
 import { SlideInText } from '@/components/SlideInText';
 
-export function WhatIDo() {
+export function WhyLeon() {
     const desktop = useMediaQuery('md');
 
     return (
@@ -47,8 +47,8 @@ export function WhatIDo() {
                 </Card>
                 <Card Icon={FaFlask} title="SEO Optimisation">
                     Your website is built with SEO in mind, using advanced
-                    design and pre-rendering techniques to improve your
-                    website's ranking potential.
+                    pre-rendering techniques to improve your website's ranking
+                    potential.
                 </Card>
             </div>
         </section>

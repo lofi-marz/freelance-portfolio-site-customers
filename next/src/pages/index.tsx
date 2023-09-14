@@ -48,7 +48,7 @@ import { Projects } from '@/components/sections/projects';
 import qs from 'qs';
 import { Contact } from '@/components/sections/contact';
 import theme from '../../tailwind.config';
-import { WhatIDo } from '@/components/sections/whatido';
+import { WhyLeon } from '@/components/sections/whatido';
 import { Bespoke } from '@/components/sections/bespoke';
 import { Ticker } from '@/components/Ticker';
 import { Testimonials } from '@/components/sections/testimonials/Testimonials';
@@ -177,9 +177,8 @@ export default function Home({ content }: HomeProps) {
                     className="themed-bg themed-text relative w-full snap-y snap-mandatory">
                     <Nav />
                     <Intro />
-                    <About />
+                    <WhyLeon />
                     <Ticker />
-                    <WhatIDo />
 
                     <Bespoke />
                     <Projects />
