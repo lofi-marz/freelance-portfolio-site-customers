@@ -39,12 +39,12 @@ export function Testimonials() {
     });
     return (
         <motion.section
-            className="relative z-20 flex w-full flex-col items-center justify-start overflow-clip bg-primary px-24 py-20 font-title text-4xl"
+            className="font-title relative z-20 flex w-full flex-col items-center justify-start overflow-clip bg-primary-500 px-12 py-24 text-4xl md:px-24"
             layout>
             <Quote />
             <AnimatePresence presenceAffectsLayout={false} mode="popLayout">
                 <motion.blockquote
-                    className="themed-text-invert flex h-[20vh] items-center justify-start py-6 text-start text-xl leading-tight md:h-32 md:text-4xl"
+                    className="flex h-[20vh] items-center justify-start py-6 text-start text-xl leading-tight text-theme md:h-32 md:text-4xl"
                     key={'quote-' + quoteIndex}
                     variants={QuoteVariants}
                     initial="hide"
@@ -55,7 +55,7 @@ export function Testimonials() {
                 </motion.blockquote>
                 <motion.div
                     key={'name-' + quoteIndex}
-                    className="w-full text-start text-2xl font-bold text-dark-800"
+                    className="text-dark-800 w-full text-start text-2xl font-bold"
                     variants={NameVariants}
                     initial="hide"
                     animate="show"
@@ -74,7 +74,7 @@ function Quote({ end = false }: { end?: boolean }) {
     return (
         <div
             className={clsx(
-                'themed-text flex w-full flex-row text-4xl font-bold md:text-9xl',
+                'flex w-full flex-row text-4xl font-bold text-theme opacity-20 md:text-9xl',
                 end && 'justify-end'
             )}>
             {end ? <FaQuoteRight /> : <FaQuoteLeft />}

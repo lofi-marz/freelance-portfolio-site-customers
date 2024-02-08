@@ -25,23 +25,21 @@ export function WhyLeon() {
     const desktop = useMediaQuery('md');
 
     return (
-        <section className="themed-bg themed-text relative z-10 flex w-full flex-col items-center justify-start gap-24 p-6 py-24 font-title md:px-36">
+        <section className="font-title relative z-10 flex w-full flex-col items-center justify-start gap-24 bg-theme p-6 py-24 text-theme-invert md:px-36">
             <motion.h3
                 className="text-5xl font-bold"
                 initial="hide"
                 whileInView="show">
-                <SlideInText>
-                    why leon<span className="text-primary">?</span>
-                </SlideInText>
+                Why Leon<span className="text-primary-500">?</span>
             </motion.h3>
             <div className="grid grid-rows-3 items-start gap-6 md:grid-rows-1 lg:grid-cols-3">
                 <Card Icon={FaServer} title="Reliable Hosting">
-                    We can host your website for you. No matter how big or small
-                    your website, our hosting is fast, reliable, and we sort out
+                    I can host your website for you. No matter how big or small
+                    your website, my hosting is fast, reliable, and we sort out
                     problems quickly.
                 </Card>
                 <Card Icon={FaMobileAlt} title="Responsive Design">
-                    We build sites from a mobile-first perspective, to create
+                    I build sites from a mobile-first perspective, to create
                     website layouts that look great & adapt to small or large
                     screens.
                 </Card>
@@ -61,8 +59,8 @@ function Card({
     children,
 }: { Icon: IconType; title: string } & WithChildrenProps) {
     return (
-        <div className="themed-bg themed-text flex flex-col items-center justify-center gap-4 rounded-md p-6 text-center">
-            <Icon className="mb-6 text-5xl text-primary" />
+        <div className="flex flex-col items-center justify-center gap-4 rounded-md bg-theme p-6 text-center">
+            <Icon className="mb-6 text-5xl text-primary-500" />
 
             <header className="text-4xl font-bold">{title}</header>
             <p className="max-w-xs">{children}</p>

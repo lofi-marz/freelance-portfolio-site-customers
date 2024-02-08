@@ -72,7 +72,7 @@ function ProjectsHeading() {
             <div className="-mt-4 h-4 w-2/3 ">
                 <motion.div
                     variants={underlineVariants}
-                    className="h-full w-full bg-primary"
+                    className="h-full w-full bg-primary-500"
                     style={{ originX: 0 }}
                 />
             </div>
@@ -83,7 +83,7 @@ function ProjectsHeading() {
 function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
     return (
         <a
-            className="themed-bg-invert themed-text-invert card flex flex-row items-center justify-center gap-2 p-2 px-4 transition-all hover:bg-primary hover:text-light"
+            className="card flex flex-row items-center justify-center gap-2 bg-theme-invert p-2 px-4 text-theme-invert transition-all hover:bg-primary-500 hover:text-light"
             href={href}>
             {children}
         </a>
@@ -92,13 +92,13 @@ function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
 
 export function MobileProjectImage({ src }: { src: string }) {
     return (
-        <div className="card flex aspect-[4/5] w-full flex-col items-center justify-start overflow-clip bg-primary pt-12 shadow-inner">
+        <div className="card flex aspect-[4/5] w-full flex-col items-center justify-start overflow-clip bg-primary-500 pt-12 shadow-inner">
             <div className="relative aspect-[9/16] w-2/3 drop-shadow-md">
                 <Image
                     src={src}
                     alt=""
                     fill
-                    className="themed-bg z-10 rounded-t-xl object-cover object-top"
+                    className="z-10 rounded-t-xl bg-theme object-cover object-top"
                 />
             </div>
         </div>
@@ -111,7 +111,7 @@ export function ProjectImage({ src }: { src: string }) {
                 src={src}
                 alt=""
                 fill
-                className="card themed-bg z-10 object-cover object-top"
+                className="card z-10 bg-theme object-cover object-top"
             />
         </div>
     );
@@ -130,14 +130,14 @@ export function Project({
     useEffect(() => {
         setColourIndex(Math.floor(Math.random() * 3));
     }, []);
-    const colour = ['bg-primary', 'bg-secondary', 'themed-bg-invert'][
+    const colour = ['bg-primary', 'bg-secondary', 'bg-theme-invert'][
         colourIndex
     ];
     const md = useMediaQuery('md');
     return (
         <motion.div
             className={clsx(
-                'relative flex w-full flex-col items-center justify-start gap-6 md:h-[100vh] md:h-screen md:snap-center md:justify-center md:pb-12 md:pb-6'
+                'relative flex w-full flex-col items-center justify-start gap-6 md:h-screen md:snap-center md:justify-center md:pb-12'
             )}
             initial="initial"
             whileHover="hover"
@@ -157,7 +157,7 @@ export function Project({
                 <h3 className="w-full text-4xl font-bold md:w-4/5 md:text-7xl lg:text-8xl">
                     {title}
                 </h3>
-                <p className="hidden w-full font-body md:block md:w-1/2">
+                <p className="font-body hidden w-full md:block md:w-1/2">
                     {brief}
                 </p>
                 <div className="card mt-6 flex flex-row items-center justify-center gap-3 text-xl">

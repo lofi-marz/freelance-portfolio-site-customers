@@ -14,22 +14,12 @@ body {
 }
 
 @layer utilities {
-    .themed-bg {
-        @apply bg-light dark:bg-black;
-    }
 
-    .themed-text {
-        @apply text-black dark:text-light;
-    }
 
-    .themed-bg-invert {
-        @apply bg-black dark:bg-light;
+ 
+    .heading {
+        @apply font-semibold tracking-tight;
     }
-
-    .themed-text-invert {
-        @apply text-light dark:text-black;
-    }
-
     .text-gradient {
         @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent !important;
     }
@@ -41,14 +31,14 @@ body {
     }
 
     .card-solid {
-        @apply card themed-bg themed-text;
+        @apply card bg-theme text-theme-invert;
     }
 
     .card-solid-invert {
-        @apply card themed-bg-invert themed-text-invert;
+        @apply card text-theme bg-theme-invert;
     }
 
     .card-primary {
-        @apply card themed-text-invert bg-primary;
+        @apply card text-light bg-primary-500 ;
     }
 }

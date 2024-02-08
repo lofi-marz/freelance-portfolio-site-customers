@@ -1,41 +1,16 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import me from '../me.png';
 import clsx from 'clsx';
-import {
-    AnimatePresence,
-    motion,
-    useMotionValueEvent,
-    useScroll,
-    useSpring,
-    useTransform,
-    Variants,
-} from 'framer-motion';
-import { createContext, Fragment, useEffect, useRef, useState } from 'react';
+import { motion, Variants } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { LoadingScreen } from '@/components/sections/LoadingScreen';
-import { DarkModeToggle } from '@/components/DarkModeToggle';
-import { useDarkModeContext } from '@/components/DarkModeContextProvider';
+
 import { SlideInText } from '@/components/SlideInText';
-import { body, title } from '../fonts';
+import { body, title } from '../styles/fonts';
 import { SocialsDesktop } from '@/components/sections/intro/Socials';
-import { IoMdLeaf } from 'react-icons/io';
-import { FaArrowDown, FaInstagram } from 'react-icons/fa';
-import { FaAt, FaGithub, FaLinkedin } from 'react-icons/fa';
-import { About } from '@/components/sections/about/About';
 import { CallToAction } from '@/components/sections/intro/CallToAction';
 import { Intro } from '@/components/sections/intro';
-import {
-    CurrentlyPlayingContextProvider,
-    Nav,
-    NavSpacer,
-} from '@/components/index';
+import { Nav } from '@/components/index';
 import { GetServerSideProps } from 'next';
-import axios from 'axios';
-import {
-    GetCurrentlyPlayingResponse,
-    getCurrentlyPlayingTrack,
-    getSpotifyProps,
-} from '../utils/spotify';
+import { GetCurrentlyPlayingResponse } from '../utils/spotify';
 import {
     AboutContent,
     getStrapiContent,
@@ -47,7 +22,6 @@ import { StrapiContentContextProvider } from '@/components/StrapiContextProvider
 import { Projects } from '@/components/sections/projects';
 import qs from 'qs';
 import { Contact } from '@/components/sections/contact';
-import theme from '../../tailwind.config';
 import { WhyLeon } from '@/components/sections/whatido';
 import { Bespoke } from '@/components/sections/bespoke';
 import { Ticker } from '@/components/Ticker';
@@ -63,9 +37,6 @@ const underlineVariants: Variants = {
     hidden: { width: '0%' },
     visible: { width: '100%', transition: { duration: 1, ease: 'easeInOut' } },
 };
-
-const dark = theme.theme.extend.colors.black as string;
-const light = theme.theme.extend.colors.light as string;
 
 function Title() {
     return (
@@ -86,7 +57,7 @@ function Title() {
             </h1>
             <div className="h-3 w-3/5">
                 <motion.div
-                    className="h-full w-full bg-primary"
+                    className="h-full w-full bg-primary-500"
                     variants={underlineVariants}></motion.div>
             </div>
         </motion.div>
@@ -122,7 +93,7 @@ function Content() {
     return (
         <motion.main
             className={clsx(
-                'themed-bg themed-text flex h-full w-full flex-col items-center justify-center gap-10 bg-light px-10 md:w-1/2 md:max-w-2xl md:p-10',
+                'flex h-full w-full flex-col items-center justify-center gap-10 bg-light bg-theme px-10 text-theme md:w-1/2 md:max-w-2xl md:p-10',
                 title.className
             )}
             layoutId="intro-section"
@@ -154,8 +125,6 @@ export default function Home({ content }: HomeProps) {
 
     const [loading, setLoading] = useState(true);
     useEffect(() => console.log('Loading:', loading), [loading]);
-    const darkMode = useDarkModeContext();
-    const theme = darkMode === 'dark' ? darkMode : 'light';
 
     if (content === undefined) return <div>Hi! Somethings gone wrong</div>;
 
@@ -164,22 +133,17 @@ export default function Home({ content }: HomeProps) {
         <StrapiContentContextProvider strapiContent={content}>
             <motion.div
                 className={clsx(
-                    'relative flex min-h-screen w-full flex-col items-center justify-center',
-                    theme,
-                    title.variable,
-                    body.variable
+                    'font-title relative flex min-h-screen w-full flex-col items-center justify-center'
                 )}
                 id="home">
                 <LoadingScreen onEnd={() => setLoading(false)} />
 
-                <motion.div
-                    key={theme + 'content'}
-                    className="themed-bg themed-text relative w-full snap-y snap-mandatory">
+                <motion.div className="relative w-full snap-y snap-mandatory bg-theme text-theme-invert">
                     <Nav />
                     <Intro />
+
                     <WhyLeon />
                     <Ticker />
-
                     <Bespoke />
                     <Projects />
                     <Testimonials />
@@ -204,7 +168,9 @@ export const getStaticProps: GetServerSideProps = async () => {
     const [about = {}, projects = [], testimonials = []] = await Promise.all([
         //getSpotifyProps(),
         getStrapiContent<AboutContent>('about'),
-        getStrapiContent<ProjectContent[]>('projects?' + query),
+        getStrapiContent<ProjectContent[]>('projects?' + query).then((ps) =>
+            ps?.filter((p) => p.attributes.target !== 'job')
+        ),
         getStrapiContent<TestimonialContent[]>('testimonials'),
     ]);
 

@@ -8,7 +8,7 @@ import {
     Variants,
 } from 'framer-motion';
 import clsx from 'clsx';
-import { title } from '../../../fonts';
+import { title } from '../../../styles/fonts';
 import { SocialsDesktop } from '@/components/sections/intro/Socials';
 import { WithChildrenProps } from '../../../types';
 import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext';
@@ -27,7 +27,7 @@ import { useRef, useState } from 'react';
 import React from 'react';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
 import { TARGET_AUDIENCE } from '../../../env';
-import { setState } from 'jest-circus';
+
 import { NavSpacer } from '@/components/Nav';
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
 import Image from 'next/image';
@@ -76,7 +76,7 @@ function IntroText() {
     const sm = useMediaQuery('sm');
 
     return (
-        <motion.div className="themed-bg-invert themed-text-invert relative flex h-full w-full flex-grow items-center justify-start overflow-clip py-12">
+        <motion.div className="relative flex h-full w-full flex-grow items-center justify-start overflow-clip bg-theme-invert py-12 text-theme-invert">
             <motion.div className="flex w-full flex-col items-start justify-center p-4 text-3xl font-bold sm:p-10 sm:text-4xl">
                 <motion.div
                     style={{ writingMode: sm ? 'inherit' : 'vertical-rl' }}
@@ -84,7 +84,7 @@ function IntroText() {
                     hi, I&apos;m omari
                 </motion.div>
                 <motion.div
-                    className="hide max-w-sm text-primary md:block"
+                    className="hide max-w-sm text-primary-500 md:block"
                     variants={IntroTextVariants}>
                     {subtitle}
                 </motion.div>
@@ -142,7 +142,7 @@ function CurrentlyPlaying() {
                                     currentlyPlaying.item.external_urls.spotify
                                 }
                                 target="_blank"
-                                className="transition-all hover:text-primary hover:underline"
+                                className="transition-all hover:text-primary-500 hover:underline"
                                 rel="noreferrer">
                                 {currentlyPlaying.item.name}
                             </a>
@@ -161,23 +161,12 @@ const lines = ["Hi, I'm Omari.", 'I create creative experiences with code.'];
 
 export function Intro() {
     return (
-        <motion.section className="themed-bg-invert themed-text sticky top-0 flex h-[100vh] flex-col items-center justify-center gap-12 px-8 pb-8 font-title md:min-h-[150vh] md:justify-start lg:px-36">
-            <div className="themed-bg absolute top-0 flex h-full w-full items-center justify-center overflow-clip rounded-b-[4rem] md:h-screen">
-                <div className="absolute bottom-0 mx-auto aspect-square w-full max-w-xs md:right-0 md:max-w-sm">
-                    <Image
-                        src={me}
-                        alt="Picture of me"
-                        className="object-contain opacity-[.4] brightness-[1.2] grayscale"
-                        fill
-                        priority
-                    />
-                </div>
-            </div>
+        <motion.section className="font-title sticky top-0 flex h-[100vh] flex-col items-start justify-start gap-12 bg-theme-invert px-8 pb-8 text-theme md:min-h-[150vh] lg:px-24">
+            <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-clip rounded-b-[4rem] bg-theme  md:h-screen"></div>
 
-            <header className="z-10 flex grow flex-col items-center justify-start text-center text-2xl font-semibold leading-tight sm:text-4xl md:items-start md:justify-start md:text-start md:text-6xl lg:text-7xl">
-                <NavSpacer />
+            <header className="z-10 flex h-screen max-w-screen-lg flex-col items-center justify-center text-center text-2xl font-semibold leading-tight text-theme-invert sm:text-4xl md:items-start md:text-start md:text-6xl lg:text-7xl">
                 <div>
-                    Hi, I'm <span className="text-primary">Omari</span>.
+                    Hi, I'm <span className="text-primary-500">Omari</span>.
                 </div>
                 <div>I build bespoke websites for small businesses.</div>
                 <div className="w-4/5 py-8 text-xl font-normal leading-tight md:text-4xl md:font-light">

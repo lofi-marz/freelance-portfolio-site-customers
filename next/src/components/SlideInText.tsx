@@ -1,7 +1,7 @@
 import { motion, Variants } from 'framer-motion';
 import { WithChildrenProps } from '../types';
 import clsx from 'clsx';
-import { title } from '../fonts';
+import { title } from '../styles/fonts';
 import React, { cloneElement, isValidElement } from 'react';
 
 const lineVariants: Variants = {
@@ -44,7 +44,9 @@ function SlideInWord({ word, invert }: { word: string; invert: boolean }) {
         <motion.div
             className={clsx(
                 'flex flex-row whitespace-pre',
-                invert ? 'themed-bg-invert' : 'themed-bg'
+                invert
+                    ? 'bg-theme-invert text-theme'
+                    : 'bg-theme text-theme-invert'
             )}
             variants={lineVariants}
             transition={{ staggerChildren: 1 }}>

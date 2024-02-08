@@ -31,7 +31,7 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
 
     return (
         <motion.div
-            className="themed-text fixed top-0 z-50 w-screen flex-col items-center justify-start overflow-hidden font-title text-8xl font-bold"
+            className="font-title fixed top-0 z-50 w-screen flex-col items-center justify-start overflow-hidden text-8xl font-bold text-theme"
             initial="visible"
             animate={controls}
             layoutId="intro-section"
@@ -39,7 +39,7 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
             transition={{ delay: 1, delayChildren: 1 }}
             style={{ originY: 0 }}>
             <motion.div
-                className="themed-bg flex w-full items-center justify-center "
+                className="flex w-full items-center justify-center bg-theme "
                 variants={topRectVariants}>
                 <motion.h1
                     animate={{
@@ -50,7 +50,7 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
                 </motion.h1>
             </motion.div>
             <motion.div
-                className="w-full bg-primary"
+                className="w-full bg-primary-500"
                 variants={bottomRectVariants}
             />
         </motion.div>

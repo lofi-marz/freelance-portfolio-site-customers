@@ -19,7 +19,7 @@ export function Ticker() {
     const options = [
         'bring their vision to life',
         'showcase their products',
-        'establish an online presence',
+        'create an online presence',
     ];
     const [optionIndex, setOptionIndex] = useState(0);
     const text = options[optionIndex];
@@ -35,24 +35,32 @@ export function Ticker() {
         //setOptionIndex(0);
     });
     return (
-        <div className="relative flex w-full flex-col items-start justify-center bg-primary px-20 py-24 font-title text-4xl font-bold text-light lg:justify-start lg:text-5xl xl:flex-row xl:items-center">
-            <span className="md:flex md:h-[1lh] md:whitespace-pre lg:items-center">
-                I help businesses{' '}
-            </span>
-            <motion.div className="relative flex h-[3lh] w-full flex-col items-start justify-start overflow-clip sm:h-[1.2lh] xl:h-[1.2lh] xl:w-auto xl:grow xl:justify-center">
-                <AnimatePresence>
-                    <motion.span
-                        key={text}
-                        className={clsx('absolute', colour)}
-                        initial="hide"
-                        animate="show"
-                        exit="exit"
-                        variants={OptionVariants}
-                        transition={{ ease: 'easeOut' }}>
-                        {text}
-                    </motion.span>
-                </AnimatePresence>
-            </motion.div>
+        <div className=" relative flex w-full flex-col gap-4 bg-primary-500 px-12 py-24 md:gap-8 xl:px-24">
+            <div className="flex flex-row flex-wrap items-start justify-start bg-primary-500 text-4xl font-bold text-light md:text-4xl lg:text-5xl xl:items-center xl:text-6xl">
+                <span className="w-fit md:flex md:h-[1lh] md:whitespace-pre lg:items-center">
+                    I help businesses{' '}
+                </span>
+                <motion.div className="relative flex h-[2lh] w-full grow flex-col items-start justify-start overflow-clip sm:h-[1.2lh] lg:w-auto xl:justify-center">
+                    <AnimatePresence>
+                        <motion.span
+                            key={text}
+                            className={clsx('absolute', colour)}
+                            initial="hide"
+                            animate="show"
+                            exit="exit"
+                            variants={OptionVariants}
+                            transition={{ ease: 'easeOut' }}>
+                            {text}
+                        </motion.span>
+                    </AnimatePresence>
+                </motion.div>
+            </div>
+            <p className="max-w-screen-xl text-2xl tracking-normal text-light md:text-3xl ">
+                I specialize in small business web design and development. Every
+                line of code is written by hand to ensure the best performance,
+                which helps bring in more customers to your site and bring more
+                revenue to your business.
+            </p>
         </div>
     );
 }

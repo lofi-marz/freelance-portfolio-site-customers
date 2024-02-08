@@ -1,25 +1,12 @@
-import { DarkModeToggle } from '@/components/DarkModeToggle';
 import clsx from 'clsx';
-import { title } from 'fonts';
-import { WithChildrenProps } from '../types';
-import {
-    FaBars,
-    FaCross,
-    FaHamburger,
-    FaMousePointer,
-    FaTimes,
-    FaWindowClose,
-} from 'react-icons/fa';
-import React, { MouseEventHandler, useReducer, useRef, useState } from 'react';
-import {
-    AnimatePresence,
-    useMotionValueEvent,
-    useScroll,
-    useTransform,
-} from 'framer-motion';
+
+import { FaBars, FaMousePointer, FaTimes } from 'react-icons/fa';
+import { MouseEventHandler, useReducer, useState } from 'react';
+import { AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion';
 import { motion } from 'framer-motion';
-import { Property } from 'csstype';
+
 import { useMediaQuery } from '../hooks/useMediaQuery';
+import { Dot } from './Dot';
 const CircleFillVariants = {
     show: ([x, y]: [number, number]) => ({
         clipPath: `circle(2000px at ${x}px ${y}px)`,
@@ -80,11 +67,14 @@ const links = {
 function NavLogo() {
     return (
         <motion.div
-            className="flex flex-row items-center justify-center gap-1 lowercase tracking-wide"
+            className="flex flex-row items-center justify-center gap-1 tracking-wide"
             layout>
-            <FaMousePointer className="text-primary" />{' '}
+            <FaMousePointer className="text-primary-500" />{' '}
             <span className="md:hidden">Ln</span>
-            <span className="hidden md:inline">leon web design</span>
+            <span className="heading hidden md:inline">
+                leon
+                <Dot />
+            </span>
         </motion.div>
     );
 }
@@ -96,12 +86,12 @@ function NavMobileMenu({
 }: {
     custom: [number, number];
     onClick: MouseEventHandler;
-    height: Property.Height;
+    height: string | number;
 }) {
     return (
-        <motion.div className="themed-text-invert absolute right-0 top-0 z-50 flex h-screen w-full flex-col text-3xl font-bold">
+        <motion.div className="absolute right-0 top-0 z-50 flex h-screen w-full flex-col text-3xl font-bold text-theme-invert">
             <motion.div
-                className=" flex w-full flex-col gap-4 bg-primary p-12 "
+                className=" flex w-full flex-col gap-4 bg-primary-500  p-12 "
                 variants={CircleFillVariants}
                 custom={custom}
                 initial="hide"
@@ -153,16 +143,16 @@ export function Nav() {
         setAtPageStart(v < 600);
     });
 
-    const desktopHeight = atPageStart ? '9rem' : '6rem';
+    const desktopHeight = atPageStart ? '6.5rem' : '6rem';
     const mobileHeight = '4rem';
     const height = desktop ? desktopHeight : mobileHeight;
     return (
         <motion.nav
             className={clsx(
-                'fixed top-0 z-40 flex w-full flex-row items-center justify-between px-6 font-title text-2xl transition-all duration-500 md:px-24 md:text-xl',
+                'font-title fixed top-0 z-40 flex w-full flex-row items-center justify-between px-6 text-2xl transition-all duration-500 md:px-24 md:text-xl',
                 atPageStart
-                    ? 'themed-text themed-bg'
-                    : 'themed-text-invert themed-bg-invert shadow'
+                    ? 'bg-theme text-theme-invert'
+                    : 'bg-theme-invert text-theme shadow'
             )}
             style={{ height }}
             layout>
@@ -171,10 +161,11 @@ export function Nav() {
                 className="hidden h-full grow items-center justify-end gap-20 font-normal md:flex"
                 layout>
                 <motion.a
-                    className="hover:card-primary rounded-full  border-2 border-black px-8 py-3 transition-all hover:border-primary"
+                    className="card-solid-invert hover:card-primary rounded-full border-2 border-dark px-8 py-3 transition-all hover:border-primary-500"
                     layout
                     href="#contact">
-                    let's chat
+                    Let's chat
+                    <Dot />
                 </motion.a>
             </motion.div>
             <MenuIcon
@@ -201,5 +192,5 @@ export function Nav() {
 }
 
 export function NavSpacer() {
-    return <div className="h-16 w-full md:h-36"></div>;
+    return <div className="h-16 w-full md:h-24"></div>;
 }

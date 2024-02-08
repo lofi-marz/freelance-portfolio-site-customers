@@ -26,7 +26,7 @@ const toPercent = (n: number) => n * 100 + '%';
 
 const CircleFillVariants = {
     show: ([x, y]: [number, number]) => ({
-        clipPath: `circle(1000px at ${x}px ${y}px)`,
+        clipPath: `circle(1500px at ${x}px ${y}px)`,
         transition: {
             type: 'spring',
             stiffness: 20,
@@ -36,7 +36,7 @@ const CircleFillVariants = {
     hide: ([x, y]: [number, number]) => ({
         clipPath: `circle(30px at ${x}px ${y}px)`,
         transition: {
-            delay: 0.5,
+            delay: 0,
             type: 'spring',
             stiffness: 400,
             damping: 40,
@@ -110,13 +110,13 @@ export function Projects() {
 
     return (
         <motion.section
-            className="themed-bg themed-text relative z-10 flex min-h-screen flex-col gap-12 px-6 py-24 font-title md:px-24"
+            className="font-title relative z-10 flex min-h-screen flex-col gap-12 bg-theme px-6 py-24 text-theme md:px-24"
             id="projects">
             <h2 className="text-5xl font-bold">my work</h2>
             <div className="grid w-full grid-cols-1 flex-col gap-6 md:aspect-[3/2] md:grid-cols-3 md:grid-rows-2">
                 {featured.map((p, i) => (
                     <motion.div
-                        onHoverStart={(e, info) => {
+                        onHoverStart={(e) => {
                             const { x: tx, y: ty } = (
                                 e.target as HTMLDivElement
                             ).getBoundingClientRect();
@@ -142,8 +142,11 @@ export function Projects() {
                             className="aspect-[16/10] object-cover brightness-50"
                         />
                         <div className="absolute flex h-full w-full flex-col justify-between p-6 text-xl font-bold text-light">
-                            <div className="flex justify-end transition-all hover:text-primary">
-                                <a href={p.attributes.liveLink} target="_blank">
+                            <div className="z-50 flex justify-end transition-all  ">
+                                <a
+                                    href={p.attributes.liveLink}
+                                    target="_blank"
+                                    className="hover:scale-110">
                                     <FaLink />
                                 </a>
                             </div>
@@ -160,15 +163,10 @@ export function Projects() {
                                     animate="show"
                                     exit="exit"
                                     custom={mousePos}
-                                    className="absolute flex h-full w-full flex-col justify-between bg-primary p-6">
-                                    <p>{p.attributes.brief}</p>
-                                    <div className="flex justify-end transition-all hover:text-black">
-                                        <a
-                                            href={p.attributes.liveLink}
-                                            target="_blank">
-                                            <FaLink />
-                                        </a>
-                                    </div>
+                                    className="absolute flex h-full w-full flex-col justify-between bg-primary-500 p-6">
+                                    <p className="max-w-sm">
+                                        {p.attributes.brief}
+                                    </p>
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -195,13 +193,15 @@ function ProjectLinks({ repoLink, liveLink }: ProjectLinksProps) {
         <div className="f lex  z-10 flex-row text-xl font-bold">
             {repoLink && (
                 <a
-                    className="themed-bg-invert themed-text-invert p-2 px-4"
+                    className="bg-theme-invert p-2 px-4 text-theme-invert"
                     href={repoLink}>
                     github
                 </a>
             )}
             {liveLink && (
-                <a className="themed-text bg-primary p-2 px-4" href={liveLink}>
+                <a
+                    className="bg-primary-500 p-2 px-4 text-theme"
+                    href={liveLink}>
                     link
                 </a>
             )}

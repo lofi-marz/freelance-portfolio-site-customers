@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { title } from '../../../fonts';
+import { title } from '../../../styles/fonts';
 import { SlideInText } from '@/components/SlideInText';
 import {
     motion,
@@ -13,6 +13,7 @@ import { useRef, useState } from 'react';
 
 import axios from 'axios';
 import { FaCheck } from 'react-icons/fa';
+import { Dot } from '@/components/Dot';
 
 type FormInputs = {
     name: string;
@@ -54,14 +55,14 @@ export function Contact() {
         null | 'submitting' | 'done' | 'error'
     >(null);
     return (
-        <section className="themed-bg relative z-10 h-screen">
+        <section className="relative z-10 h-screen bg-theme">
             <motion.section
                 id="contact"
                 initial="hide"
                 whileInView="show"
                 transition={{ staggerChildren: 1 }}
                 className={clsx(
-                    'themed-bg-invert themed-text-invert flex h-screen w-full flex-col items-center justify-center gap-12 overflow-clip p-12 text-6xl md:text-7xl',
+                    'flex h-screen w-full flex-col items-center justify-center gap-12 overflow-clip bg-theme-invert p-12 text-6xl text-theme-invert md:text-7xl',
                     title.className
                 )}
                 ref={ref}
@@ -72,22 +73,22 @@ export function Contact() {
                     </SlideInText>
                 </div>
                 <form
-                    className="themed-text-invert flex w-full flex-col gap-4 text-xl  md:w-2/3"
+                    className="flex w-full flex-col gap-4 text-xl text-theme-invert  md:w-2/3"
                     onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex w-full grid-cols-2 flex-col gap-4 md:grid">
                         <input
                             placeholder="Name"
-                            className="w-full border-b-2 border-dark-800 bg-dark-900 p-4 placeholder:text-dark-700"
+                            className="border-dark-800 bg-dark-900 placeholder:text-dark-700 w-full border-b-2 p-4"
                             {...register('name')}
                         />
                         <input
                             placeholder="Email"
-                            className="w-full border-b-2 border-dark-800 bg-dark-900 p-4 placeholder:text-dark-700"
+                            className="border-dark-800 bg-dark-900 placeholder:text-dark-700 w-full border-b-2 p-4"
                             {...register('email')}
                         />
                     </div>
                     <textarea
-                        className="rounded border-b-2 border-dark-800 bg-dark-900 p-4 placeholder:text-dark-700"
+                        className="border-dark-800 bg-dark-900 placeholder:text-dark-700 rounded border-b-2 p-4"
                         placeholder="Message"
                         rows={5}
                         {...register('message')}
@@ -100,7 +101,7 @@ export function Contact() {
                         {status === 'done' ? <FaCheck /> : 'Submit'}
                     </button>
                 </form>
-                <p className="absolute bottom-0 right-0 p-3 text-sm text-dark-700">
+                <p className="text-dark-700 absolute bottom-0 right-0 p-3 text-sm">
                     Directory of{' '}
                     <a href="https://www.nottingham.co.uk/web-designers/">
                         Nottingham Web Designers

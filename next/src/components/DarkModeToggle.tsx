@@ -25,7 +25,7 @@ export function DarkModeToggle({ className }: { className?: string }) {
         <motion.button
             layout
             className={clsx(
-                'hover:themed-bg-invert hover:themed-text-invert flex flex-col items-center rounded transition-all duration-500 hover:aspect-[1/2]',
+                'flex flex-col items-center rounded transition-all duration-500 hover:aspect-[1/2] hover:bg-theme-invert hover:text-theme-invert',
                 className,
                 darkMode === 'dark' ? 'justify-end' : 'justify-start'
             )}
