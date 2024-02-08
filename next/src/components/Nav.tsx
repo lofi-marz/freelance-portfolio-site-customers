@@ -47,7 +47,7 @@ export function NavLink({
 }) {
     return (
         <a
-            className="last-of-type:card-solid-invert last-of-type:mt-4 last-of-type:py-4  last-of-type:text-center"
+            className="last-of-type:card-solid-invert card-primary hover:last-of-type:card-solid-invert hover:card-solid-invert rounded-full px-8 py-4 last-of-type:mt-4 last-of-type:text-center"
             href={href}
             target="_blank"
             rel="noreferrer"
@@ -57,9 +57,9 @@ export function NavLink({
     );
 }
 const links = {
-    LinkedIn: 'https://www.linkedin.com/in/omari-thompson-edwards-b7307b195',
+    Linkedin: 'https://www.linkedin.com/in/omari-thompson-edwards-b7307b195',
     Email: 'mailto:othompsonedwards@gmail.com',
-    GitHub: 'https://github.com/lofi-marz',
+    Github: 'https://github.com/lofi-marz',
     UpWork: 'https://www.upwork.com/freelancers/~019c194b11d5dfabbc',
     CV: 'Omari Thompson-Edwards CV.pdf',
 };
@@ -89,9 +89,9 @@ function NavMobileMenu({
     height: string | number;
 }) {
     return (
-        <motion.div className="absolute right-0 top-0 z-50 flex h-screen w-full flex-col text-3xl font-bold text-theme-invert">
+        <motion.div className="absolute right-0 top-0 z-50 flex h-screen w-full flex-col text-3xl text-light">
             <motion.div
-                className=" flex w-full flex-col gap-4 bg-primary-500  p-12 "
+                className="flex w-full flex-col gap-4 bg-primary-500  p-12 "
                 variants={CircleFillVariants}
                 custom={custom}
                 initial="hide"
