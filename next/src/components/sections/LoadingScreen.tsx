@@ -1,6 +1,5 @@
 import { motion, useAnimationControls, Variants } from 'framer-motion';
-import { useEffect, useLayoutEffect } from 'react';
-import { useDarkModeContext } from '@/components/DarkModeContextProvider';
+import { useLayoutEffect } from 'react';
 
 const loadingScreenVariants: Variants = {
     visible: { display: 'flex' },
