@@ -1,37 +1,11 @@
-import {
-    AnimatePresence,
-    motion,
-    useMotionValue,
-    useMotionValueEvent,
-    useScroll,
-    useTransform,
-    Variants,
-} from 'framer-motion';
-import clsx from 'clsx';
-import { title } from '../../../styles/fonts';
-import { SocialsDesktop } from '@/components/sections/intro/Socials';
+import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { WithChildrenProps } from '../../../types';
 import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext';
-import {
-    FaArrowDown,
-    FaArrowLeft,
-    FaArrowUp,
-    FaChevronDown,
-    FaCompactDisc,
-    FaHandPointer,
-    FaMousePointer,
-} from 'react-icons/fa';
+import { FaCompactDisc } from 'react-icons/fa';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
-import { SlideInText } from '@/components/SlideInText';
-import { useRef, useState } from 'react';
-import React from 'react';
-import { DarkModeToggle } from '@/components/DarkModeToggle';
+import { useState } from 'react';
 import { TARGET_AUDIENCE } from '../../../env';
 
-import { NavSpacer } from '@/components/Nav';
-import { useStrapiContentContext } from '@/components/StrapiContextProvider';
-import Image from 'next/image';
-import me from './me-transparent@2x.png';
 const ContainerVariants: Variants = {
     hide: { opacity: 0, height: '100vh' },
     show: {
@@ -161,7 +135,7 @@ const lines = ["Hi, I'm Omari.", 'I create creative experiences with code.'];
 
 export function Intro() {
     return (
-        <motion.section className="font-title sticky top-0 flex h-[100vh] flex-col items-start justify-start gap-12 bg-theme-invert px-8 pb-8 text-theme md:min-h-[150vh] lg:px-24">
+        <motion.section className="sticky top-0 flex h-[100vh] flex-col items-start justify-start gap-12 bg-theme-invert px-8 pb-8 font-title text-theme md:min-h-[150vh] lg:px-24">
             <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-clip rounded-b-[4rem] bg-theme  md:h-screen"></div>
 
             <header className="z-10 flex h-screen max-w-screen-lg flex-col items-center justify-center text-center text-2xl font-semibold leading-tight text-theme-invert sm:text-4xl md:items-start md:text-start md:text-6xl lg:text-7xl">
