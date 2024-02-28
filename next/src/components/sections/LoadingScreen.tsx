@@ -30,7 +30,7 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
 
     return (
         <motion.div
-            className="font-title fixed top-0 z-50 w-screen flex-col items-center justify-start overflow-hidden text-8xl font-bold text-theme"
+            className="fixed top-0 z-50 w-screen flex-col items-center justify-start overflow-hidden font-title text-8xl font-bold text-theme"
             initial="visible"
             animate={controls}
             layoutId="intro-section"
@@ -42,8 +42,8 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
                 variants={topRectVariants}>
                 <motion.h1
                     animate={{
-                        rotate: [-10, 10, -10, 10, 10],
-                        scale: [0.9, 1.1, 1.1, 1.1, 1],
+                        rotate: [-10, 10, -10, 10, 10, 10],
+                        scale: [0.9, 1.1, 1.1, 1.1, 1, 0],
                     }}>
                     👋
                 </motion.h1>

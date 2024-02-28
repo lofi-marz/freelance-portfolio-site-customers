@@ -136,14 +136,14 @@ const lines = ["Hi, I'm Omari.", 'I create creative experiences with code.'];
 export function Intro() {
     return (
         <motion.section className="sticky top-0 flex h-[100vh] flex-col items-start justify-start gap-12 bg-theme-invert px-8 pb-8 font-title text-theme md:min-h-[150vh] lg:px-24">
-            <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-clip rounded-b-[4rem] bg-theme  md:h-screen"></div>
+            <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-clip rounded-b-[4rem] bg-theme md:h-screen"></div>
 
             <header className="z-10 flex h-screen max-w-screen-lg flex-col items-center justify-center text-center text-2xl font-semibold leading-tight text-theme-invert sm:text-4xl md:items-start md:text-start md:text-6xl lg:text-7xl">
                 <div>
                     Hi, I'm <span className="text-primary-500">Omari</span>.
                 </div>
                 <div>I build bespoke websites for small businesses.</div>
-                <div className="w-4/5 py-8 text-xl font-normal leading-tight md:text-4xl md:font-light">
+                <div className="w-4/5 py-12 text-xl font-normal leading-tight md:text-4xl md:font-light">
                     No page builders or templates - I create 100% hand-coded
                     websites with personalised results.
                 </div>

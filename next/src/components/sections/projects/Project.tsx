@@ -18,7 +18,7 @@ import {
     verticalUnderlineVariants,
 } from '@/components/sections/projects/variants';
 import { useEffect, useRef, useState } from 'react';
-import { NavSpacer } from '@/components/Nav';
+import { NavSpacer } from '../..';
 
 const NoHoverTitleVariants: Variants = {
     initial: { bottom: 0, top: 'auto' },
@@ -157,7 +157,7 @@ export function Project({
                 <h3 className="w-full text-4xl font-bold md:w-4/5 md:text-7xl lg:text-8xl">
                     {title}
                 </h3>
-                <p className="font-body hidden w-full md:block md:w-1/2">
+                <p className="hidden w-full font-body md:block md:w-1/2">
                     {brief}
                 </p>
                 <div className="card mt-6 flex flex-row items-center justify-center gap-3 text-xl">

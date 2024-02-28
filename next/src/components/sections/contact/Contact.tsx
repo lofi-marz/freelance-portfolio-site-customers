@@ -69,7 +69,8 @@ export function Contact() {
                 style={{ y: parallax }}>
                 <div className="flex items-center justify-center text-center font-medium md:w-2/3">
                     <SlideInText invert>
-                        Let&apos;s talk about your project
+                        Let&apos;s talk about your business
+                        <Dot />
                     </SlideInText>
                 </div>
                 <form

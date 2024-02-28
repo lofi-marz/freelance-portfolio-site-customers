@@ -27,6 +27,7 @@ import { Bespoke } from '@/components/sections/bespoke';
 import { Ticker } from '@/components/Ticker';
 import { Testimonials } from '@/components/sections/testimonials/Testimonials';
 import { NextSeo } from 'next-seo';
+import { Footer } from '@/components/sections/Footer';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -150,6 +151,7 @@ export default function Home({ content }: HomeProps) {
                     <Projects />
                     <Testimonials />
                     <Contact />
+                    <Footer />
                 </motion.div>
             </motion.div>
         </StrapiContentContextProvider>
@@ -178,5 +180,6 @@ export const getStaticProps: GetServerSideProps = async () => {
 
     return {
         props: { content: { about, projects, testimonials } },
+        revalidate: 3600,
     };
 };
