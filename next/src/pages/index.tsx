@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { LoadingScreen } from '@/components/sections/LoadingScreen';
 
 import { SlideInText } from '@/components/SlideInText';
-import { body, title } from '../styles/fonts';
+import { title } from '../styles/fonts';
 import { SocialsDesktop } from '@/components/sections/intro/Socials';
 import { CallToAction } from '@/components/sections/intro/CallToAction';
 import { Intro } from '@/components/sections/intro';
@@ -26,6 +26,7 @@ import { WhyLeon } from '@/components/sections/whatido';
 import { Bespoke } from '@/components/sections/bespoke';
 import { Ticker } from '@/components/Ticker';
 import { Testimonials } from '@/components/sections/testimonials/Testimonials';
+import { NextSeo } from 'next-seo';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -131,9 +132,10 @@ export default function Home({ content }: HomeProps) {
     //TODO: Better error handling here
     return (
         <StrapiContentContextProvider strapiContent={content}>
+            <NextSeo canonical="https://www.leondev.uk" />
             <motion.div
                 className={clsx(
-                    'font-title relative flex min-h-screen w-full flex-col items-center justify-center'
+                    'relative flex min-h-screen w-full flex-col items-center justify-center font-title'
                 )}
                 id="home">
                 <LoadingScreen onEnd={() => setLoading(false)} />

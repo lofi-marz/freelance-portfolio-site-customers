@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Analytics } from '@vercel/analytics/react';
-import { NextSeo } from 'next-seo';
+import { DefaultSeo, LocalBusinessJsonLd, NextSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 export default function MyApp({ Component, pageProps }: AppProps) {
     return (
@@ -18,9 +18,28 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                     content="Yt65GonydGAWX9LfJcUou4dacAjaH7vOS5Q8kmZzxHs"
                 />
             </Head>
-            <NextSeo
-                title="Omari Leon - Nottingham-Based Bespoke Web Development"
+            <DefaultSeo
+                title="leon. | Nottingham-Based Bespoke Web Development"
                 description="Nottingham-based freelance web developer."
+                openGraph={{
+                    title: 'leon.',
+                    description: 'Nottingham-Based Bespoke Web Development',
+                    images: [
+                        {
+                            url: 'https://leondev.uk/og.png',
+                            width: 1280,
+                            height: 720,
+                            alt: 'leon.',
+                        },
+                    ],
+                }}
+            />
+            <LocalBusinessJsonLd
+                type="store"
+                id="https://leondev.uk"
+                name="Leon Web Design"
+                description="Nottingham-based Bespoke Web Development"
+                address={undefined}
             />
             <Component {...pageProps} />
             <Analytics />

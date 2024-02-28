@@ -70,7 +70,10 @@ function NavLogo() {
             className="flex flex-row items-center justify-center gap-1 tracking-wide"
             layout>
             <FaMousePointer className="text-primary-500" />{' '}
-            <span className="md:hidden">Ln</span>
+            <span className="md:hidden">
+                Ln
+                <Dot />
+            </span>
             <span className="heading hidden md:inline">
                 leon
                 <Dot />
@@ -149,7 +152,7 @@ export function Nav() {
     return (
         <motion.nav
             className={clsx(
-                'font-title fixed top-0 z-40 flex w-full flex-row items-center justify-between px-6 text-2xl transition-all duration-500 md:px-24 md:text-xl',
+                'fixed top-0 z-40 flex w-full flex-row items-center justify-between px-6 font-title text-2xl transition-all duration-500 md:px-24 md:text-xl',
                 atPageStart
                     ? 'bg-theme text-theme-invert'
                     : 'bg-theme-invert text-theme shadow'
