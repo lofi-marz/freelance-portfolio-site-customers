@@ -35,8 +35,8 @@ export function Ticker() {
         //setOptionIndex(0);
     });
     return (
-        <div className=" relative flex w-full flex-col gap-4 bg-primary-500 px-12 py-24 md:gap-8 xl:px-24">
-            <div className="flex flex-row flex-wrap items-start justify-start bg-primary-500 text-4xl font-bold text-light md:text-4xl lg:text-5xl xl:items-center xl:text-6xl">
+        <div className=" relative flex w-full flex-col gap-8 bg-primary-400 px-12 py-48 md:gap-12 xl:px-24">
+            <div className="flex flex-row flex-wrap items-start justify-start bg-primary-400 text-4xl font-bold text-light md:text-4xl lg:text-5xl xl:items-center xl:text-6xl">
                 <span className="w-fit md:flex md:h-[1lh] md:whitespace-pre lg:items-center">
                     I help businesses{' '}
                 </span>
@@ -55,11 +55,12 @@ export function Ticker() {
                     </AnimatePresence>
                 </motion.div>
             </div>
-            <p className="max-w-screen-xl text-2xl tracking-normal text-light md:text-3xl ">
-                I specialize in small business web design and development. Every
-                line of code is written by hand to ensure the best performance,
-                which helps bring in more customers to your site and bring more
-                revenue to your business.
+            <p className="max-w-screen-xl text-xl tracking-normal text-light md:text-3xl ">
+                I specialize in small business web design and development.{' '}
+                <br />
+                Every line of code is written by hand to ensure the best
+                performance, which helps bring in more customers to your site
+                and bring more revenue to your business.
             </p>
         </div>
     );

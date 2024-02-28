@@ -49,7 +49,7 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
                 </motion.h1>
             </motion.div>
             <motion.div
-                className="w-full bg-primary-500"
+                className="w-full bg-primary-400"
                 variants={bottomRectVariants}
             />
         </motion.div>

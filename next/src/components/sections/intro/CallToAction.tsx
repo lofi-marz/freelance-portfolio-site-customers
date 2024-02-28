@@ -10,7 +10,7 @@ export function CallToAction() {
     return (
         <motion.a
             className={clsx(
-                'card hover:card-solid mx-auto bg-primary-500 px-10 py-3 text-center font-bold text-light transition-all active:brightness-75 md:mx-0',
+                'card hover:card-solid mx-auto bg-primary-400 px-10 py-3 text-center font-bold text-light transition-all active:brightness-75 md:mx-0',
                 title.className
             )}
             href="mailto:othompsonedwards@gmail.com?subject=Help%2C%20I%20need%20a%20website!"

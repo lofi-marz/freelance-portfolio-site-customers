@@ -1,3 +1,3 @@
 export function Dot() {
-    return <span className="h-fit w-fit text-primary-500">.</span>;
+    return <span className="h-fit w-fit text-primary-400">.</span>;
 }

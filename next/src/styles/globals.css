@@ -39,6 +39,6 @@ body {
     }
 
     .card-primary {
-        @apply card text-light bg-primary-500 ;
+        @apply card text-light bg-primary-400 ;
     }
 }

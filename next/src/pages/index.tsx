@@ -59,7 +59,7 @@ function Title() {
             </h1>
             <div className="h-3 w-3/5">
                 <motion.div
-                    className="h-full w-full bg-primary-500"
+                    className="h-full w-full bg-primary-400"
                     variants={underlineVariants}></motion.div>
             </div>
         </motion.div>

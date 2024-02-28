@@ -58,7 +58,7 @@ function IntroText() {
                     hi, I&apos;m omari
                 </motion.div>
                 <motion.div
-                    className="hide max-w-sm text-primary-500 md:block"
+                    className="hide max-w-sm text-primary-400 md:block"
                     variants={IntroTextVariants}>
                     {subtitle}
                 </motion.div>
@@ -116,7 +116,7 @@ function CurrentlyPlaying() {
                                     currentlyPlaying.item.external_urls.spotify
                                 }
                                 target="_blank"
-                                className="transition-all hover:text-primary-500 hover:underline"
+                                className="transition-all hover:text-primary-400 hover:underline"
                                 rel="noreferrer">
                                 {currentlyPlaying.item.name}
                             </a>
@@ -140,7 +140,7 @@ export function Intro() {
 
             <header className="z-10 flex h-screen max-w-screen-lg flex-col items-center justify-center text-center text-2xl font-semibold leading-tight text-theme-invert sm:text-4xl md:items-start md:text-start md:text-6xl lg:text-7xl">
                 <div>
-                    Hi, I'm <span className="text-primary-500">Omari</span>.
+                    Hi, I'm <span className="text-primary-400">Omari</span>.
                 </div>
                 <div>I build bespoke websites for small businesses.</div>
                 <div className="w-4/5 py-12 text-xl font-normal leading-tight md:text-4xl md:font-light">

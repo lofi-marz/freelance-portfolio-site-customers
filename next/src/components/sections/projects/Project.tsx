@@ -72,7 +72,7 @@ function ProjectsHeading() {
             <div className="-mt-4 h-4 w-2/3 ">
                 <motion.div
                     variants={underlineVariants}
-                    className="h-full w-full bg-primary-500"
+                    className="h-full w-full bg-primary-400"
                     style={{ originX: 0 }}
                 />
             </div>
@@ -83,7 +83,7 @@ function ProjectsHeading() {
 function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
     return (
         <a
-            className="card flex flex-row items-center justify-center gap-2 bg-theme-invert p-2 px-4 text-theme-invert transition-all hover:bg-primary-500 hover:text-light"
+            className="card flex flex-row items-center justify-center gap-2 bg-theme-invert p-2 px-4 text-theme-invert transition-all hover:bg-primary-400 hover:text-light"
             href={href}>
             {children}
         </a>
@@ -92,7 +92,7 @@ function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
 
 export function MobileProjectImage({ src }: { src: string }) {
     return (
-        <div className="card flex aspect-[4/5] w-full flex-col items-center justify-start overflow-clip bg-primary-500 pt-12 shadow-inner">
+        <div className="card flex aspect-[4/5] w-full flex-col items-center justify-start overflow-clip bg-primary-400 pt-12 shadow-inner">
             <div className="relative aspect-[9/16] w-2/3 drop-shadow-md">
                 <Image
                     src={src}

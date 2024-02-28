@@ -35,9 +35,9 @@ function BespokePoint({
 }: { Icon: IconType; title: string } & WithChildrenProps) {
     return (
         <li className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:items-start">
-            <Icon className="h-fit text-6xl text-primary-500" />
+            <Icon className="h-fit text-6xl text-primary-400" />
             <div className="flex flex-col gap-2">
-                <div className="font-title text-center text-2xl font-bold lg:text-start">
+                <div className="text-center font-title text-2xl font-bold lg:text-start">
                     {title}
                 </div>
                 <div className="text-md max-w-md font-light">{children}</div>
@@ -51,7 +51,7 @@ function CodeWindow({ yOffset }: { yOffset: MotionValue<number> }) {
         <motion.div
             className="flex aspect-video w-full flex-col overflow-clip rounded-xl bg-theme"
             style={{ y: yOffset }}>
-            <div className=" flex h-6 w-full gap-2 bg-primary-500 p-1 px-2">
+            <div className=" flex h-6 w-full gap-2 bg-primary-400 p-1 px-2">
                 {['bg-red-400', 'bg-amber-400', 'bg-green-400'].map((c) => (
                     <div
                         key={c}
@@ -60,7 +60,7 @@ function CodeWindow({ yOffset }: { yOffset: MotionValue<number> }) {
                 ))}
             </div>
             <div className="flex grow items-center justify-center">
-                <FaCode className="text-9xl text-primary-500" />
+                <FaCode className="text-9xl text-primary-400" />
             </div>
         </motion.div>
     );
@@ -84,14 +84,14 @@ export function Bespoke() {
     );
 
     return (
-        <section className="font-title relative z-0 flex min-h-screen w-full flex-col items-center justify-start gap-6 bg-theme-invert px-6 py-36 text-theme md:flex-row md:px-36">
+        <section className="relative z-0 flex min-h-screen w-full flex-col items-center justify-start gap-6 bg-theme-invert px-6 py-36 font-title text-theme md:flex-row md:px-36">
             <div className="z-20 flex h-full w-full flex-col items-start justify-start gap-12 md:justify-center lg:w-1/2">
                 <h2 className="text-center text-5xl font-bold lg:whitespace-nowrap lg:text-start">
                     Bespoke Web Development
                 </h2>
                 <p className="text-center text-2xl lg:text-start">
-                    I specialise in bespoke sites, built from scratch for your
-                    needs.
+                    Based in Nottingham, I specialise in bespoke sites, built
+                    from scratch for your needs.
                 </p>
                 <div className="w-full px-6 text-center text-xl leading-normal md:px-0 md:text-start lg:max-w-[50vw]">
                     <ul className="flex flex-col items-center justify-start gap-20 lg:items-start lg:gap-12">

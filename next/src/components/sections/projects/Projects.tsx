@@ -110,9 +110,9 @@ export function Projects() {
 
     return (
         <motion.section
-            className="font-title relative z-10 flex min-h-screen flex-col gap-12 bg-theme px-6 py-24 text-theme md:px-24"
+            className="relative z-10 flex min-h-screen flex-col gap-12 bg-theme px-6 py-24 font-title text-theme-invert md:px-24"
             id="projects">
-            <h2 className="text-5xl font-bold">my work</h2>
+            <h2 className="text-5xl font-bold">My Work</h2>
             <div className="grid w-full grid-cols-1 flex-col gap-6 md:aspect-[3/2] md:grid-cols-3 md:grid-rows-2">
                 {featured.map((p, i) => (
                     <motion.div
@@ -163,7 +163,7 @@ export function Projects() {
                                     animate="show"
                                     exit="exit"
                                     custom={mousePos}
-                                    className="absolute flex h-full w-full flex-col justify-between bg-primary-500 p-6">
+                                    className="absolute flex h-full w-full flex-col justify-between bg-primary-400 p-6">
                                     <p className="max-w-sm">
                                         {p.attributes.brief}
                                     </p>
@@ -200,7 +200,7 @@ function ProjectLinks({ repoLink, liveLink }: ProjectLinksProps) {
             )}
             {liveLink && (
                 <a
-                    className="bg-primary-500 p-2 px-4 text-theme"
+                    className="bg-primary-400 p-2 px-4 text-theme"
                     href={liveLink}>
                     link
                 </a>
