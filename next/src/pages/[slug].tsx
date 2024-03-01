@@ -57,7 +57,7 @@ export default function Home({ content }: HomeProps) {
         <StrapiContentContextProvider strapiContent={content}>
             <NextSeo
                 canonical="https://www.leondev.uk"
-                title="Nottingham-based Bespoke Web Design"
+                title="Nottingham Web Design"
                 description="Nottingham-based Bespoke Web Design & Development"
             />
             <LandingPage
@@ -74,6 +74,7 @@ export default function Home({ content }: HomeProps) {
                         </>
                     ),
                 }}
+                bespoke={{ title: 'Nottingham Web Design' }}
             />
         </StrapiContentContextProvider>
     );

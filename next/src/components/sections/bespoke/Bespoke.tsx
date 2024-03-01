@@ -67,7 +67,10 @@ function CodeWindow({ yOffset }: { yOffset: MotionValue<number> }) {
     );
 }
 
-export function Bespoke() {
+export type BespokeProps = {
+    title?: string;
+};
+export function Bespoke({ title = 'Bespoke Web Design' }: BespokeProps) {
     const desktop = useMediaQuery('md');
     const { projects } = useStrapiContentContext()!;
     const project = projects[4];
@@ -86,9 +89,7 @@ export function Bespoke() {
 
     return (
         <section className="relative z-0 flex min-h-screen w-full flex-col items-start justify-start gap-6 bg-theme px-6 py-36 font-title text-theme-invert md:gap-16 md:px-40">
-            <h2 className="text-5xl md:w-1/2 md:text-6xl">
-                Bespoke Web Design
-            </h2>
+            <h2 className="text-5xl md:w-1/2 md:text-6xl">{title}</h2>
             <div className="flex grid-cols-2 flex-col gap-6 md:gap-12 lg:grid">
                 <h3 className="text-2xl md:text-3xl lg:text-start">
                     Based in Nottingham, I specialise in bespoke sites, built

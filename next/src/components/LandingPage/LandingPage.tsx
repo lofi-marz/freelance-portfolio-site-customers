@@ -22,7 +22,7 @@ import { Projects } from '@/components/sections/projects';
 import qs from 'qs';
 import { Contact } from '@/components/sections/contact';
 import { WhyLeon } from '@/components/sections/whatido';
-import { Bespoke } from '@/components/sections/bespoke';
+import { Bespoke, BespokeProps } from '@/components/sections/bespoke';
 import { Ticker } from '@/components/Ticker';
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials';
 import { NextSeo } from 'next-seo';
@@ -46,9 +46,10 @@ const underlineVariants: Variants = {
 type LandingPageProps = {
     hero?: HeroProps;
     about?: AboutProps;
+    bespoke?: BespokeProps;
 };
 
-export function LandingPage({ hero, about }: LandingPageProps) {
+export function LandingPage({ hero, about, bespoke }: LandingPageProps) {
     //TODO: Better error handling here
     return (
         <motion.div
@@ -61,7 +62,7 @@ export function LandingPage({ hero, about }: LandingPageProps) {
                 <Hero {...hero} />
 
                 <About {...about} />
-                <Bespoke />
+                <Bespoke {...bespoke} />
                 <Services />
                 <Projects />
                 <Testimonials />
