@@ -43,7 +43,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 />
             </Head>
             <DefaultSeo
-                title="leon. | Nottingham-Based Bespoke Web Development"
+                title="Nottingham-Based Bespoke Web Development"
+                titleTemplate="leon. - %s"
                 description="Nottingham-based freelance web developer."
                 openGraph={{
                     title: 'leon.',
