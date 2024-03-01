@@ -19,11 +19,11 @@ export function Hero({
             id="#home"
             initial="hide"
             whileInView="show"
-            transition={{ delayChildren: 0.5, staggerChildren: 0.5 }}
+            transition={{ delayChildren: 0, staggerChildren: 0.5 }}
             variants={{ hide: {}, show: {} }}>
             <motion.header
                 className="flex max-w-screen-xl flex-col items-center justify-center gap-5 text-center md:gap-10"
-                transition={{ delayChildren: 0.5, staggerChildren: 0.5 }}>
+                transition={{ delayChildren: 0, staggerChildren: 0.5 }}>
                 <motion.h1
                     className="text-7xl after:content-none md:text-8xl"
                     variants={{ hide: {}, show: {} }}>
