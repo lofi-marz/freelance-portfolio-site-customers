@@ -15,7 +15,8 @@ export function useParallax<T extends number | string>(
     });
     const spring = useSpring(scrollYProgress, {
         stiffness: 100,
-        damping: 30,
+        damping: 100,
+        mass: 1,
         restDelta: 0.001,
     });
 

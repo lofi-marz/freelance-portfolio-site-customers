@@ -72,7 +72,7 @@ function ProjectsHeading() {
             <div className="-mt-4 h-4 w-2/3 ">
                 <motion.div
                     variants={underlineVariants}
-                    className="h-full w-full bg-primary-400"
+                    className="h-full w-full bg-primary"
                     style={{ originX: 0 }}
                 />
             </div>
@@ -83,7 +83,7 @@ function ProjectsHeading() {
 function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
     return (
         <a
-            className="card flex flex-row items-center justify-center gap-2 bg-theme-invert p-2 px-4 text-theme-invert transition-all hover:bg-primary-400 hover:text-light"
+            className="card flex flex-row items-center justify-center gap-2 bg-theme-invert p-2 px-4 text-theme-invert transition-all hover:bg-primary hover:text-light"
             href={href}>
             {children}
         </a>
@@ -92,7 +92,7 @@ function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
 
 export function MobileProjectImage({ src }: { src: string }) {
     return (
-        <div className="card flex aspect-[4/5] w-full flex-col items-center justify-start overflow-clip bg-primary-400 pt-12 shadow-inner">
+        <div className="card flex aspect-[4/5] w-full flex-col items-center justify-start overflow-clip bg-primary pt-12 shadow-inner">
             <div className="relative aspect-[9/16] w-2/3 drop-shadow-md">
                 <Image
                     src={src}
@@ -154,10 +154,10 @@ export function Project({
                 />
             )}
             <div className="justify-baseline flex w-full flex-col items-start md:gap-6">
-                <h3 className="w-full text-4xl font-bold md:w-4/5 md:text-7xl lg:text-8xl">
+                <h3 className="w-full text-4xl  md:w-4/5 md:text-7xl lg:text-8xl">
                     {title}
                 </h3>
-                <p className="hidden w-full font-body md:block md:w-1/2">
+                <p className="hidden w-full font-bold md:block md:w-1/2">
                     {brief}
                 </p>
                 <div className="card mt-6 flex flex-row items-center justify-center gap-3 text-xl">

@@ -27,10 +27,10 @@ export function WhyLeon() {
     return (
         <section className="relative z-10 flex w-full flex-col items-center justify-start gap-24 bg-theme p-6 py-48 font-title text-theme-invert md:px-36">
             <motion.h3
-                className="text-5xl font-bold lg:text-7xl"
+                className="text-5xl font-bold after:content-none lg:text-7xl"
                 initial="hide"
                 whileInView="show">
-                Why Leon<span className="text-primary-400">?</span>
+                Why Leon<span className="text-primary">?</span>
             </motion.h3>
             <div className="grid grid-rows-3 items-start gap-12 md:grid-rows-1 lg:grid-cols-3">
                 <Card Icon={FaServer} title="Reliable Hosting">
@@ -60,7 +60,7 @@ function Card({
 }: { Icon: IconType; title: string } & WithChildrenProps) {
     return (
         <div className="flex flex-col items-center justify-center gap-4 rounded-md bg-theme p-6 text-center">
-            <Icon className="mb-6 text-5xl text-primary-400" />
+            <Icon className="mb-6 text-5xl text-primary" />
 
             <header className="text-4xl font-bold">{title}</header>
             <p className="max-w-xs">{children}</p>

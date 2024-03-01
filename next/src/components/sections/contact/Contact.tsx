@@ -65,8 +65,7 @@ export function Contact() {
                     'flex h-screen w-full flex-col items-center justify-center gap-12 overflow-clip bg-theme-invert p-12 text-6xl text-theme-invert md:text-7xl',
                     title.className
                 )}
-                ref={ref}
-                style={{ y: parallax }}>
+                ref={ref}>
                 <div className="flex items-center justify-center text-center font-medium md:w-2/3">
                     <SlideInText invert>
                         Let&apos;s talk about your business
@@ -79,12 +78,12 @@ export function Contact() {
                     <div className="flex w-full grid-cols-2 flex-col gap-4 md:grid">
                         <input
                             placeholder="Name"
-                            className="border-dark-800 bg-dark-900 placeholder:text-dark-700 w-full border-b-2 p-4"
+                            className="border-dark-800 bg-dark-900 placeholder:text-dark-700 w-full rounded border-b-2 p-4"
                             {...register('name')}
                         />
                         <input
                             placeholder="Email"
-                            className="border-dark-800 bg-dark-900 placeholder:text-dark-700 w-full border-b-2 p-4"
+                            className="border-dark-800 bg-dark-900 placeholder:text-dark-700 w-full rounded border-b-2 p-4"
                             {...register('email')}
                         />
                     </div>
@@ -102,13 +101,6 @@ export function Contact() {
                         {status === 'done' ? <FaCheck /> : 'Submit'}
                     </button>
                 </form>
-                <p className="text-dark-700 absolute bottom-0 right-0 p-3 text-sm">
-                    Directory of{' '}
-                    <a href="https://www.nottingham.co.uk/web-designers/">
-                        Nottingham Web Designers
-                    </a>{' '}
-                    - <a href="https://www.nottingham.co.uk/"> Nottingham</a>
-                </p>
             </motion.section>
         </section>
     );

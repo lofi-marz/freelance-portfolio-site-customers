@@ -2,11 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    @apply bg-black;
-}
+
 
 @layer base {
+
+    :root {
+        @apply light dark:dark;
+    }
     html {
         scroll-behavior: smooth;
         @apply snap-y snap-proximity;
@@ -16,9 +18,15 @@ body {
 @layer utilities {
 
 
- 
+    h1, h2, h3, header {
+        @apply font-bold tracking-tight;
+    }
+    h1, h2, h3 {
+       @apply after:content-['.'] after:text-primary;
+        
+    }
     .heading {
-        @apply font-semibold tracking-tight;
+        @apply font-bold tracking-tight;
     }
     .text-gradient {
         @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent !important;
@@ -39,6 +47,6 @@ body {
     }
 
     .card-primary {
-        @apply card text-light bg-primary-400 ;
+        @apply card text-light bg-primary ;
     }
 }

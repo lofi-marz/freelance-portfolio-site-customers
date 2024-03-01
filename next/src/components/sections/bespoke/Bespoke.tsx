@@ -27,6 +27,8 @@ import {
 import { useStrapiContentContext } from '@/components/StrapiContextProvider';
 import Image from 'next/image';
 import { useParallax } from '../../../hooks/useParallax';
+import { CTA } from '@/components/Button';
+import { Dot } from '@/components/Dot';
 
 function BespokePoint({
     Icon,
@@ -35,7 +37,6 @@ function BespokePoint({
 }: { Icon: IconType; title: string } & WithChildrenProps) {
     return (
         <li className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:items-start">
-            <Icon className="h-fit text-6xl text-primary-400" />
             <div className="flex flex-col gap-2">
                 <div className="text-center font-title text-2xl font-bold lg:text-start">
                     {title}
@@ -51,7 +52,7 @@ function CodeWindow({ yOffset }: { yOffset: MotionValue<number> }) {
         <motion.div
             className="flex aspect-video w-full flex-col overflow-clip rounded-xl bg-theme"
             style={{ y: yOffset }}>
-            <div className=" flex h-6 w-full gap-2 bg-primary-400 p-1 px-2">
+            <div className=" flex h-6 w-full gap-2 bg-primary p-1 px-2">
                 {['bg-red-400', 'bg-amber-400', 'bg-green-400'].map((c) => (
                     <div
                         key={c}
@@ -60,7 +61,7 @@ function CodeWindow({ yOffset }: { yOffset: MotionValue<number> }) {
                 ))}
             </div>
             <div className="flex grow items-center justify-center">
-                <FaCode className="text-9xl text-primary-400" />
+                <FaCode className="text-9xl text-primary" />
             </div>
         </motion.div>
     );
@@ -84,39 +85,26 @@ export function Bespoke() {
     );
 
     return (
-        <section className="relative z-0 flex min-h-screen w-full flex-col items-center justify-start gap-6 bg-theme-invert px-6 py-36 font-title text-theme md:flex-row md:px-36">
-            <div className="z-20 flex h-full w-full flex-col items-start justify-start gap-12 md:justify-center lg:w-1/2">
-                <h2 className="text-center text-5xl font-bold lg:whitespace-nowrap lg:text-start">
-                    Bespoke Web Development
-                </h2>
-                <p className="text-center text-2xl lg:text-start">
+        <section className="relative z-0 flex min-h-screen w-full flex-col items-start justify-start gap-6 bg-theme px-6 py-36 font-title text-theme-invert md:gap-16 md:px-40">
+            <h2 className="text-5xl md:w-1/2 md:text-6xl">
+                Bespoke Web Design
+            </h2>
+            <div className="flex grid-cols-2 flex-col gap-6 md:gap-12 lg:grid">
+                <h3 className="text-2xl md:text-3xl lg:text-start">
                     Based in Nottingham, I specialise in bespoke sites, built
-                    from scratch for your needs.
-                </p>
-                <div className="w-full px-6 text-center text-xl leading-normal md:px-0 md:text-start lg:max-w-[50vw]">
-                    <ul className="flex flex-col items-center justify-start gap-20 lg:items-start lg:gap-12">
-                        <BespokePoint
-                            Icon={FaTachometerAlt}
-                            title="Blazingly Fast">
-                            Building a site from scratch skips all of the
-                            outdated, bloated features of template servies like
-                            Wix.
-                        </BespokePoint>
-                        <BespokePoint Icon={FaLock} title="Secure By Design">
-                            Built with top-notch security measures, your website
-                            is fortified against potential threats.
-                        </BespokePoint>
-                        <BespokePoint
-                            Icon={FaPalette}
-                            title="Completely Custom">
-                            No templates - Our websites are crafted from
-                            scratch, ensuring you stand out from the competition
-                        </BespokePoint>
-                    </ul>
+                    from scratch for your needs
+                    <Dot />
+                </h3>
+                <div className="flex w-full flex-col gap-12 text-base font-semibold  leading-normal md:text-start md:text-lg">
+                    I don't use page builders - I meticulously write the code
+                    line by line. This gives much more control over the design,
+                    and the website performs lightning fast because there's no
+                    bloated or messy code that slows it down. Websites built by
+                    hand will out-perform most WordPress sites and drag and drop
+                    page builders which could cost thousands of pounds. <br />
+                    When it comes to the web, the faster websites win.
+                    <CTA variant="default" />
                 </div>
-            </div>
-            <div className="hidden grow items-center justify-center p-12 lg:flex">
-                <CodeWindow yOffset={yOffset} />
             </div>
         </section>
     );

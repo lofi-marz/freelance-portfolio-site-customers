@@ -7,8 +7,6 @@ import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import plugin from 'tailwindcss/plugin';
 import reactAria from 'tailwindcss-react-aria-components';
-//@ts-ignore
-import { default as flattenColorPalette } from 'tailwindcss/lib/util/flattenColorPalette';
 const t: Config = {
     content: [
         './pages/**/*.{js,ts,jsx,tsx}',
@@ -20,35 +18,66 @@ const t: Config = {
     theme: {
         extend: {
             fontFamily: {
+                sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
                 title: ['var(--font-title)', ...defaultTheme.fontFamily.sans],
-                body: ['var(--font-body)', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: colors.emerald,
-                secondary: colors.violet,
+                primary: colors.emerald[500],
+                secondary: colors.green,
                 grey: colors.stone,
                 light: colors.stone[50],
                 dark: colors.stone[950],
+                'subtitle-light': colors.stone[200],
+                'subtitle-dark': colors.stone[700],
                 theme: 'var(--theme)',
                 'theme-invert': 'var(--theme-invert)',
+                'theme-subtitle': 'var(--theme-subtitle)',
+                'theme-subtitle-invert': 'var(--theme-subtitle-invert)',
             },
+            dropShadow: { solid: '0px 5px 0px #059669' },
         },
     },
     plugins: [
-        reactAria,
         forms,
         typography,
-        plugin(function ({ addUtilities, matchUtilities, theme }) {
+        reactAria,
+        plugin(function ({
+            addUtilities,
+            matchUtilities,
+            addComponents,
+            theme,
+        }) {
             addUtilities({
                 '.light': {
                     '--theme': theme('colors.light'),
                     '--theme-invert': theme('colors.dark'),
+                    '--theme-subtitle': theme('colors.subtitle-light'),
+                    '--theme-subtitle-invert': theme('colors.subtitle-dark'),
                 },
                 '.dark': {
                     '--theme': theme('colors.dark'),
                     '--theme-invert': theme('colors.light'),
+                    '--theme-subtitle': theme('colors.subtitle-dark'),
+                    '--theme-subtitle-invert': theme('colors.subtitle-light'),
                 },
             });
+            matchUtilities(
+                {
+                    'card-solid': (value) => ({
+                        backgroundColor: value,
+                        textColor: theme('colors.light'),
+                    }),
+                    'card-theme-solid': (value) => ({
+                        backgroundColor: value,
+                        textColor: theme('colors.theme'),
+                    }),
+                    'card-theme-invert-solid': (value) => ({
+                        backgroundColor: value,
+                        textColor: theme('colors.theme-invert'),
+                    }),
+                },
+                { values: theme('colors') }
+            );
         }),
     ],
 } satisfies Config;

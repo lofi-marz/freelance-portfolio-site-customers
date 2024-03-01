@@ -19,6 +19,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import mockup from './omni-mockup.webp';
 import { FaLink } from 'react-icons/fa';
+import { Dot } from '@/components/Dot';
 type RepeatTextProps = {
     n: number;
 } & WithChildrenProps;
@@ -43,8 +44,8 @@ const CircleFillVariants = {
         },
     }),
     exit: ([x, y]: [number, number]) => ({
-        clipPath: `circle(30px at ${x}px ${y}px)`,
-        opacity: 0,
+        clipPath: `circle(0px at ${x}px ${y}px)`,
+        opacity: 1,
         transition: {
             type: 'spring',
             stiffness: 400,
@@ -110,10 +111,10 @@ export function Projects() {
 
     return (
         <motion.section
-            className="relative z-10 flex min-h-screen flex-col gap-12 bg-theme px-6 py-24 font-title text-theme-invert md:px-24"
+            className="relative z-10 flex min-h-screen flex-col gap-12 bg-theme px-6 py-24 font-title text-theme-invert lg:px-40"
             id="projects">
             <h2 className="text-5xl font-bold">My Work</h2>
-            <div className="grid w-full grid-cols-1 flex-col gap-6 md:aspect-[3/2] md:grid-cols-3 md:grid-rows-2">
+            <div className="grid w-full grid-cols-1 flex-col gap-12 md:aspect-[3/2] md:grid-cols-3 md:grid-rows-2">
                 {featured.map((p, i) => (
                     <motion.div
                         onHoverStart={(e) => {
@@ -129,7 +130,7 @@ export function Projects() {
                         onHoverEnd={() => setProjectI(-1)}
                         key={p.id}
                         className={clsx(
-                            'relative aspect-square overflow-clip rounded-lg text-light md:aspect-auto',
+                            'relative aspect-square overflow-clip rounded-lg text-light transition-all duration-500 hover:scale-105 md:aspect-auto',
                             md && styles.project
                         )}>
                         <Image
@@ -139,7 +140,7 @@ export function Projects() {
                             }
                             alt=""
                             fill
-                            className="aspect-[16/10] object-cover brightness-50"
+                            className="aspect-[16/10] object-cover brightness-75 saturate-[.8]"
                         />
                         <div className="absolute flex h-full w-full flex-col justify-between p-6 text-xl font-bold text-light">
                             <div className="z-50 flex justify-end transition-all  ">
@@ -163,7 +164,7 @@ export function Projects() {
                                     animate="show"
                                     exit="exit"
                                     custom={mousePos}
-                                    className="absolute flex h-full w-full flex-col justify-between bg-primary-400 p-6">
+                                    className="absolute flex h-full w-full flex-col justify-between bg-primary p-6">
                                     <p className="max-w-sm">
                                         {p.attributes.brief}
                                     </p>
@@ -199,9 +200,7 @@ function ProjectLinks({ repoLink, liveLink }: ProjectLinksProps) {
                 </a>
             )}
             {liveLink && (
-                <a
-                    className="bg-primary-400 p-2 px-4 text-theme"
-                    href={liveLink}>
+                <a className="bg-primary p-2 px-4 text-theme" href={liveLink}>
                     link
                 </a>
             )}

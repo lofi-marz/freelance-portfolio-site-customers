@@ -5,6 +5,7 @@ import { FaCompactDisc } from 'react-icons/fa';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import { useState } from 'react';
 import { TARGET_AUDIENCE } from '../../../env';
+import Link from 'next/link';
 
 const ContainerVariants: Variants = {
     hide: { opacity: 0, height: '100vh' },
@@ -58,7 +59,7 @@ function IntroText() {
                     hi, I&apos;m omari
                 </motion.div>
                 <motion.div
-                    className="hide max-w-sm text-primary-400 md:block"
+                    className="hide max-w-sm text-primary md:block"
                     variants={IntroTextVariants}>
                     {subtitle}
                 </motion.div>
@@ -116,7 +117,7 @@ function CurrentlyPlaying() {
                                     currentlyPlaying.item.external_urls.spotify
                                 }
                                 target="_blank"
-                                className="transition-all hover:text-primary-400 hover:underline"
+                                className="transition-all hover:text-primary hover:underline"
                                 rel="noreferrer">
                                 {currentlyPlaying.item.name}
                             </a>
@@ -135,12 +136,10 @@ const lines = ["Hi, I'm Omari.", 'I create creative experiences with code.'];
 
 export function Intro() {
     return (
-        <motion.section className="sticky top-0 flex h-[100vh] flex-col items-start justify-start gap-12 bg-theme-invert px-8 pb-8 font-title text-theme md:min-h-[150vh] lg:px-24">
-            <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-clip rounded-b-[4rem] bg-theme md:h-screen"></div>
-
-            <header className="z-10 flex h-screen max-w-screen-lg flex-col items-center justify-center text-center text-2xl font-semibold leading-tight text-theme-invert sm:text-4xl md:items-start md:text-start md:text-6xl lg:text-7xl">
+        <motion.section className="sticky top-0 flex h-[100vh] flex-col items-start justify-start gap-12 bg-theme-invert px-8 pb-8 font-title text-theme-invert ">
+            <header className="z-10 flex h-screen max-w-screen-lg flex-col items-center justify-center text-center text-2xl font-semibold leading-tight sm:text-4xl md:items-start md:text-start md:text-6xl lg:text-7xl">
                 <div>
-                    Hi, I'm <span className="text-primary-400">Omari</span>.
+                    Hi, I'm <span className="text-primary">Omari</span>.
                 </div>
                 <div>I build bespoke websites for small businesses.</div>
                 <div className="w-4/5 py-12 text-xl font-normal leading-tight md:text-4xl md:font-light">
@@ -153,6 +152,9 @@ export function Intro() {
                     Let's chat
                 </a>
             </header>
+            <div className="absolute left-0 ">
+                <Link href="mailto:hello@leondev.uk">hello@leondev.uk</Link>
+            </div>
         </motion.section>
     );
 }

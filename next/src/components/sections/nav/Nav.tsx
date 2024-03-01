@@ -9,6 +9,8 @@ import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import { Dot } from '../../Dot';
 import { NavMobileMenu } from './NavMobileMenu';
 import { NavLogo } from './NavLogo';
+import { CTA, LinkButton } from '@/components/Button';
+import Link from 'next/link';
 export const CircleFillVariants = {
     show: ([x, y]: [number, number]) => ({
         clipPath: `circle(2000px at ${x}px ${y}px)`,
@@ -40,10 +42,10 @@ export const CircleFillVariants = {
 };
 
 export const links = {
-    Linkedin: 'https://www.linkedin.com/in/omari-thompson-edwards-b7307b195',
-
-    Github: 'https://github.com/lofi-marz',
-    UpWork: 'https://www.upwork.com/freelancers/~019c194b11d5dfabbc',
+    Home: '#home',
+    About: '#about',
+    Services: '#services',
+    'Contact Us': '#contact',
 };
 
 function MenuIcon({ onClick }: { onClick: MouseEventHandler }) {
@@ -64,31 +66,33 @@ export function Nav() {
         setAtPageStart(v < 600);
     });
 
-    const desktopHeight = atPageStart ? '6.5rem' : '4rem';
+    const desktopHeight = atPageStart ? '6rem' : '4rem';
     const mobileHeight = '4rem';
     const height = desktop ? desktopHeight : mobileHeight;
     return (
         <motion.nav
             className={clsx(
-                'fixed top-0 z-40 flex w-full flex-row items-center justify-between px-6 font-title text-2xl transition-all duration-500 md:px-24 md:text-xl',
-                atPageStart
-                    ? 'bg-theme text-theme-invert'
-                    : 'bg-theme-invert text-theme shadow'
+                'fixed top-0 z-40 flex w-full flex-row items-center justify-between px-6 font-title text-sm font-medium text-theme-invert transition-all duration-500 md:px-9'
             )}
             style={{ height }}
             layout>
-            <NavLogo />
-            <motion.div
-                className="hidden h-full grow items-center justify-end gap-20 font-normal md:flex"
-                layout>
-                <motion.a
-                    className="card-solid-invert hover:card-primary rounded-full border-2 border-dark px-8 py-3 transition-all hover:border-primary-400"
-                    layout
-                    href="#contact">
-                    Let's chat
-                    <Dot />
-                </motion.a>
-            </motion.div>
+            <NavLogo className="mr-[5%] " />
+            <ul className="hidden w-full items-center justify-center  gap-8 md:flex">
+                {Object.entries(links).map(([label, href]) => (
+                    <li key={href}>
+                        <Link
+                            href={href}
+                            className="font-semibold tracking-tight underline-offset-0 saturate-0 transition-all ease-out hover:underline hover:underline-offset-4">
+                            {label}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+
+            <CTA
+                className="hidden md:flex"
+                size={atPageStart ? 'lg' : 'default'}
+            />
         </motion.nav>
     );
 }

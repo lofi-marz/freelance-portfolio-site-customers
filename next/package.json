@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3005",
+    "dev:turbo": "next dev -p 3005 --turbo",
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start -p 3005",

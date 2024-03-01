@@ -71,8 +71,12 @@ export function SlideInText({
     console.log(children);
     const createWords = (words: string[]) => {
         console.log('Words:', words);
-        return words.map((w, i) => (
-            <SlideInWord key={w + i} word={w + ' '} invert={invert} />
+        return words.map((w, i, arr) => (
+            <SlideInWord
+                key={w + i}
+                word={i === arr.length - 1 ? w : w + ' '}
+                invert={invert}
+            />
         ));
     };
     if (typeof children === 'string') {

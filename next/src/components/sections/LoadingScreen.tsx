@@ -8,25 +8,25 @@ const loadingScreenVariants: Variants = {
 
 const topRectVariants: Variants = {
     visible: { height: '100vh' },
-    hidden: { height: '0vh', transition: { duration: 0.5, ease: 'easeOut' } },
+    hidden: { height: '0vh', transition: { duration: 0.8, ease: 'easeOut' } },
 };
 
 const bottomRectVariants: Variants = {
-    visible: { height: '10vh' },
+    visible: { height: '50vh' },
     hidden: {
         height: '0vh',
-        transition: { duration: 1, delay: 1, ease: 'easeInOut' },
+        transition: { duration: 1.8, delay: 0.8, ease: 'easeInOut' },
     },
 };
 
 type LoadingScreenProps = { onEnd: () => void };
 
-export function LoadingScreen({ onEnd }: LoadingScreenProps) {
+export function LoadingScreen() {
     const controls = useAnimationControls();
 
     useLayoutEffect(() => {
-        controls.start('hidden').then(() => onEnd());
-    }, [controls, onEnd]);
+        controls.start('hidden');
+    });
 
     return (
         <motion.div
@@ -49,7 +49,7 @@ export function LoadingScreen({ onEnd }: LoadingScreenProps) {
                 </motion.h1>
             </motion.div>
             <motion.div
-                className="w-full bg-primary-400"
+                className="w-full bg-primary"
                 variants={bottomRectVariants}
             />
         </motion.div>

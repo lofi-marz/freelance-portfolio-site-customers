@@ -39,7 +39,7 @@ export function ProjectPreview({ project }: { project: ProjectContent }) {
                         fill
                         className="card z-10 bg-theme object-cover object-top"
                     />
-                    <motion.div className="card absolute mt-8 h-full w-full bg-primary-400 brightness-75 md:ml-8" />
+                    <motion.div className="card absolute mt-8 h-full w-full bg-primary brightness-75 md:ml-8" />
                 </motion.div>
             </motion.div>
         </AnimatePresence>
