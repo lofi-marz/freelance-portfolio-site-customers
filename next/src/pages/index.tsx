@@ -31,7 +31,8 @@ import { Hero } from '@/components/sections/Hero';
 import { About } from '@/components/sections/About';
 import { Pricing } from '@/components/sections/Pricing';
 import { Services } from '@/components/sections/Services';
-import { LandingPage } from '@/components/LandingPage/LandingPage';
+import { LandingPageWrapper } from '@/components/LandingPage';
+
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -56,7 +57,18 @@ export default function Home({ content }: HomeProps) {
     return (
         <StrapiContentContextProvider strapiContent={content}>
             <NextSeo canonical="https://www.leondev.uk" />
-            <LandingPage />
+            <LandingPageWrapper>
+                <Nav />
+                <Hero />
+                <About />
+                <Bespoke />
+                <Services />
+                <Projects />
+                <Testimonials />
+                <Pricing />
+                <Contact />
+                <Footer />
+            </LandingPageWrapper>
         </StrapiContentContextProvider>
     );
 }

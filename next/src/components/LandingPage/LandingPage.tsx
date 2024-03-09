@@ -31,6 +31,7 @@ import { Hero, HeroProps } from '@/components/sections/Hero';
 import { About, AboutProps } from '@/components/sections/About';
 import { Pricing } from '@/components/sections/Pricing';
 import { Services } from '@/components/sections/Services';
+import { WithChildrenProps } from 'types';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -49,8 +50,7 @@ type LandingPageProps = {
     bespoke?: BespokeProps;
 };
 
-export function LandingPage({ hero, about, bespoke }: LandingPageProps) {
-    //TODO: Better error handling here
+export function LandingPageWrapper({ children }: WithChildrenProps) {
     return (
         <motion.div
             className={clsx(
@@ -58,17 +58,7 @@ export function LandingPage({ hero, about, bespoke }: LandingPageProps) {
             )}
             id="home">
             <motion.div className="relative w-full snap-y snap-mandatory bg-theme text-theme-invert">
-                <Nav />
-                <Hero {...hero} />
-
-                <About {...about} />
-                <Bespoke {...bespoke} />
-                <Services />
-                <Projects />
-                <Testimonials />
-                <Pricing />
-                <Contact />
-                <Footer />
+                {children}
             </motion.div>
         </motion.div>
     );

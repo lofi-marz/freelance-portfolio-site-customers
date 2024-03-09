@@ -1,12 +1,5 @@
-import clsx from 'clsx';
-import { motion, Variants } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-import { LoadingScreen } from '@/components/sections/LoadingScreen';
+import { Variants } from 'framer-motion';
 
-import { SlideInText } from '@/components/SlideInText';
-import { title } from '../styles/fonts';
-import { SocialsDesktop } from '@/components/sections/intro/Socials';
-import { CallToAction } from '@/components/sections/intro/CallToAction';
 import { Nav } from '@/components/index';
 import { GetServerSideProps, GetStaticPaths } from 'next';
 import { GetCurrentlyPlayingResponse } from '../utils/spotify';
@@ -21,9 +14,7 @@ import { StrapiContentContextProvider } from '@/components/StrapiContextProvider
 import { Projects } from '@/components/sections/projects';
 import qs from 'qs';
 import { Contact } from '@/components/sections/contact';
-import { WhyLeon } from '@/components/sections/whatido';
 import { Bespoke } from '@/components/sections/bespoke';
-import { Ticker } from '@/components/Ticker';
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials';
 import { NextSeo } from 'next-seo';
 import { Footer } from '@/components/sections/Footer';
@@ -31,7 +22,7 @@ import { Hero } from '@/components/sections/Hero';
 import { About } from '@/components/sections/About';
 import { Pricing } from '@/components/sections/Pricing';
 import { Services } from '@/components/sections/Services';
-import { LandingPage } from '@/components/LandingPage/LandingPage';
+import { LandingPageWrapper } from '@/components/LandingPage/LandingPage';
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -56,14 +47,15 @@ export default function Home({ content }: HomeProps) {
     return (
         <StrapiContentContextProvider strapiContent={content}>
             <NextSeo
-                canonical="https://www.leondev.uk"
+                canonical={`https://www.leondev.uk/${'nottingham-web-design'} `}
                 title="Nottingham Web Design"
                 description="Nottingham-based Bespoke Web Design & Development"
             />
-            <LandingPage
-                hero={{ subtitle: 'Nottingham-Based Web Design & Development' }}
-                about={{
-                    content: (
+            <LandingPageWrapper>
+                <Nav />
+                <Hero subtitle="Nottingham-Based Web Design & Development" />
+                <About
+                    content={
                         <>
                             I specialize in small business web design and
                             development for clients anywhere in Nottingham.
@@ -72,10 +64,16 @@ export default function Home({ content }: HomeProps) {
                             customers to your site and bring more revenue to
                             your business
                         </>
-                    ),
-                }}
-                bespoke={{ title: 'Nottingham Web Design' }}
-            />
+                    }
+                />
+                <Bespoke title="Nottingham Web Design" />
+                <Services />
+                <Projects />
+                <Testimonials />
+                <Pricing />
+                <Contact />
+                <Footer />
+            </LandingPageWrapper>
         </StrapiContentContextProvider>
     );
 }
