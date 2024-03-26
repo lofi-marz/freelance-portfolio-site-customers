@@ -29,28 +29,22 @@ const CircleFillVariants = {
     show: ([x, y]: [number, number]) => ({
         clipPath: `circle(1500px at ${x}px ${y}px)`,
         transition: {
-            type: 'spring',
-            stiffness: 20,
-            restDelta: 2,
+            ease: 'easeOut',
+
+            duration: 1,
         },
     }),
     hide: ([x, y]: [number, number]) => ({
         clipPath: `circle(30px at ${x}px ${y}px)`,
         transition: {
-            delay: 0,
-            type: 'spring',
-            stiffness: 400,
-            damping: 40,
+            ease: 'easeInOut',
         },
     }),
     exit: ([x, y]: [number, number]) => ({
         clipPath: `circle(0px at ${x}px ${y}px)`,
         opacity: 1,
         transition: {
-            type: 'spring',
-            stiffness: 400,
-            damping: 40,
-            delay: 0.5,
+            ease: 'easeInOut',
         },
     }),
 };
