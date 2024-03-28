@@ -70,7 +70,6 @@ export default function Home({ content }: HomeProps) {
                 <Services />
                 <Projects />
                 <Testimonials />
-                <Pricing />
                 <Contact />
                 <Footer />
             </LandingPageWrapper>
