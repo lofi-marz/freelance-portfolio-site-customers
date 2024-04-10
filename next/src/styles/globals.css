@@ -5,7 +5,7 @@
 
 
 @layer base {
-
+  
     :root {
         @apply light dark:dark;
     }
@@ -42,7 +42,7 @@
     }
 
     .padding-page {
-        @apply px-6 lg:px-40;
+        @apply px-page-mobile lg:px-page-lg;
     }
 }
 

@@ -1,7 +1,10 @@
 import { PropsWithChildren } from 'react';
 import { Dot } from './Dot';
 
-export function FormattedHeading({ children }: PropsWithChildren) {
+export function FormattedHeading({
+    children,
+    uppercase,
+}: PropsWithChildren & { uppercase?: boolean }) {
     if (typeof children !== 'string') return children;
     if (children.endsWith('?') || children.endsWith('.')) {
         const start = children.slice(0, children.length - 1);

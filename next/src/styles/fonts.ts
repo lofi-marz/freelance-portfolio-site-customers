@@ -8,6 +8,7 @@ import {
     Vollkorn,
     Work_Sans,
 } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
 import localFont from 'next/font/local';
 export const title = localFont({
     src: './Satoshi-Variable.woff2',
@@ -18,7 +19,4 @@ export const title = localFont({
     weight: ['400', '500', '600', '700'],
     variable: '--font-title',
 });*/
-export const body = Inter({
-    subsets: ['latin'],
-    variable: '--font-body',
-});
+export const body = GeistSans;

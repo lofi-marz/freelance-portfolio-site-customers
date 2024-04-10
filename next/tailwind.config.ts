@@ -7,7 +7,7 @@ import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import plugin from 'tailwindcss/plugin';
 import reactAria from 'tailwindcss-react-aria-components';
-import theme from 'tailwindcss/defaultTheme';
+
 const t: Config = {
     content: [
         './pages/**/*.{js,ts,jsx,tsx}',
@@ -19,9 +19,16 @@ const t: Config = {
     theme: {
         extend: {
             fontFamily: {
-                body: ['var(--font-body)', ...defaultTheme.fontFamily.sans],
+                body: [
+                    'var(--font-geist-sans)',
+                    ...defaultTheme.fontFamily.sans,
+                ],
                 title: ['var(--font-title)', ...defaultTheme.fontFamily.sans],
             },
+            padding: ({ theme }) => ({
+                'page-mobile': theme('spacing.6'),
+                'page-lg': theme('spacing.40'),
+            }),
             colors: {
                 primary: colors.emerald[500],
                 secondary: colors.green,

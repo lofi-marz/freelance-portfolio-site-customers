@@ -5,9 +5,9 @@ import { PropsWithChildren } from 'react';
 export default function Layout({ children }: PropsWithChildren) {
     return (
         <main className="min-h-screen w-full">
-            <Nav className="sticky" />
+            <Nav className="" />
             <div className="flex flex-col">{children}</div>
-            <Footer />
+            <Footer section="blog" />
         </main>
     );
 }

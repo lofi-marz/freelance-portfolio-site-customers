@@ -2,6 +2,9 @@ import { Logo } from '../Logo';
 import Link from 'next/link';
 import { Dot } from '../Dot';
 import { PropsWithChildren } from 'react';
+import { PropsWithClassName } from '@/types';
+import { VariantProps, cva } from 'class-variance-authority';
+import { cn } from '@/utils/utils';
 type FooterSectionProps = { title: string } & PropsWithChildren;
 function FooterSection({ title, children }: FooterSectionProps) {
     return (
@@ -13,9 +16,23 @@ function FooterSection({ title, children }: FooterSectionProps) {
         </div>
     );
 }
-export function Footer() {
+
+const footerVariants = cva(
+    'flex w-full flex-row flex-wrap gap-8 px-12 py-24 font-semibold',
+    {
+        variants: {
+            section: {
+                blog: 'padding-page mx-auto max-w-4xl md:px-12',
+                default: 'lg:px-40 2xl:px-60',
+            },
+        },
+        defaultVariants: { section: 'default' },
+    }
+);
+type FooterProps = VariantProps<typeof footerVariants>;
+export function Footer({ section }: FooterProps) {
     return (
-        <footer className="flex w-full flex-row flex-wrap gap-8 px-12 py-24 font-semibold lg:px-40 2xl:px-60">
+        <footer className={cn(footerVariants({ section }))}>
             <div className="heading flex grow flex-col items-start gap-4">
                 <Logo size="lg" />
                 <p className="text-theme-subtitle-invert">
