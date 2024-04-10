@@ -7,6 +7,7 @@ import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import plugin from 'tailwindcss/plugin';
 import reactAria from 'tailwindcss-react-aria-components';
+import theme from 'tailwindcss/defaultTheme';
 const t: Config = {
     content: [
         './pages/**/*.{js,ts,jsx,tsx}',
@@ -18,7 +19,7 @@ const t: Config = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
+                body: ['var(--font-body)', ...defaultTheme.fontFamily.sans],
                 title: ['var(--font-title)', ...defaultTheme.fontFamily.sans],
             },
             colors: {
@@ -41,6 +42,16 @@ const t: Config = {
         forms,
         typography,
         reactAria,
+        plugin(({ matchUtilities, theme }) =>
+            matchUtilities(
+                {
+                    'grid-auto-fill': (value) => ({
+                        gridTemplateColumns: `repeat(auto-fill, minmax(${value}, 1fr))`,
+                    }),
+                },
+                { values: theme('spacing') }
+            )
+        ),
         plugin(function ({
             addUtilities,
             matchUtilities,

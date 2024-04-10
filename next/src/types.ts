@@ -1,9 +1,6 @@
 import React from 'react';
 
-export type WithChildrenProps = {
-    children: React.ReactNode;
-};
-export type WithClassNameProps = {
+export type PropsWithClassName = {
     className?: string;
 };
 

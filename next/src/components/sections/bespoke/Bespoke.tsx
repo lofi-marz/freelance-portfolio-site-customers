@@ -1,40 +1,21 @@
-import {
-    AnimatePresence,
-    MotionValue,
-    useMotionValueEvent,
-    useScroll,
-    useSpring,
-    useTime,
-    useTransform,
-    Variants,
-} from 'framer-motion';
-import React, { useRef, useState } from 'react';
+'use client';
+import { MotionValue } from 'framer-motion';
+import { PropsWithChildren, useRef } from 'react';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { IconType } from 'react-icons';
-import { WithChildrenProps } from '../../../types';
-import {
-    FaCalendar,
-    FaPhone,
-    FaServer,
-    FaFlask,
-    FaTachometerAlt,
-    FaCode,
-    FaLock,
-    FaPalette,
-} from 'react-icons/fa';
-import { useStrapiContentContext } from '@/components/StrapiContextProvider';
+
+import { FaCode } from 'react-icons/fa';
 import Image from 'next/image';
 import { useParallax } from '../../../hooks/useParallax';
 import { CTA } from '@/components/Button';
-import { Dot } from '@/components/Dot';
 
 function BespokePoint({
     Icon,
     title,
     children,
-}: { Icon: IconType; title: string } & WithChildrenProps) {
+}: { Icon: IconType; title: string } & PropsWithChildren) {
     return (
         <li className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:items-start">
             <div className="flex flex-col gap-2">
@@ -72,13 +53,7 @@ export type BespokeProps = {
 };
 export function Bespoke({ title = 'Bespoke Web Design' }: BespokeProps) {
     const desktop = useMediaQuery('md');
-    const { projects } = useStrapiContentContext()!;
-    const project = projects[4];
-    const src =
-        'https://marileon.me/cms' +
-        (desktop
-            ? project.attributes.desktopPreview.data.attributes.url
-            : project.attributes.mobilePreview.data.attributes.url);
+
     const containerRef = useRef(null);
 
     const yOffset: MotionValue<number> = useParallax(
@@ -94,7 +69,6 @@ export function Bespoke({ title = 'Bespoke Web Design' }: BespokeProps) {
                 <h3 className="text-2xl md:text-3xl lg:text-start">
                     Based in Nottingham, I specialise in bespoke sites, built
                     from scratch for your needs
-                    <Dot />
                 </h3>
                 <div className="flex w-full flex-col gap-12 text-base font-semibold  leading-normal md:text-start md:text-lg">
                     I don't use page builders - I meticulously write the code

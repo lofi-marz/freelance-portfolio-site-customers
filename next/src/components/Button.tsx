@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { VariantProps, cva } from 'class-variance-authority';
-import { WithChildrenProps, WithClassNameProps } from 'types';
+
 import { cn } from 'utils/utils';
 import { Dot } from './Dot';
+import { PropsWithChildren } from 'react';
+import { PropsWithClassName } from 'types';
 
 const buttonVariants = cva(
     'ring-offset-background focus-visible:ring-ring group inline-flex w-fit items-center justify-center whitespace-nowrap rounded-full text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -38,8 +40,8 @@ const buttonVariants = cva(
 );
 
 interface ButtonVariants extends VariantProps<typeof buttonVariants> {}
-type LinkButtonProps = { href: string } & WithChildrenProps &
-    WithClassNameProps &
+type LinkButtonProps = { href: string } & PropsWithChildren &
+    PropsWithClassName &
     ButtonVariants;
 export function LinkButton({
     className,

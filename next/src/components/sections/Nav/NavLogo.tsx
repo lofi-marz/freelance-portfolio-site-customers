@@ -1,10 +1,12 @@
+'use client';
 import { FaMousePointer } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { Dot } from '../../Dot';
-import { WithChildrenProps, WithClassNameProps } from 'types';
-import { cn } from 'utils/utils';
 
-export function NavLogo({ className }: WithClassNameProps) {
+import { cn } from 'utils/utils';
+import { PropsWithClassName } from 'types';
+
+export function NavLogo({ className }: PropsWithClassName) {
     return (
         <motion.div
             className={cn(

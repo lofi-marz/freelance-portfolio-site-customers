@@ -1,12 +1,5 @@
-import clsx from 'clsx';
-import { motion, Variants } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-import { LoadingScreen } from '@/components/sections/LoadingScreen';
+import { Variants } from 'framer-motion';
 
-import { SlideInText } from '@/components/SlideInText';
-import { title } from '../styles/fonts';
-import { SocialsDesktop } from '@/components/sections/intro/Socials';
-import { CallToAction } from '@/components/sections/intro/CallToAction';
 import { Nav } from '@/components/index';
 import { GetServerSideProps } from 'next';
 import { GetCurrentlyPlayingResponse } from '../utils/spotify';
@@ -21,15 +14,11 @@ import { StrapiContentContextProvider } from '@/components/StrapiContextProvider
 import { Projects } from '@/components/sections/projects';
 import qs from 'qs';
 import { Contact } from '@/components/sections/contact';
-import { WhyLeon } from '@/components/sections/whatido';
 import { Bespoke } from '@/components/sections/bespoke';
-import { Ticker } from '@/components/Ticker';
-import { Testimonials } from '@/components/sections/Testimonials/Testimonials';
 import { NextSeo } from 'next-seo';
 import { Footer } from '@/components/sections/Footer';
 import { Hero } from '@/components/sections/Hero';
 import { About } from '@/components/sections/About';
-import { Pricing } from '@/components/sections/Pricing';
 import { Services } from '@/components/sections/Services';
 import { LandingPageWrapper } from '@/components/LandingPage';
 
@@ -60,11 +49,8 @@ export default function Home({ content }: HomeProps) {
             <LandingPageWrapper>
                 <Nav />
                 <Hero />
-                <About />
-                <Bespoke />
-                <Services />
-                <Projects />
-                <Testimonials />
+
+
 
                 <Contact />
                 <Footer />

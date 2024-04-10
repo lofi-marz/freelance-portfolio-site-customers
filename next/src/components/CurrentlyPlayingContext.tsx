@@ -1,6 +1,6 @@
-import { createContext, useContext } from 'react';
+'use client';
+import { PropsWithChildren, createContext, useContext } from 'react';
 import { GetCurrentlyPlayingResponse } from '../utils/spotify';
-import { WithChildrenProps } from '../types';
 
 const CurrentlyPlayingContext = createContext<
     GetCurrentlyPlayingResponse | undefined
@@ -13,7 +13,7 @@ export function useCurrentlyPlayingContext() {
 export function CurrentlyPlayingContextProvider({
     children,
     currentlyPlaying,
-}: WithChildrenProps & { currentlyPlaying?: GetCurrentlyPlayingResponse }) {
+}: PropsWithChildren & { currentlyPlaying?: GetCurrentlyPlayingResponse }) {
     return (
         <CurrentlyPlayingContext.Provider value={currentlyPlaying}>
             {children}

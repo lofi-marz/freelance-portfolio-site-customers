@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, Variants } from 'framer-motion';
-import { WithChildrenProps } from '../../../types';
-import { useCurrentlyPlayingContext } from '@/components/CurrentlyPlayingContext';
+ } from '../../../types';
+
 import { FaCompactDisc } from 'react-icons/fa';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import { useState } from 'react';
@@ -34,7 +34,7 @@ const IntroTextVariants: Variants = {
     show: { opacity: 1, transition: { duration: 1 } },
 };
 
-function SideSpacer({ children }: Partial<WithChildrenProps>) {
+function SideSpacer({ children }: Partial<PropsWithChildren>) {
     return (
         <div className="flex h-full w-16 items-center justify-center overflow-clip truncate text-xs font-bold uppercase">
             {children}
@@ -72,65 +72,7 @@ const trackVariants: Variants = {
     hide: { opacity: 0, height: 0, transition: { delay: 5 } },
     show: { opacity: 1, height: 'auto' },
 };
-function CurrentlyPlaying() {
-    const currentlyPlaying = useCurrentlyPlayingContext()!;
-    const [trackShown, setTrackShown] = useState(false);
-    const showTrack = () => setTrackShown(true);
-    const hideTrack = () => setTrackShown(false);
-    const isDesktop = useMediaQuery('md');
-    return (
-        <motion.div
-            className="flex h-full w-full rotate-180 flex-row items-center justify-center gap-2"
-            style={{ writingMode: 'vertical-rl' }}
-            onHoverEnd={() => hideTrack()}
-            onTapStart={() => showTrack()}
-            onTap={(e) => hideTrack()}
-            layout>
-            <motion.div
-                animate={{
-                    rotate: [0, 60, 120, 180, 240, 300, 360],
-                    opacity: [0.9, 1, 0.9, 1, 0.9, 0.9],
-                }}
-                transition={{
-                    repeat: Infinity,
-                    ease: 'linear',
-                    duration: 5,
-                }}
-                onHoverStart={() => showTrack()}
-                layout>
-                <FaCompactDisc />
-            </motion.div>
-            <AnimatePresence>
-                {trackShown && (
-                    <motion.div
-                        className="flex w-full flex-row items-center justify-center gap-2"
-                        key="currently-playing"
-                        variants={trackVariants}
-                        initial="hide"
-                        animate="show"
-                        exit="hide"
-                        layout>
-                        Currently Listening
-                        {isDesktop ? (
-                            <a
-                                href={
-                                    currentlyPlaying.item.external_urls.spotify
-                                }
-                                target="_blank"
-                                className="transition-all hover:text-primary hover:underline"
-                                rel="noreferrer">
-                                {currentlyPlaying.item.name}
-                            </a>
-                        ) : (
-                            currentlyPlaying.item.name
-                        )}
-                        ({currentlyPlaying.item.artists[0].name})
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </motion.div>
-    );
-}
+
 /* eslint-disable-next-line */
 const lines = ["Hi, I'm Omari.", 'I create creative experiences with code.'];
 

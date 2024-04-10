@@ -1,3 +1,4 @@
+'use client';
 /* eslint-disable quotes */
 import { LinkButton } from '@/components/Button';
 import { Dot } from '@/components/Dot';
@@ -15,7 +16,7 @@ export function Hero({
 }: HeroProps) {
     return (
         <motion.section
-            className="flex h-screen w-full flex-col items-center justify-center bg-theme px-12 text-theme-invert"
+            className="dotted-none-section flex h-screen w-full flex-col items-center justify-center bg-theme px-12 text-theme-invert"
             id="#home"
             initial="hide"
             whileInView="show"
@@ -25,7 +26,7 @@ export function Hero({
                 className="flex max-w-screen-xl flex-col items-center justify-center gap-5 text-center md:gap-10"
                 transition={{ delayChildren: 0, staggerChildren: 0.5 }}>
                 <motion.h1
-                    className="text-7xl after:content-none md:text-8xl"
+                    className="text-7xl md:text-8xl"
                     variants={{ hide: {}, show: {} }}>
                     <SlideInText>
                         {title}
@@ -43,16 +44,7 @@ export function Hero({
                 </LinkButton>
             </motion.header>
 
-            <MotionLink
-                href="mailto:hello@leondev.uk"
-                className="heading fixed left-0 z-40 hidden -rotate-90 text-light mix-blend-difference md:block"
-                style={{ rotate: '-90deg' }}
-                initial="hide"
-                animate="show"
-                transition={{ delay: 2 }}
-                variants={{ hide: { x: -100 }, show: { x: 0 } }}>
-                hello@leondev.uk
-            </MotionLink>
+            
         </motion.section>
     );
 }

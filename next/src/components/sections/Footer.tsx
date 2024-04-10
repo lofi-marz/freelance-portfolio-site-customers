@@ -1,8 +1,8 @@
-import { WithChildrenProps } from 'types';
 import { Logo } from '../Logo';
 import Link from 'next/link';
 import { Dot } from '../Dot';
-type FooterSectionProps = { title: string } & WithChildrenProps;
+import { PropsWithChildren } from 'react';
+type FooterSectionProps = { title: string } & PropsWithChildren;
 function FooterSection({ title, children }: FooterSectionProps) {
     return (
         <div className="flex grow flex-col gap-4">
@@ -15,7 +15,7 @@ function FooterSection({ title, children }: FooterSectionProps) {
 }
 export function Footer() {
     return (
-        <footer className="flex w-full flex-row flex-wrap gap-8 px-12 py-24 font-semibold lg:px-40 xl:px-60">
+        <footer className="flex w-full flex-row flex-wrap gap-8 px-12 py-24 font-semibold lg:px-40 2xl:px-60">
             <div className="heading flex grow flex-col items-start gap-4">
                 <Logo size="lg" />
                 <p className="text-theme-subtitle-invert">

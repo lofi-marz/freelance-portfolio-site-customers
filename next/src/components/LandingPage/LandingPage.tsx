@@ -1,37 +1,12 @@
+'use client';
 import clsx from 'clsx';
 import { motion, Variants } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-import { LoadingScreen } from '@/components/sections/LoadingScreen';
 
-import { SlideInText } from '@/components/SlideInText';
-import { title } from '../../styles/fonts';
-import { SocialsDesktop } from '@/components/sections/intro/Socials';
-import { CallToAction } from '@/components/sections/intro/CallToAction';
-import { Nav } from '@/components/index';
-import { GetServerSideProps } from 'next';
-import { GetCurrentlyPlayingResponse } from '../../utils/spotify';
-import {
-    AboutContent,
-    getStrapiContent,
-    GlobalContent,
-    ProjectContent,
-    TestimonialContent,
-} from '../../utils/strapi';
-import { StrapiContentContextProvider } from '@/components/StrapiContextProvider';
-import { Projects } from '@/components/sections/projects';
-import qs from 'qs';
-import { Contact } from '@/components/sections/contact';
-import { WhyLeon } from '@/components/sections/whatido';
-import { Bespoke, BespokeProps } from '@/components/sections/bespoke';
-import { Ticker } from '@/components/Ticker';
-import { Testimonials } from '@/components/sections/Testimonials/Testimonials';
-import { NextSeo } from 'next-seo';
-import { Footer } from '@/components/sections/Footer';
-import { Hero, HeroProps } from '@/components/sections/Hero';
-import { About, AboutProps } from '@/components/sections/About';
-import { Pricing } from '@/components/sections/Pricing';
-import { Services } from '@/components/sections/Services';
-import { WithChildrenProps } from 'types';
+import { BespokeProps } from '@/components/sections/bespoke';
+import { HeroProps } from '@/components/sections/Hero';
+import { AboutProps } from '@/components/sections/About';
+import { PropsWithChildren } from 'react';
+
 //const title = Poppins({ weight: ['600', '700', '800', '900'] });
 
 const headingVariants: Variants = {
@@ -50,11 +25,11 @@ type LandingPageProps = {
     bespoke?: BespokeProps;
 };
 
-export function LandingPageWrapper({ children }: WithChildrenProps) {
+export function LandingPageWrapper({ children }: PropsWithChildren) {
     return (
         <motion.div
             className={clsx(
-                'relative flex min-h-screen w-full flex-col items-center justify-center bg-theme font-title text-theme'
+                'dotted-section relative flex min-h-screen w-full flex-col items-center justify-center bg-theme font-title text-theme'
             )}
             id="home">
             <motion.div className="relative w-full snap-y snap-mandatory bg-theme text-theme-invert">

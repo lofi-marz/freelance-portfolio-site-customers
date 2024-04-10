@@ -1,3 +1,4 @@
+'use client';
 import { motion, useAnimationControls, Variants } from 'framer-motion';
 import { useLayoutEffect } from 'react';
 

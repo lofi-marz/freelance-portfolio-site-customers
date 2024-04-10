@@ -1,24 +1,14 @@
-import { ProjectContent } from '../../../utils/strapi';
+'use client';
+import { ProjectContent } from '@/utils/strapi/types';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { WithChildrenProps } from '../../../types';
-import {
-    motion,
-    useMotionValueEvent,
-    useScroll,
-    useSpring,
-    useTransform,
-    Variants,
-} from 'framer-motion';
+
+import { motion, Variants } from 'framer-motion';
 import { FaGithub, FaLink } from 'react-icons/fa';
-import {
-    projectTitleVariants,
-    underlineVariants,
-    verticalUnderlineVariants,
-} from '@/components/sections/projects/variants';
-import { useEffect, useRef, useState } from 'react';
-import { NavSpacer } from '../..';
+import { underlineVariants } from '@/components/sections/projects/variants';
+import { PropsWithChildren, useEffect, useState } from 'react';
+import { NavSpacer } from '../Nav';
 
 const NoHoverTitleVariants: Variants = {
     initial: { bottom: 0, top: 'auto' },
@@ -80,7 +70,7 @@ function ProjectsHeading() {
     );
 }
 
-function ProjectLink({ href, children }: { href: string } & WithChildrenProps) {
+function ProjectLink({ href, children }: { href: string } & PropsWithChildren) {
     return (
         <a
             className="card flex flex-row items-center justify-center gap-2 bg-theme-invert p-2 px-4 text-theme-invert transition-all hover:bg-primary hover:text-light"

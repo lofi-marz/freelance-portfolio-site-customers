@@ -1,16 +1,17 @@
+'use client';
 import clsx from 'clsx';
 
 import { FaBars } from 'react-icons/fa';
 import { MouseEventHandler, useReducer, useState } from 'react';
-import { AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion';
+import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { motion } from 'framer-motion';
 
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
-import { Dot } from '../../Dot';
-import { NavMobileMenu } from './NavMobileMenu';
 import { NavLogo } from './NavLogo';
-import { CTA, LinkButton } from '@/components/Button';
+import { CTA } from '@/components/Button';
 import Link from 'next/link';
+import { PropsWithClassName } from 'types';
+import { DarkModeToggle } from '@/components/DarkModeToggle';
 export const CircleFillVariants = {
     show: ([x, y]: [number, number]) => ({
         clipPath: `circle(2000px at ${x}px ${y}px)`,
@@ -42,10 +43,10 @@ export const CircleFillVariants = {
 };
 
 export const links = {
-    Home: '#home',
-    About: '#about',
-    Services: '#services',
-    'Contact Us': '#contact',
+    Home: '/#home',
+    About: '/#about',
+    Services: '/#services',
+    'Contact Us': '/#contact',
 };
 
 function MenuIcon({ onClick }: { onClick: MouseEventHandler }) {
@@ -56,10 +57,9 @@ function MenuIcon({ onClick }: { onClick: MouseEventHandler }) {
     );
 }
 
-export function Nav() {
-    const [pos, setPos] = useState<[number, number]>([0, 0]);
+export function Nav({ className }: PropsWithClassName) {
     const [atPageStart, setAtPageStart] = useState(true);
-    const [menuIsOpen, toggleMenuIsOpen] = useReducer((state) => !state, false);
+
     const { scrollY } = useScroll();
     const desktop = useMediaQuery('md');
     useMotionValueEvent(scrollY, 'change', (v) => {
@@ -72,12 +72,14 @@ export function Nav() {
     return (
         <motion.nav
             className={clsx(
-                'fixed top-0 z-40 flex w-full flex-row items-center justify-between px-6 font-title text-sm font-medium text-theme-invert transition-all duration-500 md:px-9'
+                'fixed top-0 z-40 flex w-full flex-row items-center justify-between gap-8 px-6 font-title text-sm font-medium text-theme-invert transition-all duration-500 md:px-9',
+                className
             )}
             style={{ height }}
             layout>
             <NavLogo className="mr-[5%] " />
-            <ul className="hidden w-full items-center justify-center  gap-8 md:flex">
+            <div className="w-full" />
+            <ul className="absolute left-0 -z-10 mx-auto hidden w-full  items-center justify-center gap-4 md:flex">
                 {Object.entries(links).map(([label, href]) => (
                     <li key={href}>
                         <Link
@@ -88,7 +90,7 @@ export function Nav() {
                     </li>
                 ))}
             </ul>
-
+            <DarkModeToggle />
             <CTA
                 className="hidden md:flex"
                 size={atPageStart ? 'lg' : 'default'}

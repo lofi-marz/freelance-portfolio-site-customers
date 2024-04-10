@@ -1,10 +1,11 @@
 import { AnimatePresence, motion, Variants } from 'framer-motion';
-import { WithChildrenProps } from '../types';
+ 
 import clsx from 'clsx';
+import { PropsWithChildren } from 'react';
 
 type IconLinkProps = {
     href: string;
-} & WithChildrenProps;
+} & PropsWithChildren;
 
 export function IconLink({ href, children }: IconLinkProps) {
     return (

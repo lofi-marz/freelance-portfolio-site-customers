@@ -1,11 +1,12 @@
+'use client';
 import { CodeWindow } from '@/components/CodeWindow';
 import { motion, useMotionValue } from 'framer-motion';
-import { WithChildrenProps } from 'types';
+
 import screenshot from 'assets/pet.png';
 import Image from 'next/image';
 import { Dot } from '@/components/Dot';
 import { Dots } from '@/components/Dots';
-import { useState, MouseEventHandler } from 'react';
+import { useState, MouseEventHandler, PropsWithChildren } from 'react';
 export function Services() {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -28,7 +29,7 @@ export function Services() {
                 onMouseMove={onMouseMove}
                 onMouseEnter={() => setMouseEntered(true)}
                 onMouseLeave={() => setMouseEntered(false)}>
-                <div className="aspect-square w-full">
+                <div className="aspect-square w-full max-w-screen-md lg:max-w-screen-lg">
                     <Dots followMouse={mouseEntered} x={x} y={y} />
                 </div>
                 <div className="flex w-full flex-col justify-evenly gap-12">
@@ -62,7 +63,7 @@ export function Services() {
 function ServiceText({
     title,
     children,
-}: { title: string } & WithChildrenProps) {
+}: { title: string } & PropsWithChildren) {
     return (
         <div className="flex flex-col items-start justify-center gap-2 text-lg">
             <h3 className="text-xl">{title}</h3>
@@ -70,7 +71,7 @@ function ServiceText({
         </div>
     );
 }
-function ServiceSection({ children }: WithChildrenProps) {
+function ServiceSection({ children }: PropsWithChildren) {
     return (
         <div className="group flex h-[60vh] flex-row gap-16 odd:flex-row-reverse">
             {children}

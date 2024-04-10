@@ -1,5 +1,6 @@
 import { Dot } from '@/components/Dot';
-import { PropsWithChildren, ReactNode } from 'react';
+import { ReactNode } from 'react';
+
 export type AboutProps = {
     content?: ReactNode;
 };

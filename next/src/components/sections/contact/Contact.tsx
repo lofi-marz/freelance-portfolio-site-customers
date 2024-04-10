@@ -1,3 +1,4 @@
+'use client';
 import clsx from 'clsx';
 import { title } from '../../../styles/fonts';
 import { SlideInText } from '@/components/SlideInText';
@@ -95,7 +96,7 @@ export function Contact() {
                     />
                     <button
                         className={clsx(
-                            'hover:button-solid-light card-primary hover:card-solid flex w-full items-center justify-center p-4 transition-all',
+                            'hover:button-solid-light card-primary hover:card-solid mx-auto flex w-full items-center justify-center p-4 px-24 transition-all',
                             status === 'done' ? 'bg-green-400' : 'bg-primary'
                         )}>
                         {status === 'done' ? <FaCheck /> : 'Submit'}

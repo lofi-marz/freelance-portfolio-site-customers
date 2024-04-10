@@ -1,3 +1,4 @@
+'use client';
 import clsx from 'clsx';
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 import {
@@ -9,7 +10,8 @@ import {
     Variants,
 } from 'framer-motion';
 import { useState } from 'react';
-import { useStrapiContentContext } from '@/components/StrapiContextProvider';
+import { getTestimonials } from 'utils/strapi/strapi-rsc';
+import { TestimonialContent } from 'utils/strapi';
 
 function shorten(name: string) {
     const [first, last] = name.split(' ');
@@ -25,8 +27,11 @@ const NameVariants: Variants = {
     show: { opacity: 1 },
     exit: { opacity: 0 },
 };
-export function Testimonials() {
-    const { testimonials } = useStrapiContentContext()!;
+export function Testimonials({
+    testimonials,
+}: {
+    testimonials: TestimonialContent[];
+}) {
     const [quoteIndex, setQuoteIndex] = useState(0);
     const time = useTime();
     const index = useTransform(time, (v) => {

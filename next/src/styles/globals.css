@@ -21,15 +21,28 @@
     h1, h2, h3, header {
         @apply font-bold tracking-tight;
     }
-    h1, h2, h3 {
+    .dotted-section :is(h1, h2, h3) {
        @apply after:content-['.'] after:text-primary;
-        
+    }
+
+    .dotted-none-section :is(h1, h2, h3) {
+        @apply after:content-none ;
+     }
+
+    
+
+    .no-dot {
+        @apply after:content-none
     }
     .heading {
         @apply font-bold tracking-tight;
     }
     .text-gradient {
         @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent !important;
+    }
+
+    .padding-page {
+        @apply px-6 lg:px-40;
     }
 }
 

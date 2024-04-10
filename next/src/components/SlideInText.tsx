@@ -1,8 +1,8 @@
 import { motion, Variants } from 'framer-motion';
-import { WithChildrenProps } from '../types';
+
 import clsx from 'clsx';
 import { title } from '../styles/fonts';
-import React, { cloneElement, isValidElement } from 'react';
+import React, { cloneElement, isValidElement, PropsWithChildren } from 'react';
 
 const lineVariants: Variants = {
     hide: {
@@ -60,7 +60,7 @@ function SlideInWord({ word, invert }: { word: string; invert: boolean }) {
 type SlideInTextProps = {
     invert?: boolean;
     className?: string;
-} & WithChildrenProps;
+} & PropsWithChildren;
 
 //TODO: This is weird code
 export function SlideInText({
@@ -68,9 +68,7 @@ export function SlideInText({
     className,
     children,
 }: SlideInTextProps) {
-    console.log(children);
     const createWords = (words: string[]) => {
-        console.log('Words:', words);
         return words.map((w, i, arr) => (
             <SlideInWord
                 key={w + i}
@@ -92,9 +90,9 @@ export function SlideInText({
             if (typeof c === 'string') {
                 return createWords(c.split(' '));
             } else if (isValidElement(c)) {
-                const children: React.ReactNode = (c.props as WithChildrenProps)
+                const children: React.ReactNode = (c.props as PropsWithChildren)
                     .children;
-                console.log(c);
+
                 if (!children) return c;
                 if (typeof children === 'string') {
                     const newChildren = createWords(children.split(' '));
@@ -116,7 +114,7 @@ export function SlideInText({
 function SlideInTextWrapper({
     className,
     children,
-}: { className?: string } & WithChildrenProps) {
+}: { className?: string } & PropsWithChildren) {
     return (
         <motion.div
             className={clsx(

@@ -1,7 +1,7 @@
+'use client';
 import { FaMousePointer } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
-import { WithChildrenProps, WithClassNameProps } from 'types';
 import { cn } from 'utils/utils';
 import { Dot } from './Dot';
 import { VariantProps, cva } from 'class-variance-authority';
