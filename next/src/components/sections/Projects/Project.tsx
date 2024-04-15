@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { motion, Variants } from 'framer-motion';
 import { FaGithub, FaLink } from 'react-icons/fa';
-import { underlineVariants } from '@/components/sections/projects/variants';
+import { underlineVariants } from '@/components/sections/Projects/variants';
 import { PropsWithChildren, useEffect, useState } from 'react';
 import { NavSpacer } from '../Nav';
 

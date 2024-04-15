@@ -1,9 +1,8 @@
 import { AnimatePresence, motion, Variants } from 'framer-motion';
- } from '../../../types';
 
 import { FaCompactDisc } from 'react-icons/fa';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
-import { useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { TARGET_AUDIENCE } from '../../../env';
 import Link from 'next/link';
 

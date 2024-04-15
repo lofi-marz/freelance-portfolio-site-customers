@@ -71,34 +71,37 @@ export type StrapiPostResponse = StrapiContent<{
     description: string;
     slug: string;
     content: string;
-    ogImage: { data: StrapiImage };
-    postCategories: { data: StrapiPostCategoryResponse[] };
+    ogImage: { data?: StrapiImage };
+    post_categories: { data: StrapiPostCategoryResponse[] };
 }>;
 
 export type StrapiPostShortResponse = StrapiContent<
     Pick<
         StrapiPostResponse['attributes'],
-        'title' | 'slug' | 'createdAt' | 'description' | 'ogImage'
+        | 'title'
+        | 'slug'
+        | 'createdAt'
+        | 'description'
+        | 'ogImage'
+        | 'post_categories'
     >
 >;
 
 export type Post = {
     title: string;
     description: string;
-    content: MDXRemoteSerializeResult;
+    content: string;
     date: string;
     readingTime: ReadTimeResults;
     categories: PostCategory[];
     slug: string;
+    ogImage: { url: string; alternativeText: string };
 };
 
-export type PostBrief = {
-    title: string;
-    description: string;
-    date: string;
-    slug: string;
-    ogImage: StrapiImage;
-};
+export type PostBrief = Pick<
+    Post,
+    'title' | 'description' | 'date' | 'slug' | 'ogImage'
+>;
 
 export type PostCategory = {
     name: string;

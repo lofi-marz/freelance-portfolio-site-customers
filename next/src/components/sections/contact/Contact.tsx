@@ -1,6 +1,6 @@
 'use client';
 import clsx from 'clsx';
-import { title } from '../../../styles/fonts';
+
 import { SlideInText } from '@/components/SlideInText';
 import {
     motion,
@@ -63,8 +63,7 @@ export function Contact() {
                 whileInView="show"
                 transition={{ staggerChildren: 1 }}
                 className={clsx(
-                    'flex h-screen w-full flex-col items-center justify-center gap-12 overflow-clip bg-theme-invert p-12 text-6xl text-theme-invert md:text-7xl',
-                    title.className
+                    'flex h-screen w-full flex-col items-center justify-center gap-12 overflow-clip bg-theme-invert p-12 text-6xl text-theme-invert md:text-7xl'
                 )}
                 ref={ref}>
                 <div className="flex items-center justify-center text-center font-medium md:w-2/3">

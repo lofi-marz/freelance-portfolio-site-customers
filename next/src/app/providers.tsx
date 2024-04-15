@@ -1,6 +1,5 @@
 'use client';
 
-import { StrapiContentContextProvider } from '@/components/StrapiContextProvider';
 import { ThemeProvider } from 'next-themes';
 import { PropsWithChildren } from 'react';
 

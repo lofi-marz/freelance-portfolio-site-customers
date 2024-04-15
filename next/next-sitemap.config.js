@@ -11,6 +11,6 @@ module.exports = {
         '/spotify-login',
     ],
     robotsTxtOptions: {
-        additionalSitemaps: [],
+        additionalSitemaps: ['https://example.com/blog-sitemap.xml'],
     },
 };

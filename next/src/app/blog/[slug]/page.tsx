@@ -3,8 +3,15 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import { DetailedHTMLProps, AnchorHTMLAttributes, HTMLAttributes } from 'react';
-import { getPost, getPostBriefs } from 'utils/strapi/strapi-rsc';
+import {
+    getAllArticles,
+    getPost,
+    getPostBriefs,
+} from 'utils/strapi/strapi-rsc';
 import Image from 'next/image';
+import { ReadMore } from '@/components/sections/Blog';
+import { cn } from '@/utils/utils';
+
 export async function generateStaticParams() {
     const posts = await getPostBriefs();
 
@@ -24,9 +31,11 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     const res = await getPost(params.slug);
     if (!res) return {};
-    const {
-        attributes: { title, description, publishedAt, ogImage },
-    } = res;
+    const { title, description, date, ogImage } = res;
+    const ogImageUrl = ogImage
+        ? `https://marileon.me/cms${ogImage.url}`
+        : 'https://localhost:3005/api/og?' + new URLSearchParams({ title });
+
     return {
         title: `${title} | Leon Web Design`,
         description,
@@ -34,12 +43,12 @@ export async function generateMetadata(
             title,
             description,
             type: 'article',
-            publishedTime: publishedAt,
+            publishedTime: date,
             url: 'https://leondev.uk/blog/' + params.slug,
             images: [
                 {
-                    url: `https://marileon.me/cms${ogImage.data.attributes.url}`,
-                    alt: ogImage.data.attributes.alternativeText,
+                    url: ogImageUrl,
+                    alt: ogImage?.alternativeText ?? 'OpenGraph image',
                 },
             ],
         },
@@ -73,28 +82,43 @@ const components: MDXRemoteProps['components'] = {
 };
 
 export default async function Page({ params }: { params: { slug: string } }) {
-    const res = await getPost(params.slug);
-    if (!res) return null; //TODO: Redirect?
-
-    const { attributes: post } = res;
+    const post = await getPost(params.slug);
+    if (!post) return null; //TODO: Redirect?
+    const relatedPosts = (await getPostBriefs()).filter(
+        ({ slug }) => params.slug !== slug
+    );
+    const isStaticOG = !post.ogImage.url.includes('/api/og');
     return (
         <>
-            <div className="relative aspect-[2/1] max-h-[48rem] w-full overflow-clip lg:aspect-auto lg:h-[50vh]">
-                <Image
-                    src={`https://marileon.me/cms${post.ogImage.data.attributes.url}`}
-                    className="h-full w-full object-cover saturate-[0.5]"
-                    alt=""
-                    fill
-                />
-                <div className="absolute inset-0 size-full bg-theme opacity-80" />
-            </div>
-            <div className="padding-page flex flex-col items-center py-24">
-                <article className="prose prose-base prose-stone min-h-screen font-body dark:prose-invert lg:prose-lg prose-headings:font-title">
-                    <h1 className="font-body text-3xl lg:text-6xl">
-                        <FormattedHeading>{post.title}</FormattedHeading>
-                    </h1>
-                    <MDXRemote source={post.content} components={components} />
-                </article>
+            {isStaticOG && (
+                <div
+                    className="relative aspect-[2/1] max-h-[48rem] w-full brightness-90 lg:aspect-auto lg:h-[calc(55vh+1.5rem)]"
+                    style={{ boxShadow: 'inset 0 0 10px' }}>
+                    <Image
+                        src={post.ogImage.url}
+                        className="h-full w-full object-cover shadow-inner"
+                        alt=""
+                        fill
+                    />
+                </div>
+            )}
+            <div
+                className={cn(
+                    'z-10 -mt-12 w-full rounded-t-3xl bg-theme shadow-lg',
+                    !isStaticOG && 'mt-0 pt-24'
+                )}>
+                <div className="padding-page flex flex-col items-center gap-24 py-24">
+                    <article className="prose prose-base prose-stone min-h-screen font-body dark:prose-invert lg:prose-lg prose-headings:font-title">
+                        <h1 className="font-body text-3xl lg:text-6xl">
+                            <FormattedHeading>{post.title}</FormattedHeading>
+                        </h1>
+                        <MDXRemote
+                            source={post.content}
+                            components={components}
+                        />
+                    </article>
+                    {relatedPosts && <ReadMore posts={relatedPosts} />}
+                </div>
             </div>
         </>
     );

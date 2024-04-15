@@ -8,7 +8,7 @@ import { Bespoke } from '@/components/sections/bespoke';
 import { Contact } from '@/components/sections/contact';
 import { Footer } from '@/components/sections/Footer';
 import { Hero } from '@/components/sections/Hero';
-import { Projects } from '@/components/sections/projects';
+import { Projects } from '@/components/sections/Projects';
 import { Services } from '@/components/sections/Services';
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials';
 import { LocalBusinessJsonLd } from 'next-seo';

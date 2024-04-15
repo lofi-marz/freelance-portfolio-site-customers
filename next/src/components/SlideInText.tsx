@@ -1,7 +1,7 @@
 import { motion, Variants } from 'framer-motion';
 
 import clsx from 'clsx';
-import { title } from '../styles/fonts';
+
 import React, { cloneElement, isValidElement, PropsWithChildren } from 'react';
 
 const lineVariants: Variants = {

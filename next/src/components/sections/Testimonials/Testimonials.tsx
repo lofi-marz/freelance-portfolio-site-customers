@@ -11,7 +11,7 @@ import {
 } from 'framer-motion';
 import { useState } from 'react';
 import { getTestimonials } from 'utils/strapi/strapi-rsc';
-import { TestimonialContent } from 'utils/strapi';
+import { TestimonialContent } from '@/utils/strapi/types';
 
 function shorten(name: string) {
     const [first, last] = name.split(' ');

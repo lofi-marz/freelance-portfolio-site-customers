@@ -2,7 +2,12 @@
 import clsx from 'clsx';
 
 import { FaBars } from 'react-icons/fa';
-import { MouseEventHandler, useReducer, useState } from 'react';
+import {
+    MouseEventHandler,
+    PropsWithChildren,
+    useReducer,
+    useState,
+} from 'react';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { motion } from 'framer-motion';
 
@@ -12,6 +17,8 @@ import { CTA } from '@/components/Button';
 import Link from 'next/link';
 import { PropsWithClassName } from 'types';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
+import { VariantProps, cva } from 'class-variance-authority';
+import { cn } from '@/utils/utils';
 export const CircleFillVariants = {
     show: ([x, y]: [number, number]) => ({
         clipPath: `circle(2000px at ${x}px ${y}px)`,
@@ -57,7 +64,25 @@ function MenuIcon({ onClick }: { onClick: MouseEventHandler }) {
     );
 }
 
-export function Nav({ className }: PropsWithClassName) {
+const navVariants = cva(
+    'fixed top-0 z-40 flex w-full flex-row items-center justify-between gap-8 px-6 font-title text-sm font-medium transition-all duration-500 md:px-9',
+    {
+        variants: {
+            colour: {
+                default: 'text-theme-invert',
+                mono: '',
+            },
+        },
+        defaultVariants: {
+            colour: 'default',
+        },
+    }
+);
+
+type NavVariants = VariantProps<typeof navVariants>;
+type NavProps = PropsWithChildren & PropsWithClassName & NavVariants;
+
+export function Nav({ className, colour }: NavProps) {
     const [atPageStart, setAtPageStart] = useState(true);
 
     const { scrollY } = useScroll();
@@ -71,10 +96,7 @@ export function Nav({ className }: PropsWithClassName) {
     const height = desktop ? desktopHeight : mobileHeight;
     return (
         <motion.nav
-            className={clsx(
-                'fixed top-0 z-40 flex w-full flex-row items-center justify-between gap-8 px-6 font-title text-sm font-medium text-theme-invert transition-all duration-500 md:px-9',
-                className
-            )}
+            className={cn(navVariants({ className, colour }))}
             style={{ height }}
             layout>
             <NavLogo className="mr-[5%] " />
