@@ -33,9 +33,6 @@ export async function generateMetadata(
     const res = await getPost(params.slug);
     if (!res) return {};
     const { title, description, date, ogImage } = res;
-    const ogImageUrl = ogImage
-        ? `https://marileon.me/cms${ogImage.url}`
-        : 'https://localhost:3005/api/og?' + new URLSearchParams({ title });
 
     return {
         title: `${title} | Leon Web Design`,
@@ -48,8 +45,8 @@ export async function generateMetadata(
             url: 'https://leondev.uk/blog/' + params.slug,
             images: [
                 {
-                    url: ogImageUrl,
-                    alt: ogImage?.alternativeText ?? 'OpenGraph image',
+                    url: ogImage.url,
+                    alt: ogImage.alternativeText ?? 'OpenGraph image',
                 },
             ],
         },
