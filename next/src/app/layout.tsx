@@ -21,7 +21,7 @@ import {
 } from 'next/font/google';
 import { GeistSans } from 'geist/font/sans';
 import localFont from 'next/font/local';
-export const title = localFont({
+const title = localFont({
     src: '../styles/Satoshi-Variable.woff2',
     variable: '--font-title',
 });
@@ -30,7 +30,7 @@ export const title = localFont({
     weight: ['400', '500', '600', '700'],
     variable: '--font-title',
 });*/
-export const body = GeistSans;
+const body = GeistSans;
 
 export const metadata: Metadata = {
     title: 'Nottingham-Based Bespoke Web Development',

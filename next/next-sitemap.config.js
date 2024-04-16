@@ -9,6 +9,7 @@ module.exports = {
         '/category/*',
         '/ruby',
         '/spotify-login',
+        '/*.png',
     ],
     robotsTxtOptions: {
         additionalSitemaps: ['https://example.com/blog-sitemap.xml'],

@@ -17,14 +17,13 @@ export function PostLinkImageCard({
         <Link
             className="group/post relative flex flex-col gap-4 rounded-2xl text-light"
             href={`/blog/${slug}`}>
-            <div className="relative h-full w-full overflow-clip  rounded-2xl bg-primary pb-2 brightness-50">
+            <div className="relative h-full w-full overflow-clip  rounded-2xl bg-primary/10 pb-2 brightness-50">
                 <Image
                     src={ogImage.url}
                     alt={ogImage?.alternativeText ?? ''}
                     fill
                     className="h-full w-full object-cover transition-all duration-500 ease-in-out group-hover/post:scale-110"
                 />
-                <div className="absolute inset-0 size-full bg-primary/10" />
             </div>
             <h2
                 className={cn(

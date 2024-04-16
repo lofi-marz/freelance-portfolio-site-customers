@@ -11,6 +11,7 @@ import {
 import Image from 'next/image';
 import { ReadMore } from '@/components/sections/Blog';
 import { cn } from '@/utils/utils';
+import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
     const posts = await getPostBriefs();
@@ -83,7 +84,8 @@ const components: MDXRemoteProps['components'] = {
 
 export default async function Page({ params }: { params: { slug: string } }) {
     const post = await getPost(params.slug);
-    if (!post) return null; //TODO: Redirect?
+
+    if (!post) return notFound(); //TODO: Redirect?
     const relatedPosts = (await getPostBriefs()).filter(
         ({ slug }) => params.slug !== slug
     );

@@ -7,3 +7,4 @@ Host: https://www.leondev.uk
 
 # Sitemaps
 Sitemap: https://www.leondev.uk/sitemap.xml
+Sitemap: https://example.com/blog-sitemap.xml
