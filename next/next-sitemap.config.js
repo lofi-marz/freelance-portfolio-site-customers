@@ -12,6 +12,6 @@ module.exports = {
         '/*.png',
     ],
     robotsTxtOptions: {
-        additionalSitemaps: ['https://example.com/blog-sitemap.xml'],
+        additionalSitemaps: ['https://leondev.uk/blog-sitemap.xml'],
     },
 };
