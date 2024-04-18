@@ -9,7 +9,7 @@ export async function GET(request: Request): Promise<Response> {
     if (!posts) return new Response(null);
     return getServerSideSitemap(
         posts.map((a) => ({
-            loc: 'https://www.omarileon.me/blog/' + a.slug,
+            loc: 'https://www.leondev.uk/blog/' + a.slug,
             lastmod: a.date,
         }))
     );
